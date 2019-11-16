@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login Page</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+  </head>
+
+
+  <body>
+    <header>
+          <img class="logo" src="imgs/rosterLogo.png" alt="logo">
+    </header>
+
+    <div class = "login_body center_all">
+      <div class = "login_box">
+        <h1>Login to <span class = "title">Roster</span></h1>
+        <form class="" action="index.html" method="post">
+          <input class = "user_input" type="text" name="username" value="" placeholder="">
+          <p>Username</p>
+          <input class = "user_input" type="password" name="password" value="" placeholder="">
+          <p>Password</p>
+          <div id = "loginErrorText" class = "alert alert-warning hide">Error text goes here</div>
+          <button class = "btn btn-primary login_btn" type="submit" name="login_button">Log In</button>
+        </form>
+
+        <p class = "tagline">New kid in town? <a href="register.html">Create an Account.</a></p>
+      </div>
+    </div>
+
+  </body>
+
+</html>
