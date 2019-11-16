@@ -1,0 +1,46 @@
+body{
+  height: 100vh;
+  background: #e2e1e0;
+}
+
+.register_box{
+  padding: 30px;
+  text-align: center;
+  background-color: white;
+  border-radius: 2%;
+  /* border: 1px solid #888; */
+  margin-top: 20vh;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
+.register_body h1{
+  margin-bottom: 50px;
+}
+
+.register_body p{
+  padding: none;
+  margin: none;
+  font-size: .9rem;
+}
+
+.user_input{
+  width: 70%;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  float: right;
+}
+
+.register_btn{
+  width: 50%;
+}
+
+.tagline{
+  margin-top: 1rem;
+  font-size: .8rem;
+}
+
+#registerErrorText{
+  font-size: .8rem;
+  padding: 2px;
+}

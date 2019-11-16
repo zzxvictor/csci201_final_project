@@ -1,0 +1,58 @@
+.center_all{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+  height: 10vh;
+  min-height: 64px;
+  /* height: 64px;
+  width: 128px; */
+}
+
+.hide{
+  visibility: hidden;
+  /* display: none; */
+}
+
+.title{
+  color: #2AAC97;
+  font-style: italic;
+}
+
+header{
+  background: white;
+  height: 10vh;
+  min-height: 64px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+header button{
+  height: 5vh;
+  min-height: 32px;
+  margin: auto 2vw auto 0;
+}
+
+
+
+/* button styling for bootstrap buttons.
+Use class btn-primary and secondary for neat looking buttons!! */
+.btn-primary{
+  background-color: #3ABCA7;
+  border-color: #3ABCA7;
+  font-weight: bold;
+}
+
+.btn-secondary{
+  background-color: white;
+  color: #3ABCA7;
+  border-color: #3ABCA7;
+  font-weight: bold;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+  background-color: #2AAC97;
+  border-color: #2AAC97;
+}

@@ -1,0 +1,89 @@
+
+.lp_body{
+  padding: 20px;
+  text-align: center;
+  background-color: #eee;
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.img_container{
+  flex-grow: 1;
+}
+
+.preview_img{
+  width: 80%;
+  height: 100%;
+}
+
+.tagline{
+  padding-top: 10vh;
+  font-size: 8vh;
+  margin-bottom: 5vh;
+}
+
+.tagline_desc{
+  width: 50%;
+  min-width: 400px;
+  margin: 0 auto;
+}
+
+
+/* Features section */
+
+.features{
+  text-align: center;
+  padding: 30vh 0;
+  font-size: 1.2em;
+  /* height: 60vh; */
+  /* white-space: nowrap; */
+}
+
+.feature{
+  padding-bottom: 70px;
+}
+
+.icon {
+  color: #3ABCA7;
+  margin-bottom: 1.2rem;
+}
+
+.icon:hover{
+  color: #2AAC97;
+}
+
+
+/* call to action section */
+.cta {
+  background-color: #eee;
+  height: 65vh;
+  text-align: center;
+}
+
+.cta h2{
+  padding: 20vh 0 10vh 0;
+}
+
+.cta button{
+  width: 20vh;
+  height: 10vh;
+  font-size: 2.5vh;
+}
+
+.cta_btns{
+  display: flex;
+  justify-content: space-around;
+  padding: 0 25vh;
+}
+
+.cta_box{
+  margin: 0 10px;
+  background-color: white;
+  height: 20vh;
+  width: 20vw;
+  min-width: 200px;
+  border-radius: 2%;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
