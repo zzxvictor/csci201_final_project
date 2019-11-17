@@ -23,5 +23,15 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/mysql-socket-factory-1.0.15-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/HikariCP-3.4.1.jar" sourcepath="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/HikariCP-3.4.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/HikariCP-3.4.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/HikariCP-3.4.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/HikariCP-3.4.1-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/mysql-connector-java-5.1.48.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
