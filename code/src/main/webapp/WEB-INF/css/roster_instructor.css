@@ -1,3 +1,7 @@
+#courseName{
+  margin-bottom: 50px;
+}
+
 body{
   height: 100vh;
   background: #e2e1e0;
@@ -9,18 +13,28 @@ body{
   text-align: center;
   background-color: white;
   border-radius: 15px;
-  /* border: 1px solid #888; */
   margin-top: 20px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.nav-box, .main-content{
+.nav-box, .main-content, .questions-box{
   border: 1px solid #888;
   border-radius: 5px;
   padding: 5px;
 }
 
+.main-content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 /* Nav bar stuff (leftside of page) */
+
+.nav-box{
+  display: flex;
+  flex-direction: column;
+}
 
 .nav-content, .nav-btns{
   width: 100%;
@@ -38,7 +52,11 @@ body{
   font-size: 1.2rem;
 }
 
-.nav-util-btn{
+.nav-btn:hover{
+  background: #DDD;
+}
+
+.nav-util-btn, .util-btns{
   border-radius: 0  ;
   width: 100%;
   margin-top: 4px;
@@ -54,5 +72,32 @@ body{
   padding: 0;
 }
 
+/* modal stuff */
+form .alert{
+  margin-top: 100px;
+}
 
 /* main content */
+
+.questions-box{
+  flex-grow: 1;
+  margin: 10px;
+  border-radius: 0;
+}
+
+.questionObj{
+  border: 1px solid #DDD;
+}
+
+.questionText{
+  display: inline-block;
+  width: 90%;
+}
+
+.upvote-btn{
+  display: inline-block;
+}
+
+.fillScreen{
+  height: 100%;
+}
