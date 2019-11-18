@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>register Page</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/register.css">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>register Page</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/register.css">
+</head>
 
 
-  <body>
-    <header>
-          <img class="logo" src="imgs/rosterLogo.png" alt="logo">
-    </header>
+<body>
+  <header>
+    <img class="logo" src="imgs/rosterLogo.png" alt="logo">
+  </header>
 
-    <div class = "register_body center_all">
-      <div class = "register_box">
-        <h1>Create a <span class = "title">Roster</span> Account </h1>
-        <form class="" action="index.html" method="post">
-          <input class = "user_input" type="text" name="username" value="" placeholder="">
-          <p>Username</p>
-          <input class = "user_input" type="password" name="password" value="" placeholder="">
-          <p>Password</p>
-          <input class = "user_input" type="password" name="cpassword" value="" placeholder="">
-          <p>Confirm Password</p>
-          <div id = "registerErrorText" class = "alert alert-warning hide">Error text goes here</div>
-          <button class = "btn btn-primary register_btn" type="submit" name="register_button">Register</button>
-        </form>
+  <div class="register_body center_all">
+    <div class="register_box">
+      <h1>Create a <span class="title">Roster</span> Account </h1>
+      <form class="" action="index.html" method="post">
 
-        <p class = "tagline">Already Registered? <a href="login.html">Login.</a></p>
-      </div>
+        <div class="form-group">
+          <input type="text" class="form-control" id="username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+        </div>
+
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">I am a...</label>
+          </div>
+          <select class="custom-select" id="accountType">
+            <option selected value="1">Instructor</option>
+            <option value="2">Student</option>
+          </select>
+        </div>
+
+
+        <div id="registerErrorText" class="alert alert-warning">Error text goes here</div>
+        <button class="btn btn-primary register_btn" type="submit" name="register_button">Register</button>
+      </form>
+
+      <p class="tagline">Already Registered? <a href="login.html">Login.</a></p>
     </div>
+  </div>
 
-  </body>
+</body>
 
 </html>
