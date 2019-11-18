@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Roster (Instructor)</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/roster_instructor.css">
+</head>
+
+
+<body>
+  <header>
+    <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
+    <img class="logo" src="imgs/rosterLogo.png" alt="logo">
+  </header>
+
+  <div class="content_box">
+
+    <div class="row">
+      <div class="nav nav-box col-2">
+        <div class="nav-btns">
+          <button class="btn btn-light nav-util-btn" data-toggle="modal" data-target="#addClassModal">Add Class</button>
+
+          <!-- Modal for add class  -->
+          <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add Class</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <form class="" action="index.html" method="post">
+                    <div class="form-group">
+                      <label for="addClassName">Course Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Course Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="numGraceDays">Grace Days</label>
+                      <input type="text" class="form-control" id="numGraceDays" aria-describedby="graceDaysHelp" placeholder="(e.g. 0, 1, 5)">
+                      <small id="graceDaysHelp" class="form-text text-muted">Give students attendance forgiveness for some number of days.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Class</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <button class="btn btn-light nav-util-btn" onclick="">Add Lecture</button>
+
+          <!-- Modal for add lecture  -->
+          <div class="modal fade" id="addLectureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add Lecture</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <form class="" action="index.html" method="post">
+                    <div class="form-group">
+                      <label for="addClassName">Course Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Course Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="numGraceDays">Grace Days</label>
+                      <input type="text" class="form-control" id="numGraceDays" aria-describedby="graceDaysHelp" placeholder="(e.g. 0, 1, 5)">
+                      <small id="graceDaysHelp" class="form-text text-muted">Give students attendance forgiveness for some number of days.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Class</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-light nav-util-btn" onclick="">Delete Class</button>
+
+          <!-- Modal for add class  -->
+          <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add Class</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <form class="" action="index.html" method="post">
+                    <div class="form-group">
+                      <label for="addClassName">Course Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Course Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="numGraceDays">Grace Days</label>
+                      <input type="text" class="form-control" id="numGraceDays" aria-describedby="graceDaysHelp" placeholder="(e.g. 0, 1, 5)">
+                      <small id="graceDaysHelp" class="form-text text-muted">Give students attendance forgiveness for some number of days.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Class</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-light nav-util-btn" onclick="">Delete Lecture</button>
+
+          <!-- Modal for add class  -->
+          <div class="modal fade" id="addClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add Class</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <form class="" action="index.html" method="post">
+                    <div class="form-group">
+                      <label for="addClassName">Course Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Course Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="numGraceDays">Grace Days</label>
+                      <input type="text" class="form-control" id="numGraceDays" aria-describedby="graceDaysHelp" placeholder="(e.g. 0, 1, 5)">
+                      <small id="graceDaysHelp" class="form-text text-muted">Give students attendance forgiveness for some number of days.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Class</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-content">
+
+
+
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn nav-btn" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    CSCI 270
+                  </button>
+                </h5>
+              </div>
+
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  Lecture Sections go here
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn nav-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    CSCI 104
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                  Lecture Sections go here
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn nav-btn collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    CCSCI 103
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                  Lecture Sections go here
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+
+      <div class="col-10">
+        <div class="main-content">
+
+          <h1>CSCI 270</h1>
+
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam iusto, dolore quod voluptatum. Id itaque delectus temporibus maiores rerum officiis, reiciendis harum hic sit exercitationem perspiciatis veritatis aliquid, repellat.
+            Maxime.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

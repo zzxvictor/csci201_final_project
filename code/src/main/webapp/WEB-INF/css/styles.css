@@ -21,6 +21,11 @@
   font-style: italic;
 }
 
+body{
+  overflow-x: hidden;
+}
+
+/* For the header thats common across all pages */
 header{
   background: white;
   height: 10vh;
@@ -55,4 +60,10 @@ Use class btn-primary and secondary for neat looking buttons!! */
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
   background-color: #2AAC97;
   border-color: #2AAC97;
+}
+
+.bg-primary{
+  background-color: #3ABCA7!important;
+  color: white;
+  border-color: #3ABCA7;
 }

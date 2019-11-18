@@ -45,6 +45,10 @@
   padding-bottom: 70px;
 }
 
+.feature p{
+  padding: 0 20px;
+}
+
 .icon {
   color: #3ABCA7;
   margin-bottom: 1.2rem;
