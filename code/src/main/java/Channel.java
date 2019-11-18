@@ -14,9 +14,10 @@ public class Channel extends HttpServlet {
   public void service(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 
+	DBInterface dbi = new DBInterface ();
+	
     response.setContentType("text/plain");
     response.setCharacterEncoding("UTF-8");
-
     response.getWriter().print("Channel\r\n");
 
   }
