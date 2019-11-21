@@ -8,12 +8,10 @@
   <system-properties>
     <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
   </system-properties>
+  <static-files>
+  <include path="/**.html"></include>
+  <include path="/css/**.css"></include>
+  <include path="imgs/**.png"></include>
+  </static-files>
 
-  <env-variables>
-    <env-var name="CLOUD_SQL_INSTANCE_NAME" value="my-project:region:instance" />
-    <env-var name="DB_USER" value="my-db-user" />
-    <env-var name="DB_PASS" value="my-db-password" />
-    <env-var name="DB_NAME" value="my_db" />
-  </env-variables>
-  
 </appengine-web-app>
