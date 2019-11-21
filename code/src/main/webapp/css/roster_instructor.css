@@ -83,10 +83,15 @@ form .alert{
   flex-grow: 1;
   margin: 10px;
   border-radius: 0;
+  overflow-y: scroll;
+  max-height: 500px;
 }
 
 .questionObj{
   border: 1px solid #DDD;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
 }
 
 .questionText{
@@ -94,8 +99,9 @@ form .alert{
   width: 90%;
 }
 
-.upvote-btn{
+.upvote-num{
   display: inline-block;
+  /* font-weight: bold; */
 }
 
 .fillScreen{

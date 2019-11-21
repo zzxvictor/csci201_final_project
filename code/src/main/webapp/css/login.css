@@ -9,25 +9,12 @@ body{
   background-color: white;
   border-radius: 2%;
   /* border: 1px solid #888; */
-  margin-top: 20vh;
+  margin-top: 5vh;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .login_box h1{
   margin-bottom: 50px;
-}
-
-.login_box p{
-  padding: none;
-  margin: none;
-  font-size: .9rem;
-}
-
-
-.user_input{
-  width: 70%;
-  margin-bottom: 5px;
-  float: right;
 }
 
 .login_btn{
