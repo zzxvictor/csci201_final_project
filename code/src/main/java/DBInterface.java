@@ -34,4 +34,16 @@ public class DBInterface {
 			return null;
 		}
 	}
+	
+	public int makeUpdate (String cmd, String [] params) {
+		try {
+			PreparedStatement ps = this.conn.prepareStatement(cmd);
+			for (int i=1; i<=params.length;i++) {
+				ps.setObject(i, params[i-1]);
+			}
+			return ps.executeUpdate();
+		}catch (SQLException e) {
+			return -1;
+		}
+	}
 }

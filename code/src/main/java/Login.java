@@ -38,8 +38,6 @@ public class Login extends HttpServlet {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    response.setContentType("text/plain");
-    response.setCharacterEncoding("UTF-8");
     response.getWriter().print(message);
 
   }
