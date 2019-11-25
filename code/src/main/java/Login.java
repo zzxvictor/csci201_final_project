@@ -1,13 +1,19 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
+
 //
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -18,27 +24,48 @@ public class Login extends HttpServlet {
 	}
 	//
 @Override
-  public void service(HttpServletRequest request, HttpServletResponse response) 
+  public void doPost(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
-	
-	String email = request.getParameter("Email");
-	String password = request.getParameter("Password");
-	ResultSet rs = this.dbHandle.makeQuery("select * from Users where Email=? and Password=?",
-			new String[] {email, password});
-	String message = "";
+		
+	String email = request.getParameter("email");
+	String password = request.getParameter("password");
+	ArrayList<Object> params = new ArrayList<Object>();
+	params.add(email);params.add(password);
+	ResultSet rs = this.dbHandle.makeQuery("select * from User where Email=? and Password=?",
+						params);
+	JSONObject jo = new JSONObject();
 	try {
-		while (rs.next()) {
-			message += rs.getString(1)+"\n";
-			message += rs.getString(2)+"\n";
-			message += rs.getString(3)+"\n";
-			message += rs.getString(4)+"\n";
-			
+		if (!rs.next()) {
+			jo.put("success", "false");
+			jo.put("message", "credentials not found");
+			PrintWriter pw= response.getWriter();
+		    response.getWriter().print(jo.toJSONString());
+		    return;// failed to login 
 		}
+		else { // log in success!
+			HttpSession session=request.getSession(true); 
+			jo.put("success", "true");
+			jo.put("email", email);
+			String name = rs.getString("name");
+			String userType = rs.getString("userType");
+			jo.put("name", name);
+			jo.put("userType", userType);
+			User user;
+			if (userType.equalsIgnoreCase("instructor"))
+				user = new Instructor (email, password, name);
+			else
+				user = new Student (email, password, name);
+			
+			session.setAttribute("userObj", user); // store user obj in the session variable
+			jo.put("courseList", user.getCourseList(this.dbHandle)); // get the list of courses taken/taught by this user
+			PrintWriter pw= response.getWriter();
+		    response.getWriter().print(jo.toJSONString());
+		}
+		
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
 	}
-    response.getWriter().print(message);
+	
+	
 
   }
 }

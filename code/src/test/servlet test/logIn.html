@@ -1,0 +1,95 @@
+<html>
+  <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+   html,body {
+ 	width: 100%;
+ 	min-height: 100%;
+ }
+	  .headRow{
+		height:15%;
+		padding : 1%;
+		padding-left: 5%;
+		padding-right: 5%;
+		margin-bottom: 1%;
+		margin-top: 1%;
+		border-bottom-style:  dotted ; 
+		border-bottom-color: #c7d1c9;
+	}
+	  .searchBar {
+		width:100%; 
+		height:30%; 
+		border:2px solid;
+		border-color: #c7d1c9;	
+		opacity: 0.6;
+	}
+	
+	.searchButt{
+		height: 15%;
+		width: 30%;
+		padding: 18%;
+		
+	}
+	
+	.radioColumn{
+		float:left; 
+		width:50%;
+		opacity: 0.6;
+	}
+	
+	.registrationform{
+		margin:100px; 
+		margin-top:50px;
+		font-size: 20px;
+		opacity: 0.6;
+	}
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+
+  	function validate (){
+  	  	 var xhttp = new XMLHttpRequest();
+  	     var userName = document.getElementById("userName").value;
+  		 var password1 = document.getElementById("password").value;
+  		 var password2 = document.getElementById("password2").value;
+  		 if (password1 != password2){
+  			document.getElementById("err").innerHTML = "Passwords do not match";
+  			return false;
+  		 }
+  		 var para = "email="+userName + "&password=" + password1;
+  	  	 xhttp.onreadystatechange = function (){
+  	  		if (xhttp.readyState === xhttp.DONE) {
+  	  	        	 var rs = xhttp.responseText.trim();
+                    document.getElementById("err").innerHTML = rs;
+  	  		}
+  	  		 
+  	  	 }
+  	  	 xhttp.open("GET", "http://localhost:8080/Register?email=zhangzix@usc.edu&password=123$");// syn communication
+  	  	 //xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  	  	 //xhttp.send(para); // Make sure to stringify*/
+
+		 return false;
+  	}
+  </script>
+  </head>
+  
+  
+<header> 
+
+ <!-- body -->
+<body >
+<p>  </p>
+<form  class = "LoginForm"  action = "http://localhost:8080/Login?" method="POST">
+	Email:<br>
+	<input type="text" name="email" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>
+	Password:<br>
+	<input type="password" name="password" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	
+	<br><p id ="err"></p>
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
+</body>
+</html>

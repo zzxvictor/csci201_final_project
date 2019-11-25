@@ -1,16 +1,22 @@
 import java.sql.Connection;
+import java.io.Serializable;
 import java.sql.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
 import javax.sql.DataSource;
+
+import org.json.simple.JSONObject;
+
 import com.zaxxer.hikari.*;
 import com.zaxxer.hikari.HikariConfig;
-public class DBInterface {
+public class DBInterface implements Serializable{
 	private Connection conn ;
-	private String url = "jdbc:mysql://google/FinalProject?cloudSqlInstance=finalproject-258505:us-central1:final-project-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=root&password=201FinalProjectRoster";
- //
-	//private String url = "jdbc:mysql://google/lab?cloudSqlInstance=nimble-sweep-255322:us-central1:lab8"+
-	//private String url =   "jdbc:mysql://google/FinalProject?cloudSqlInstance=finalproject-258505:us-central1:final-project-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=root&password=201FinalProjectRoster";
+	private String url = "jdbc:mysql://google/FinalProject?cloudSqlInstance=finalproject-258505:us-central1:final-project-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=root&password=201FinalProjectRoster&autoReconnect=true";
+	private static final long serialVersionUID = 1l;
 	public DBInterface() {
 		try {
 			 conn = DriverManager.getConnection(url);
@@ -23,11 +29,11 @@ public class DBInterface {
 			}
 		}
 	}
-	public ResultSet makeQuery(String cmd, String [] params) {
+	public ResultSet makeQuery(String cmd, ArrayList params) {
 		try {
 			PreparedStatement ps = this.conn.prepareStatement(cmd);
-			for (int i=1; i<=params.length;i++) {
-				ps.setObject(i, params[i-1]);
+			for (int i=0; i<params.size();i++){
+				ps.setObject(i+1, params.get(i));
 			}
 			return ps.executeQuery();
 		}catch (SQLException e) {
@@ -35,11 +41,11 @@ public class DBInterface {
 		}
 	}
 	
-	public int makeUpdate (String cmd, String [] params) {
+	public int makeUpdate (String cmd, ArrayList params) {
 		try {
 			PreparedStatement ps = this.conn.prepareStatement(cmd);
-			for (int i=1; i<=params.length;i++) {
-				ps.setObject(i, params[i-1]);
+			for (int i=0; i<params.size();i++) {
+				ps.setObject(i+1, params.get(i));
 			}
 			return ps.executeUpdate();
 		}catch (SQLException e) {
