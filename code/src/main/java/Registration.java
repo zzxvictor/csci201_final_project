@@ -28,7 +28,16 @@ public class Registration extends HttpServlet {
 	}
 	
 
-@Override // only support post 
+@Override // only support post method 
+/*
+ * registration function for new user sign up 
+ * expected parameter in http request payload:
+ * 		email, password, name, userType
+ * return:
+ * 		json object (stringfied) containing user information that 
+ * 		can be used by frontend to dynamically create RosterPage.html
+ * Responsible Developer: Zixuan Zhang
+ */
   public void doPost(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 	String email = request.getParameter("email");
@@ -40,7 +49,7 @@ public class Registration extends HttpServlet {
 	ResultSet rs= this.dbHandle.makeQuery("select * from User where email = ?",params);
 	JSONObject jo = new JSONObject();
 	try {
-		if (rs.next()) {
+		if (rs.next()) {// duplicate account name found
 			jo.put("success", "false");
 			jo.put("message", "account already taken!");
 		    PrintWriter pw= response.getWriter();
@@ -48,6 +57,7 @@ public class Registration extends HttpServlet {
 		    return; // done 
 		}
 	} catch (SQLException e) {}
+	// if credential not found, create a new account 
 	params = new ArrayList();
 	params.add(email);params.add(password);
 	params.add(userType);params.add(name);
@@ -60,7 +70,7 @@ public class Registration extends HttpServlet {
 		jo.put("name", name);
 		User user;
 		// create a user object
-		if (userType.equalsIgnoreCase("student")) {
+		if (userType.equalsIgnoreCase("student")) {// if the user is a student 
 			user = new Student (email, password, name);
 			params = new ArrayList<Object>();
 			params.add(email);
@@ -78,7 +88,7 @@ public class Registration extends HttpServlet {
 			}
 			
 		}
-		else {
+		else { // if the user is an instructor 
 			user = new Instructor (email, password, name);
 			params = new ArrayList<Object>();
 			params.add(email);
@@ -98,7 +108,7 @@ public class Registration extends HttpServlet {
 		session.setAttribute("userObj", user); // store user obj in the session variable
 		jo.put("courseList", ""); 
 	    PrintWriter pw= response.getWriter();
-	    pw.print(jo.toJSONString());
+	    pw.print(jo.toJSONString()); // send data in json format, done
 	}
 	
 

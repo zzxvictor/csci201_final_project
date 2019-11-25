@@ -22,8 +22,18 @@ public class Login extends HttpServlet {
 	public Login() { // setup db connections 
 		this.dbHandle = new DBInterface();
 	}
-	//
+
+
 @Override
+/*
+ * lgoin function for user authentication
+ * expected parameter in http request payload:
+ * 		email, password
+ * return:
+ * 		json object (stringfied) containing user information that 
+ * 		can be used by frontend to dynamically create RosterPage.html
+ * Responsible Developer: Zixuan Zhang
+ */
   public void doPost(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 		
@@ -35,7 +45,7 @@ public class Login extends HttpServlet {
 						params);
 	JSONObject jo = new JSONObject();
 	try {
-		if (!rs.next()) {
+		if (!rs.next()) { // if no credential found
 			jo.put("success", "false");
 			jo.put("message", "credentials not found");
 			PrintWriter pw= response.getWriter();
@@ -59,13 +69,10 @@ public class Login extends HttpServlet {
 			session.setAttribute("userObj", user); // store user obj in the session variable
 			jo.put("courseList", user.getCourseList(this.dbHandle)); // get the list of courses taken/taught by this user
 			PrintWriter pw= response.getWriter();
-		    response.getWriter().print(jo.toJSONString());
+		    response.getWriter().print(jo.toJSONString()); // send json data
 		}
 		
-	} catch (SQLException e) {
-	}
+	} catch (SQLException e) {}
 	
-	
-
   }
 }
