@@ -1,0 +1,100 @@
+#courseName{
+  margin-bottom: 50px;
+}
+
+body{
+  height: 100vh;
+  background: #e2e1e0;
+}
+
+.content_box{
+  padding: 30px;
+  margin: 0 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.left-box, .main-content, .questions-box{
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.main-content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Nav bar stuff (leftside of page) */
+
+.left-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.checkin-box{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+/* main content */
+
+.questions-box{
+  flex-grow: 1;
+  margin: 10px;
+  border-radius: 0;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.questionObj{
+  border: 1px solid #DDD;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
+}
+
+.questionText{
+  display: inline-block;
+  width: 90%;
+}
+
+.upvote-num{
+  display: inline-block;
+}
+
+.fillScreen{
+  height: 100%;
+}
+
+
+.askQuestionBox{
+  border: 1px solid #888;
+  padding: 5px;
+}
+
+.askQuestionForm{
+  padding: 10px;
+}
+
+
+.checkin-box{
+  border: 1px solid #888;
+  padding: 4px;
+  margin-top: 2vh;
+  width: 80%;
+}
+
+.checkin-btn{
+  margin-top: 10px;
+}

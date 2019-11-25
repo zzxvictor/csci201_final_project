@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Q/A (Student)</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard_student.css">
+</head>
+
+
+<body>
+  <header>
+    <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
+    <img class="logo" src="imgs/rosterLogo.png" alt="logo">
+  </header>
+
+  <div class="content_box">
+
+    <h1 id="courseName">Course Name Here</h1>
+
+    <div class="row fillScreen">
+      <div class="left-box col-3">
+        <h4>current date here</h4>
+        <div class="checkin-box">
+          <form class = "checkin-form" action="">
+            <div class="form-group">
+              <label for="checkinCode">Check in Code</label>
+              <input type="text" class="form-control" id="checkinCode" placeholder="e.g. Ah35xfyL3">
+              <small id="checkinCodeHelp" class="form-text text-muted">Your instructor should display a checkin code during lecture.</small>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Last Lecture was...</label>
+              </div>
+              <select class="custom-select" id="accountType">
+                <option selected value="1">Very Clear.</option>
+                <option value="2">Mostly Clear.</option>
+                <option value="3">In the Middle.</option>
+                <option value="4">Kind of Shaky.</option>
+                <option value="5">Very Confusing.</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary checkin-btn" type="submit" name="checkin_button">Check In</button>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="col-9">
+        <div class="main-content">
+
+          <h4>Live Question Feed</h4>
+
+
+          <div class="questions-box">
+
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+144</h3>
+            </div>
+
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+64</h3>
+            </div>
+
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+54</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+40</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+40</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+34</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+24</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+11</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+3</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+1</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+1</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+1</h3>
+            </div>
+
+          </div>
+
+          <div class="askQuestionBox">
+            <form class="askQuestionForm" action="">
+              <div class="form-row">
+                <div class="col form-group">
+                  <input type="textarea" class="form-control" id="questionText" placeholder="Would you rather fight 100 duck sized horses or 1 horse sized duck?">
+                </div>
+                <button class="btn btn-primary" type="submit" name="submit_question_button" disabled>Submit</button>
+
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
