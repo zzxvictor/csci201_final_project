@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Roster (Instructor)</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/roster_student.css">
+</head>
+
+
+<body>
+  <header>
+    <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
+    <img class="logo" src="imgs/rosterLogo.png" alt="logo">
+  </header>
+
+  <div class="content_box">
+
+    <div class="row fillScreen">
+      <div class="nav nav-box col-2">
+        <div class="nav-btns">
+          <button class="btn btn-light nav-util-btn" data-toggle="modal" data-target="#addClassModal">Add Class</button>
+
+          <!-- Modal for add class  -->
+          <div class="modal fade" id="addClassModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addClassModalLabel">Add Class</h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <form class="" action="" method="post">
+                    <div class="form-group">
+                      <label for="courseJoinCourse">Course Code</label>
+                      <input type="text" class="form-control" id="courseJoinCode" placeholder="e.g. Ah35xfyL3">
+                      <small id="graceDaysHelp" class="form-text text-muted">Your instructor should've emailed you a code that can be used to join the course. Put that here.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Class</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <button class="btn btn-light nav-util-btn" data-toggle="modal" data-target="#delClassModal">Delete Class</button>
+
+          <!-- Modal for add class  -->
+          <div class="modal fade" id="delClassModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="delClassModalLabel">Delete Class</h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <form class="" action="" method="post">
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                      <label class="form-check-label" for="exampleRadios1">
+                        Course 1
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                      <label class="form-check-label" for="exampleRadios1">
+                        Course 2
+                      </label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                      <label class="form-check-label" for="exampleRadios1">
+                        Course 3
+                      </label>
+                    </div>
+
+                    <div class="alert alert-warning">Warning: You can't undo this action. Please be careful!</div>
+                    <button type="submit" class="btn btn-danger">Delete Class Forever</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="nav-content">
+          <button class="btn btn-light nav-btn" onclick="">CSCI270 1pm</button>
+          <button class="btn btn-light nav-btn" onclick="">CSCI201 4pm</button>
+          <button class="btn btn-light nav-btn" onclick="">ENST100 10am</button>
+        </div>
+      </div>
+
+      <div class="col-10">
+        <div class="main-content">
+
+          <h1 id="courseName">Course Name - Course Time</h1>
+
+          <div class="main-box">
+
+
+            <div class="box center_all">
+              <div class="graceDaysBox center_all">
+                <h5>Grace Days</h5>
+                <div id="graceDaysNumber">5</div>
+              </div>
+              <h5>Ready to check in?</h5>
+              <button class="btn btn-primary main-btn">Check In Now</button>
+            </div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
