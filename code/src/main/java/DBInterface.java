@@ -13,6 +13,12 @@ import org.json.simple.JSONObject;
 
 import com.zaxxer.hikari.*;
 import com.zaxxer.hikari.HikariConfig;
+
+
+/*
+ * all DB interaction should be done through this interface for a cleaner code
+ * Responsible Developer: Zixuan Zhang 
+ */
 public class DBInterface implements Serializable{
 	private Connection conn ;
 	private String url = "jdbc:mysql://google/FinalProject?cloudSqlInstance=finalproject-258505:us-central1:final-project-db&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=root&password=201FinalProjectRoster&autoReconnect=true";
@@ -25,10 +31,20 @@ public class DBInterface implements Serializable{
 				conn = DriverManager.getConnection(url);
 			}
 			catch (SQLException ie) {
-				ie.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 	}
+	
+	/*
+	 * make a query (i.e. select * from *)
+	 * Parameter: 
+	 * 		cmd: a string command like select * from User where userID = ?
+	 * 		params: vector, contains parameters that should replace ? in cmd (order matters)
+	 * Return:
+	 * 		ResultSet: query result 
+	 * Responsible Developer: Zixuan Zhang 
+	 */
 	public ResultSet makeQuery(String cmd, ArrayList params) {
 		try {
 			PreparedStatement ps = this.conn.prepareStatement(cmd);
@@ -40,6 +56,17 @@ public class DBInterface implements Serializable{
 			return null;
 		}
 	}
+	
+	
+	/*
+	 * make a query (i.e. select * from *)
+	 * Parameter: 
+	 * 		cmd: a string command like insert into User (userID,...) values (?,?,?)
+	 * 		params: vector, contains parameters that should replace ? in cmd (order matters)
+	 * Return:
+	 * 		status: int, signal the query status (success or fail)
+	 * Responsible Developer: Zixuan Zhang 
+	 */
 	
 	public int makeUpdate (String cmd, ArrayList params) {
 		try {
