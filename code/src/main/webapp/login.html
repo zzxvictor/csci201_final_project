@@ -15,15 +15,60 @@
           <img class="logo" src="imgs/rosterLogo.png" alt="logo">
     </header>
 
+
+    <script>
+    function validateLogin()
+    {
+    //make sure the user entered a username and password.
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    if (email === "" || password === "")
+    {
+      var errorText = document.getElementById("loginErrorText");
+      errorText.classList.remove("hide");
+      errorText.innerHTML = "Please enter all search terms";
+      return false;
+    }
+
+
+	//ajax call
+    var url = "/Login"
+    var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	      var loginData = JSON.parse(this.responseText);
+	      console.log(loginData);
+       	  var success = loginData.success;
+       	  if(success == "false")
+       	  {
+       		console.log("Bad Login");
+       		var errorText = document.getElementById("loginErrorText");
+            errorText.classList.remove("hide");
+            errorText.innerHTML = loginData.message;
+            return false;
+       	  }
+       	  else
+       	  {
+       		console.log("Good Login");
+       		return True;
+       	  }
+	    }
+	  };
+	  xhttp.open("POST", url, false); //false because we want synchronus
+	  xhttp.send();
+	  return false;
+    }
+    </script>
+
     <div class = "center_all">
       <div class = "login_box">
         <h1>Login to <span class = "title">Roster</span></h1>
-        <form class="" action="index.html" method="post">
+        <form class="" action="" method="post" onsubmit = "return validateLogin();">
           <div class="form-group">
-            <input type="text" class="form-control" id="username" placeholder="Username">
+            <input type="text" class="form-control" name = "email" id="email" placeholder="Username">
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" name = "password" id="password" placeholder="Password">
           </div>
           <div id = "loginErrorText" class = "alert alert-warning hide">Error text goes here</div>
           <button class = "btn btn-primary login_btn" type="submit" name="login_button">Log In</button>
