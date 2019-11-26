@@ -46,7 +46,7 @@ public class Channel extends HttpServlet {
 			double latitude = Double.parseDouble(request.getParameter("latitude"));
 			double longitude = Double.parseDouble(request.getParameter("longitude"));
 			User userObj = (User) session.getAttribute("userObj");
-			userObj.checkIn(keyword, ratings, accuracy, latitude, longitude, this.dbHandle);
+			//userObj.checkIn(keyword, ratings, accuracy, latitude, longitude, this.dbHandle);
 	  		break;
 	  	case "getCourseList":
 	  		pw= response.getWriter();
