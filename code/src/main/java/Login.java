@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
-
-//
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,9 +22,9 @@ public class Login extends HttpServlet {
 	}
 
 
-@Override
+
 /*
- * lgoin function for user authentication
+ * login function for user authentication
  * expected parameter in http request payload:
  * 		email, password
  * return:
@@ -34,6 +32,7 @@ public class Login extends HttpServlet {
  * 		can be used by frontend to dynamically create RosterPage.html
  * Responsible Developer: Zixuan Zhang
  */
+	@Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 		
