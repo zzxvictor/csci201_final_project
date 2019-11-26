@@ -3,7 +3,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.json.simple.JSONArray; 
 import org.json.simple.JSONObject;
-import javax.mail.Session;
+//import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
