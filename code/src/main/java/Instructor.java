@@ -15,7 +15,7 @@ public class Instructor extends User{
 	 *	For instructor, check in should insert a row into the lecture table  
 	 *	developer name: 
 	 */
-	public void checkIn(String keyword, String ratings, double accuracy,
+	public void checkIn(String keyword, String ratings, double accuracy,int courseID, int instructorID,int prevLectureRating,
 							double latitude, double longitude, DBInterface db) {
 		// to do 
 	}

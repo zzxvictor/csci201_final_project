@@ -16,7 +16,7 @@ public abstract class User implements Serializable{
 	 */
 	public abstract void addClass(String courseID, String info, DBInterface db);
 	public abstract void dropClass(String courseID, DBInterface db);
-	public abstract void checkIn(String keyword, String ratings, double accuracy,
+	public abstract void checkIn(String keyword, String ratings, double accuracy,int courseID, int instructorID,int prevLectureRating,
 			double latitude, double longitude, DBInterface db);
 	public abstract String getCourseList(DBInterface db);
 	
