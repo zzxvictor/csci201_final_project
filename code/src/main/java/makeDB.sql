@@ -54,8 +54,8 @@ CREATE TABLE Lecture(
   lectureStartTime datetime not null,
   lectureNumber int(2) not null,
   keyword varchar(10) not null,
-  lat double not null,
-  lon double not null,
+  latitude double not null,
+  longitude double not null,
   accuracy float not null
 );
 
