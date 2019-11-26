@@ -120,7 +120,7 @@
                 <div id="graceDaysNumber">5</div>
               </div>
               <h5>Ready to check in?</h5>
-              <button class="btn btn-primary main-btn" onclick = "checkIn">Check In Now</button>
+              <button class="btn btn-primary main-btn" onclick = "checkIn()">Check In Now</button>
             </div>
             
 			<script>
@@ -130,10 +130,10 @@
 				 var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
 				    if (this.readyState == 4 && this.status == 200) {
-				     
+				     console.log("")
 				    }
 				  };
-				  xhttp.open("POST", url, false); //false because we want synchronus
+				  xhttp.open("POST", url, true);
 				  xhttp.send();
 				  return false;
 			}
