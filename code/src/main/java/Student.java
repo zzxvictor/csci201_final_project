@@ -2,6 +2,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.lang.Math; 
+import java.util.*;
 
 public class Student extends User{
 	public Student(String email, String password, String name) {
@@ -41,8 +42,21 @@ public class Student extends User{
 		
 	}
 	
-	public void askQuestion (String question,DBInterface db) {
+	public void askQuestion (String question,DBInterface db, int courseID) {
 		// to do 
+		String insertQuestion = "INSERT into Question(content, upvoteCount, timeCreated, courseID) values(?,?,?,?)";
+		  
+		  Calendar calendar = Calendar.getInstance();
+		  java.util.Date currentDate = calendar.getTime();
+		  java.sql.Date date = new java.sql.Date(currentDate.getTime());
+	
+		  ArrayList<Object> values = new ArrayList<Object>();
+		  values.add(question);
+		  values.add(0);
+		  values.add(date);
+		  values.add(courseID);
+		  //insert into User (userID,...) values (?,?,?)
+		  db.makeUpdate(insertQuestion, values);
 	}
 	
 	public void addClass(String courseID, String info, DBInterface db) {
