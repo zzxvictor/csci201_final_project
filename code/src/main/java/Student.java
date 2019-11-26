@@ -79,24 +79,10 @@ public class Student extends User{
 		 }
 	
 	
-	 public String getCourseList(DBInterface db){//seperated by comma
-		  String courselist="";
-		  String getCourse = "SELECT * FROM Enrollment WHERE studentID=?";
-		  ArrayList<Object> values = new ArrayList<Object>();
-		  values.add(userID); //in this case the info is the student name
-		  ResultSet rs = (ResultSet) db.makeQuery(getCourse, values);
-		  try {
-		   while (rs.next()) {
-		    String courseName = rs.getString("courseID");
-		    courselist += courseName;
-		    courselist +=","; //it will have an extra comma at the end
-		    
-		   }
-		  } catch (SQLException e) {
-		   e.printStackTrace();
-		  }
-		  
-
+	public String getCourseList(DBInterface db) {
+		// to do 
+		return "";
+	}
 	
 	
 }
