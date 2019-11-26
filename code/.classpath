@@ -27,10 +27,7 @@
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-java-5.1.48.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/json-simple-1.1.jar"/>
-<<<<<<< HEAD
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-socket-factory-1.0.15-jar-with-dependencies.jar"/>
-=======
 	<classpathentry exported="true" kind="lib" path="/Users/zhangzixuan/Desktop/19_Fall/201/csci201_final_project/code/src/main/webapp/WEB-INF/lib/json-simple-1.1.jar"/>
->>>>>>> 17c9eda5bcf7e0bd5d125b361c5055119b7b005a
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
