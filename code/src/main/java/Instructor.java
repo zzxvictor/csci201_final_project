@@ -1,5 +1,10 @@
-
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import org.json.simple.JSONArray; 
+import org.json.simple.JSONObject;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 public class Instructor extends User{
 	public Instructor(String email, String password, String name) {
@@ -30,10 +35,23 @@ public class Instructor extends User{
 	}
 	/*
 	 *  get the list of courses that are taught by this instructor
+	 *  developer name: Kyle Ashcraft
+	 *  NEEDS TESTING
 	 */
 	public String getCourseList(DBInterface db) {
-		// to do 
-		return "";
+		String query = "SELECT * FROM Course WHERE instructorID = ?";
+		ArrayList<String> param = new ArrayList<String>();
+		param.add(this.userID);
+		ResultSet rs = db.makeQuery(query, param);
+		JSONArray arr = new JSONArray();
+		try {
+			while(rs.next()) {
+				arr.add(rs.getString("courseName"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Instructor#getCourseList - SQLException: " + e.getMessage());
+		}
+		return arr.toJSONString();
 	}
 	
 	/*
