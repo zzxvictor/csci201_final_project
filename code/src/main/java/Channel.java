@@ -40,12 +40,13 @@ public class Channel extends HttpServlet {
 	  if (session == null) return;//illegal access
 	  switch (methodName) {
 	  	case "checkIn":
-	  		String keyword = request.getParameter("keyword");
-	  		String ratings = request.getParameter("rating");
-	  		double accuracy = Double.parseDouble(request.getParameter("accuracy"));
-			double latitude = Double.parseDouble(request.getParameter("latitude"));
-			double longitude = Double.parseDouble(request.getParameter("longitude"));
+	  		//String keyword = request.getParameter("keyword");
+	  		//String ratings = request.getParameter("rating");
+	  		//double accuracy = Double.parseDouble(request.getParameter("accuracy"));
+			//double latitude = Double.parseDouble(request.getParameter("latitude"));
+			//double longitude = Double.parseDouble(request.getParameter("longitude"));
 			User userObj = (User) session.getAttribute("userObj");
+			userObj.getClass();
 			//userObj.checkIn(keyword, ratings, accuracy, latitude, longitude, this.dbHandle);
 	  		break;
 	  	case "getCourseList":
