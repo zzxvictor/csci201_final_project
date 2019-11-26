@@ -62,6 +62,11 @@ Use class btn-primary and secondary for neat looking buttons!! */
   border-color: #2AAC97;
 }
 
+.btn.btn-primary:disabled{
+  background-color: grey;
+  border-color: grey;
+}
+
 .bg-primary{
   background-color: #3ABCA7!important;
   color: white;

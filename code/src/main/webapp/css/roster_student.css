@@ -1,0 +1,116 @@
+#courseName{
+  margin-bottom: 50px;
+}
+
+body{
+  height: 100vh;
+  background: #e2e1e0;
+}
+
+.content_box{
+  padding: 30px;
+  margin: 0 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.nav-box, .main-content, .questions-box{
+  border: 1px solid #888;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.main-content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Nav bar stuff (leftside of page) */
+
+.nav-box{
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-content, .nav-btns{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-content{
+  margin-top: 5vh;
+}
+
+.nav-btn {
+  border-radius: 0;
+  width: 100%;
+  margin-top: 4px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav-btn:hover{
+  background: #DDD;
+}
+
+.nav-util-btn{
+  border-radius: 0;
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid #DDD;
+}
+
+/* modal stuff */
+form .alert{
+  margin-top: 100px;
+}
+
+
+/* main content */
+.main-box{
+  height: 60vh;
+  min-height: 300px;
+  padding: 20px;
+  background-color: #eee
+}
+
+
+.box{
+  margin: 0 10px;
+  background-color: white;
+  height: 90%;
+  margin: auto;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.main-btn{
+  margin-bottom: 3vh;
+}
+
+.graceDaysBox{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#graceDaysNumber{
+  border: 1px solid black;
+  padding: 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-top: 6px;
+}
