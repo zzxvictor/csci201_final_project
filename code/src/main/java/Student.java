@@ -9,7 +9,7 @@ public class Student extends User{
 		super(email, password, name);
 	}
 	
-	public void checkIn(String keyword, String ratings, double accuracy, int courseID, int instructorID, int prevLectureRating,
+	public void checkIn(String keyword, int ratings, double accuracy, int courseID, int instructorID,
 							double latitude, double longitude, DBInterface db) {
 		// to do 
 		ArrayList<Object> params = new ArrayList<Object>();
@@ -31,7 +31,7 @@ public class Student extends User{
 			ArrayList<Object> paramsToinsert = new ArrayList<Object>();
 			paramsToinsert.add(userID);
 			paramsToinsert.add(courseID);
-			paramsToinsert.add(prevLectureRating);
+			paramsToinsert.add(ratings);
 			paramsToinsert.add(status);
 			paramsToinsert.add(currLectureNum);
 			db.makeUpdate("Insert into Attendance (studentID, courseID, prevLectureRating, prescence, lectureNumber) values (?,?,?,?,?)", paramsToinsert);
@@ -59,13 +59,24 @@ public class Student extends User{
 		  db.makeUpdate(insertQuestion, values);
 	}
 	
-	public void addClass(String courseID, String info, DBInterface db) {
-		// to do 
-	} 
+	public void addClass(int courseID, String info, DBInterface db) { //abstract
+		  String addClass = "INSERT into Enrollment(studentID, courseID) values(?,?)";
+		  ArrayList<Object> values = new ArrayList<Object>();
+		  values.add(userID); //in this case the info is the student name
+		  values.add(courseID);
+		  db.makeUpdate(addClass, values);
+		 } 
+
 	
-	public void dropClass(String courseID, DBInterface db) {
-		// to do 
-	}
+	 public void dropClass(int courseID, DBInterface db) { //abstract
+		  //DELETE FROM table_name WHERE condition;
+
+		  String addClass = "DELETE FROM Enrollment where courseID=? AND studentID=?";
+		  ArrayList<Object> values = new ArrayList<Object>();
+		  values.add(courseID); //in this case the info is the student name
+		  values.add(userID);
+		  db.makeUpdate(addClass, values);
+		 }
 	
 	
 	public String getCourseList(DBInterface db) {
