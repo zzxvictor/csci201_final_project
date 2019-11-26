@@ -31,7 +31,7 @@ public class DBInterface implements Serializable{
 				conn = DriverManager.getConnection(url);
 			}
 			catch (SQLException ie) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());//
 			}
 		}
 	}
@@ -76,7 +76,7 @@ public class DBInterface implements Serializable{
 			}
 			return ps.executeUpdate();
 		}catch (SQLException e) {
-			return -1;
+			return -1;//
 		}
 	}
 }
