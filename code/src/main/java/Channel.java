@@ -37,8 +37,8 @@ public class Channel extends HttpServlet {
 	  
 	  String methodName = request.getParameter("method");
 	  PrintWriter pw;
-	  HttpSession session=request.getSession(false); 
-	  if (session == null) return;//illegal access
+	  HttpSession session=request.getSession(false); // get existing session variable
+	  if (session == null) return;//illegal access!! must log in first!!
 	  switch (methodName) {
 	  	case "checkIn"://
 	  		String keyword = request.getParameter("keyword");
