@@ -29,5 +29,6 @@
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-java-5.1.48.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-socket-factory-1.0.15-jar-with-dependencies.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/main/webapp/WEB-INF/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/appengine-api-1.0-sdk-1.9.63.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

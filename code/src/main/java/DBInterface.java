@@ -31,7 +31,8 @@ public class DBInterface implements Serializable{
 				conn = DriverManager.getConnection(url);
 			}
 			catch (SQLException ie) {
-				System.out.println(e.getMessage());//
+				ie.printStackTrace();
+				//System.out.println(e.getMessage());//
 			}
 		}
 	}

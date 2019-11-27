@@ -34,6 +34,7 @@ public class Channel extends HttpServlet {
 	 */
   public void service(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
+	  /*
 	  String methodName = request.getParameter("method");
 	  PrintWriter pw;
 	  HttpSession session=request.getSession(false); 
@@ -66,6 +67,6 @@ public class Channel extends HttpServlet {
 		    pw.print("getQuestionFeed called"); // send data in json format, done
 	  		break;
 	  }
-	  
+	  */
   }
 }
