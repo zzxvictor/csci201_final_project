@@ -21,7 +21,7 @@ public class Login extends HttpServlet {
 		this.dbHandle = new DBInterface();
 	}
 
-
+//
 
 /*
  * login function for user authentication
@@ -38,6 +38,7 @@ public class Login extends HttpServlet {
 		
 	String email = request.getParameter("email");
 	String password = request.getParameter("password");
+	System.out.println(email);
 	ArrayList<Object> params = new ArrayList<Object>();
 	params.add(email);params.add(password);
 	ResultSet rs = this.dbHandle.makeQuery("select * from User where Email=? and Password=?",

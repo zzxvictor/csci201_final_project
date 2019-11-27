@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.Connection;
-
+//
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.google.api.client.util.IOUtils;
-
+//
 
 @WebServlet("/Channel")
 public class Channel extends HttpServlet {
@@ -27,7 +27,7 @@ public class Channel extends HttpServlet {
 		this.dbHandle = new DBInterface();
 	}
 	
-	
+//
 	/*
 	 * backend interface
 	 * Responsible Developer: Zixuan Zhang 
