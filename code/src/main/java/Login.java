@@ -21,7 +21,7 @@ public class Login extends HttpServlet {
 		this.dbHandle = new DBInterface();
 	}
 
-//
+
 
 /*
  * login function for user authentication

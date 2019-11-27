@@ -1,0 +1,85 @@
+<html>
+  <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+ 
+ <!-- body -->
+<body >
+<p>
+<pre> test checkIn (same for student and instructor)
+---------------------------------------------------------
+</pre>
+<form    action ="/Channel?method=checkIn" method="POST" >
+	keyword:<br>
+	<input type="text" name="keyword" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>
+	rating:<br>
+	<input type="number" name="rating" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>
+	accuracy:<br>
+	<input type="number" name="accuracy" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>
+	latitude:<br>
+	<input type="number" name="latitude" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>
+	longitude:<br>
+	<input type="number" name="longitude" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>
+	courseID:<br>
+	<input type="number" name="courseID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
+<pre> test getCourseList (same for student and instructor)
+---------------------------------------------------------
+</pre>
+<form    action ="/Channel?method=getCourseList" method="POST" >
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
+
+<pre> test addClass (same for student and instructor)
+---------------------------------------------------------
+</pre>
+<form    action ="/Channel?method=addClass" method="POST" >
+	some necessary parameters ... (please add more if you see fit):<br>
+	<input type="text" name="keyword" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>	
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
+
+
+<pre> test dropClass (same for student and instructor)
+---------------------------------------------------------
+</pre>
+<form    action ="/Channel?method=dropClass" method="POST" >
+	some necessary parameters ... (please add more if you see fit):<br>
+	<input type="text" name="keyword" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>	
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
+
+<pre> test getQuestionFeed (for instructor)
+---------------------------------------------------------
+</pre>
+<form    action ="/Channel?method=getQuestionFeed" method="POST" >
+	some necessary parameters ... (please add more if you see fit):<br>
+	<input type="text" name="keyword" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>	
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
+
+<pre> you can add other debugging code here!!! 
+---------------------------------------------------------
+</pre>
+
+</p>
+	
+</body>
+</html>
