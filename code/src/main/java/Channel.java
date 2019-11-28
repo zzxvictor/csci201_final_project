@@ -34,11 +34,11 @@ public class Channel extends HttpServlet {
 	 */
   public void service(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
-	  
 	  String methodName = request.getParameter("method");
 	  PrintWriter pw;
 	  HttpSession session=request.getSession(false); // get existing session variable
 	  if (session == null) return;//illegal access!! must log in first!!
+	  //System.out.println("Here login success");
 	  switch (methodName) {
 	  	case "checkIn"://
 	  		String keyword = request.getParameter("keyword");
@@ -62,18 +62,31 @@ public class Channel extends HttpServlet {
 		    pw.print("checkIn called - to do"); 
 	  		break;
 	  	case "getCourseList":
+	  		User curruserObj = (User) session.getAttribute("userObj");
+	  		curruserObj.getCourseList(dbHandle);
 	  		pw= response.getWriter();
 		    pw.print("getCourseList called - to do"); // send data in json format, done
 	  		break;
 	  	case "addClass":
+	  		String courseName = request.getParameter("courseName");
+	  		int newcourseID = Integer.valueOf(request.getParameter("courseID"));
+	  		int numGraceDay = Integer.valueOf(request.getParameter("numGraceDays"));
+	  		User currUserObj = (User) session.getAttribute("userObj");
+	  		currUserObj.addClass(newcourseID, courseName,numGraceDay, dbHandle);
 	  		pw= response.getWriter();
 		    pw.print("addClass called - to do"); // send data in json format, done
 	  		break;
 	  	case "dropClass":
+	  		int DropcourseID = Integer.valueOf(request.getParameter("courseID"));
+	  		User currUser = (User) session.getAttribute("userObj");
+	  		currUser.dropClass(DropcourseID, dbHandle);
 	  		pw= response.getWriter();
 		    pw.print("dropClass called - to do"); // send data in json format, done
 	  		break;
 	  	case "getQuestionFeed":
+	  		int currcourseID=Integer.valueOf(request.getParameter("courseID"));
+	  		User currInstructor = (User) session.getAttribute("userObj");
+	  		currInstructor.getQuestionFeed(currcourseID, dbHandle);
 	  		pw= response.getWriter();
 		    pw.print("getQuestionFeed called -to do"); // send data in json format, done
 	  		break;

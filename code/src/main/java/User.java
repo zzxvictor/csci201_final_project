@@ -14,11 +14,11 @@ public abstract class User implements Serializable{
 	/*
 	 * abstract methods that must be implemented in children classes
 	 */
-	public abstract void addClass(int courseID, String info, DBInterface db);
+	public abstract void addClass(int courseID, String courseName, int numGraceDay, DBInterface db);
 	public abstract void dropClass(int courseID, DBInterface db);
 	public abstract void checkIn(String keyword, int ratings, double accuracy,int courseID, int instructorID,
 			double latitude, double longitude, DBInterface db);
 	public abstract String getCourseList(DBInterface db);
-	
+	public abstract String getQuestionFeed (int courseID, DBInterface db);
 	
 }

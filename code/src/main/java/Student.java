@@ -59,7 +59,7 @@ public class Student extends User{
 		  db.makeUpdate(insertQuestion, values);
 	}
 	
-	public void addClass(int courseID, String info, DBInterface db) { //abstract
+	public void addClass(int courseID, String courseName, int numGraceDay, DBInterface db) { //abstract
 		  String addClass = "INSERT into Enrollment(studentID, courseID) values(?,?)";
 		  ArrayList<Object> values = new ArrayList<Object>();
 		  values.add(userID); //in this case the info is the student name
@@ -79,10 +79,32 @@ public class Student extends User{
 		 }
 	
 	
-	public String getCourseList(DBInterface db) {
-		// to do 
-		return "";
-	}
+	 public String getCourseList(DBInterface db)
+	 {//seperated by comma
+		  String courselist="";
+		  String getCourse = "SELECT * FROM Enrollment WHERE studentID=?";
+		  ArrayList<Object> values = new ArrayList<Object>();
+		  values.add(userID); //in this case the info is the student name
+		  ResultSet rs = (ResultSet) db.makeQuery(getCourse, values);
+		  try {
+		   while (rs.next()) {
+		    String courseName = rs.getString("courseID");
+		    courselist += courseName;
+		    courselist +=","; //it will have an extra comma at the end
+		    
+		   }
+		  } catch (SQLException e) {
+		   e.printStackTrace();
+		  }
+		  
+		  // to do 
+		  return courselist;
+		 }
+	 
+	 public String getQuestionFeed (int courseID, DBInterface db)//seperated by comma
+		{
+			  return "";
+		}
 	
 	
 }

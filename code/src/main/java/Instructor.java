@@ -50,8 +50,14 @@ public class Instructor extends User{
 	/*
 	 * insert a row into Course table
 	 */
-	public void addClass(int courseID, String info, DBInterface db) {
+	public void addClass(int courseID, String courseName, int numGraceDay, DBInterface db) {
 		// to do 
+		//System.out.println("In the instructor addclass");
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(courseName);
+		params.add(userID); params.add(numGraceDay);
+		params.add(1);
+		db.makeUpdate("Insert into Course (courseName, instructorID, numGraceDays, currentLectureNumber) values (?,?,?,?,?)", params);
 	} 
 	
 	/*
@@ -59,6 +65,10 @@ public class Instructor extends User{
 	 */
 	public void dropClass(int courseID, DBInterface db) {
 		// to do 
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(courseID);
+		db.makeUpdate("DELETE FROM Course where courseID=?", params);
+
 	}
 	/*
 	 *  get the list of courses that are taught by this instructor
@@ -84,9 +94,27 @@ public class Instructor extends User{
 	/*
 	 *  get questions posted by students so far
 	 */
-	public String getQuestionFeed () {
+	public String getQuestionFeed (int courseID, DBInterface db)//seperated by comma
+	{
 		// to do 
-		return "";
+		String Questionlist="";
+		  String getQuestion = "SELECT * FROM Question WHERE courseID=?";
+		  ArrayList<Object> values = new ArrayList<Object>();
+		  values.add(courseID); //in this case the info is the student name
+		  ResultSet rs = (ResultSet) db.makeQuery(getQuestion, values);
+		  try {
+		   while (rs.next()) {
+		    String QuestionContent = rs.getString("content");
+		    Questionlist += QuestionContent;
+		    Questionlist +=","; //it will have an extra comma at the end
+		    
+		   }
+		  } catch (SQLException e) {
+		   e.printStackTrace();
+		  }
+		  
+		  // to do 
+		  return Questionlist;
 	}
 	
 	
