@@ -5,40 +5,55 @@ import java.lang.Math;
 import java.util.*;
 
 public class Student extends User{
-	public Student(String email, String password, String name) {
-		super(email, password, name);
+	public Student(String email, String password, String name, int userID) {
+		super(email, password, name, userID);
 	}
 	
-	public void checkIn(String keyword, int ratings, double accuracy, int courseID, int instructorID,
+	public boolean checkIn(String keyword, int ratings, double accuracy, int courseID, int instructorID,
 							double latitude, double longitude, DBInterface db) {
 		// to do 
 		ArrayList<Object> params = new ArrayList<Object>();
-		params.add(courseID);params.add(instructorID);
-		ResultSet rs = db.makeQuery("select * from Lecture where courseID=? and instructorID=?", params);
+		params.add(courseID);
+		ResultSet rs = db.makeQuery("select * from Lecture where courseID=?", params);
 		try {
-			double instructor_latitude = rs.getDouble("latitude");
-			double instructor_longtitude = rs.getDouble("longtitude");
-			double instructor_accurancy = rs.getDouble("accuracy");
-			int currLectureNum = rs.getInt("lectureNumber");
-			double distance = Math.pow((Math.pow((instructor_latitude - latitude),2)+ Math.pow((instructor_longtitude - longitude),2)),1/2);
-			boolean status = true;
-			if(distance <= instructor_accurancy) {
-				status = true;
+			if (rs.next()) {
+				double instructor_latitude = rs.getDouble("latitude");
+				double instructor_longtitude = rs.getDouble("longitude");
+				double instructor_accurancy = rs.getDouble("accuracy");
+				int currLectureNum = rs.getInt("lectureNumber");
+				double distance = Math.pow((Math.pow((instructor_latitude - latitude),2)+ Math.pow((instructor_longtitude - longitude),2)),1/2);
+				System.out.println(distance);
+				boolean status = true;
+				if(distance <= instructor_accurancy*1.5 && keyword.equals(rs.getString("keyword"))) {
+					status = true;
+				}
+				else {
+					status = false;
+				}
+				if (status) {// successfully checked in 
+					params = new ArrayList<Object>();
+					params.add(courseID);params.add(currLectureNum);
+					rs =  db.makeQuery("select * from Attendance where courseID=? and lectureNumber=?", params);
+					if (rs.next()) {// already checked in 
+						return true;
+					}
+					ArrayList<Object> paramsToinsert = new ArrayList<Object>();
+					paramsToinsert.add(userID);
+					paramsToinsert.add(courseID);
+					paramsToinsert.add(ratings);
+					paramsToinsert.add(true);
+					paramsToinsert.add(currLectureNum);// if no show of fail to check in, no record will be inserted
+					db.makeUpdate("Insert into Attendance (studentID, courseID, prevLectureRating, prescence, lectureNumber) values (?,?,?,?,?)", paramsToinsert);
+					return true;
+				}
+				return false;
+
 			}
-			else {
-				status = false;
-			}
-			ArrayList<Object> paramsToinsert = new ArrayList<Object>();
-			paramsToinsert.add(userID);
-			paramsToinsert.add(courseID);
-			paramsToinsert.add(ratings);
-			paramsToinsert.add(status);
-			paramsToinsert.add(currLectureNum);
-			db.makeUpdate("Insert into Attendance (studentID, courseID, prevLectureRating, prescence, lectureNumber) values (?,?,?,?,?)", paramsToinsert);
 		}catch(SQLException sqle)
 		{
 	    	 System.out.println (sqle.getMessage());
 	    }
+		return false;
 		
 	}
 	

@@ -65,17 +65,17 @@ public class Registration extends HttpServlet {
 		jo.put("email", email);
 		jo.put("userType",userType);
 		jo.put("name", name);
-		User user;
+		User user =null;
 		// create a user object
 		if (userType.equalsIgnoreCase("student")) {// if the user is a student 
-			user = new Student (email, password, name);
 			params = new ArrayList<Object>();
 			params.add(email);
 			rs= this.dbHandle.makeQuery("select * from User where email = ?",params);
-			int userID;
+			int userID = 0;
 			try {
 				if (rs.next()) {
 					userID = rs.getInt("userID");
+					user = new Student (email, password, name, userID);
 					params = new ArrayList<Object>();
 					params.add(userID);
 					status= this.dbHandle.makeUpdate("insert into Student (studentID) values (?)", params);
@@ -86,7 +86,6 @@ public class Registration extends HttpServlet {
 			
 		}
 		else { // if the user is an instructor 
-			user = new Instructor (email, password, name);
 			params = new ArrayList<Object>();
 			params.add(email);
 			rs= this.dbHandle.makeQuery("select * from User where email = ?",params);
@@ -94,6 +93,7 @@ public class Registration extends HttpServlet {
 			try {
 				if (rs.next()) {
 					userID = rs.getInt("userID");
+					user = new Instructor (email, password, name, userID);
 					params = new ArrayList<Object>();
 					params.add(userID);
 					status= this.dbHandle.makeUpdate("insert into Instructor (instructorID) values (?)", params);
@@ -101,6 +101,7 @@ public class Registration extends HttpServlet {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
+			
 		}
 		session.setAttribute("userObj", user); // store user obj in the session variable
 		jo.put("courseList", ""); 

@@ -58,13 +58,15 @@ public class Login extends HttpServlet {
 			jo.put("email", email);
 			String name = rs.getString("name");
 			String userType = rs.getString("userType");
+			int userID = rs.getInt("userID");
 			jo.put("name", name);
 			jo.put("userType", userType);
+			jo.put("userID", userID);
 			User user;
 			if (userType.equalsIgnoreCase("instructor"))
-				user = new Instructor (email, password, name);
+				user = new Instructor (email, password, name, userID);
 			else
-				user = new Student (email, password, name);
+				user = new Student (email, password, name, userID);
 			
 			session.setAttribute("userObj", user); // store user obj in the session variable
 			jo.put("courseList", user.getCourseList(this.dbHandle)); // get the list of courses taken/taught by this user

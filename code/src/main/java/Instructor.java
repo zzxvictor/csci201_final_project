@@ -1,6 +1,9 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import org.json.simple.JSONArray; 
 import org.json.simple.JSONObject;
 //import javax.mail.Session;
@@ -9,42 +12,56 @@ import java.sql.Date;
 
 
 public class Instructor extends User{
-	public Instructor(String email, String password, String name) {
-		super(email, password, name);
+	public Instructor(String email, String password, String name, int userID) {
+		super(email, password, name, userID);
 	}
 	
 	/*
 	 *	For instructor, check in should insert a row into the lecture table  
 	 *	developer name: 
 	 */
-	public void checkIn(String keyword, int ratings, double accuracy,int courseID, int instructorID,
+	public boolean checkIn(String keyword, int ratings, double accuracy,int courseID, int instructorID,
 							double latitude, double longitude, DBInterface db) {
 		// to do 
+		System.out.println("instructor check in called");
 		ArrayList<Object> array = new ArrayList<Object>();
 		  array.add(new Integer(courseID));
 		  ResultSet rs = db.makeQuery("select currentLectureNumber from Course where courseID=?", array);
 		  try {
 		   if (rs.next()) {
+			    System.out.println("lecture id found");
 			    int currentLecture = rs.getInt("currentLectureNumber");
+			    rs = db.makeQuery("select * from Lecture where courseID=?", array);
+			    if (rs.next()) { // remove records from the previous lecture 
+			    	db.makeUpdate("delete from Lecture where courseID=?", array);
+			    }
 			    array.remove(0);
 			    array.add(new Integer(courseID));
 			    array.add(new Integer(instructorID));
-			    array.add(new Date(System.currentTimeMillis()));
+			    Calendar cal = Calendar.getInstance();
+			    array.add(new Timestamp(cal.getTimeInMillis()));
+			    //array.add(new Date(System.currentTimeMillis()));
 			    array.add(new Integer(currentLecture));
 			    array.add(new String(keyword));
 			    array.add(new Double(latitude));
 			    array.add(new Double(longitude));
 			    array.add(new Double(accuracy));
-			    db.makeUpdate("update Lecture set courseID=?, instructorID=?, "
-			      + "lectureStartTime=?, lectureNumber=?, keyword=?, lat=?, lon=?, accuracy=? ", array);
+			    int status = db.makeUpdate("insert into Lecture (courseID, instructorID,lectureStartTime,"
+			    		+ " lectureNumber, keyword,latitude,longitude,accuracy) values (?,?,?,?,?,?,?,?)", array);
+			    //int status = db.makeUpdate("update Lecture set courseID=?, instructorID=?, "
+			    //  + "lectureStartTime=?, lectureNumber=?, keyword=?, latitude=?, longitude=?, accuracy=? ", array);
+			    System.out.println(status);
 			    ArrayList<Object> a = new ArrayList<Object>();
 			    a.add(new Integer(currentLecture + 1));
 			    a.add(new Integer(courseID));
 			    db.makeUpdate("update Course set currentLectureNumber=? where courseID=?", a);
+			    return true;
 			   }
 		   } catch (SQLException e) {
 			   e.printStackTrace();
+			   
 		  }
+		  return false;
 	}
 	
 	/*
@@ -77,8 +94,8 @@ public class Instructor extends User{
 	 */
 	public String getCourseList(DBInterface db) {
 		String query = "SELECT * FROM Course WHERE instructorID = ?";
-		ArrayList<String> param = new ArrayList<String>();
-		param.add(this.userID);
+		ArrayList<Integer> param = new ArrayList<Integer>();
+		param.add(this.userID);// I changed userID to int because it's int in the DB - Zixuan
 		ResultSet rs = db.makeQuery(query, param);
 		JSONArray arr = new JSONArray();
 		try {

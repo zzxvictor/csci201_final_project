@@ -49,7 +49,8 @@ public class Channel extends HttpServlet {
 			double longitude = Double.parseDouble(request.getParameter("longitude"));
 
 			User userObj = (User) session.getAttribute("userObj");// get the corresponding user object
-			//userObj.checkIn(keyword, ratings, accuracy, courseID, instructorID, latitude, longitude, db);
+			boolean result = userObj.checkIn(keyword, ratings, accuracy, courseID, userObj.getID(), 
+						latitude, longitude, this.dbHandle);
 			/*	EXAMPLE: if you want to call checkIn()  
 			 * 		1. get the student/instructor object
 			 * 		2. call that function and pass in parameter
@@ -59,7 +60,10 @@ public class Channel extends HttpServlet {
 			
 			// this is for development, you should write your own response!!
 			pw= response.getWriter();
-		    pw.print("checkIn called - to do"); 
+			JSONObject jo = new JSONObject();
+			jo.put("success",result); // get the list of courses taken/taught by this user	
+			response.getWriter().print(jo.toJSONString()); // send json data; 
+			System.out.println("check in: " + result);
 	  		break;
 	  	case "getCourseList":
 	  		User curruserObj = (User) session.getAttribute("userObj");

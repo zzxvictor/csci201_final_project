@@ -54,6 +54,7 @@ public class DBInterface implements Serializable{
 			}
 			return ps.executeQuery();
 		}catch (SQLException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -77,6 +78,7 @@ public class DBInterface implements Serializable{
 			}
 			return ps.executeUpdate();
 		}catch (SQLException e) {
+			e.printStackTrace();
 			return -1;//
 		}
 	}
