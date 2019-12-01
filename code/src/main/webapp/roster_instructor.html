@@ -59,7 +59,78 @@ function goToDashboard(courseName){
 	window.location.href = "dashboard_instructor.html";
 }
 
-function startLecture(){
+function startLecture(courseInfo)
+{
+	populateQuestions(courseInfo);
+}
+
+function populateQuestions(courseInfo){
+	
+	//courseInfo = coursename_courseID
+	
+	var courseInfoArray = courseInfo.split("_");
+	
+	var courseID = courseInfoArray[1];
+	
+	
+	var xhttp = new XMLHttpRequest();
+	
+     var para = "courseID="+courseID;
+	 var status = false;
+	
+	 
+ 	 xhttp.onreadystatechange = function (){
+ 		if (xhttp.readyState === xhttp.DONE) {
+ 	        if (xhttp.status === 200) {
+ 	        	 
+ 	        	console.log(xhttp.responseText);
+ 	        	
+ 	        	//format
+ 	        	// Questioncontent:-(upvote count:-)
+ 	        	var questionData = xhttp.responseText;
+ 	        	var questionObjArray = questionData.split(":-)");
+ 	        	
+ 	        	console.log(questionObjArray);
+ 	        	
+ 	        	var target = document.getElementById("questions-box");
+ 	        	target.innerHTML = "";
+ 	        	
+ 	        	for(var i = 0; i < questionObjArray.length; i++)
+ 	        	{
+ 	        		if(questionObjArray[i] == "")continue;
+ 	        		
+ 	        		var question = questionObjArray[i].split(":-(")[0];
+ 	        		var upvotes = questionObjArray[i].split(":-(")[1];
+ 	        		
+ 	        		target.innerHTML = target.innerHTML + 
+ 	        		`
+ 	        		<div class="questionObj center_all">
+		              <p class="questionText">
+		                Question: ${question}
+		              </p>
+		              <h3 class = "upvote-num">+ ${upvotes}</h3>
+		            </div>
+ 	        		`;
+ 	        	}
+ 	        	
+ 	        	
+ 	        	
+ 	        	
+ 	        	
+ 	        	
+ 	        	
+ 	        	
+ 	        }
+ 		}
+ 		 
+ 	 }
+ 	 xhttp.open("POST", "/Channel?method=getQuestionFeed", false);// syn communication
+ 	 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+ 	 xhttp.send(para); // Make sure to stringify*/
+ 	 return status;
+	
+	
+	
 	
 }
 
@@ -228,7 +299,7 @@ function startLecture(){
           <h4>Student Questions</h4>
 
 
-          <div class="questions-box">
+          <div id = "questions-box" class="questions-box">
 
             <div class="questionObj center_all">
               <p class="questionText">
