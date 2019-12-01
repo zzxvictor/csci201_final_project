@@ -17,53 +17,65 @@
 
 
     <script>
+    
     function validateLogin()
     {
-    //make sure the user entered a username and password.
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    if (email === "" || password === "")
-    {
-      var errorText = document.getElementById("loginErrorText");
-      errorText.classList.remove("hide");
-      errorText.innerHTML = "Please enter all search terms";
-      return false;
-    }
+    	
+    	var xhttp = new XMLHttpRequest();
+	     var userName = document.getElementById("email").value;
+		 var password = document.getElementById("password").value;
+		 var para = "email="+userName + "&password=" + password;
+		 var status = false;
+		 
+		 if(userName == "" || password == "")
+		{
+			 var errorText = document.getElementById("loginErrorText");
+	            errorText.classList.remove("hide");
+	            errorText.innerHTML = "Please enter a Username and Password";
+	            console.log("returning flase");
+	            return false;
+		}
+		 
+	  	 xhttp.onreadystatechange = function (){
+	  		if (xhttp.readyState === xhttp.DONE) {
+	  	        if (xhttp.status === 200) {
+	  	        	 var rs = JSON.parse(this.responseText);
+					 console.log(rs);
+	  	        	 if (rs.success == "true")
+		  	   		 {
+	  	        		sessionStorage.setItem("result", this.responseText);
+	  	        		console.log(rs);
+	  	        		 if(rs.userType == "instructor")
+	  	        		 	window.location.href = "roster_instructor.html";
+	  	        		 else
+	  	        			 window.location.href = "roster_student.html";
+	  	        		status = true;
+		  	   		 }
+		  	   		 else //false - bad login
+		  	   		 {
+			  	   		var errorText = document.getElementById("loginErrorText");
+			            errorText.classList.remove("hide");
+			            errorText.innerHTML = rs.message;
+		  	   			status = false;
+		  	   		 }
 
-
-	//ajax call
-    var url = "/Login"
-    var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	      var loginData = JSON.parse(this.responseText);
-	      console.log(loginData);
-       	  var success = loginData.success;
-       	  if(success == "false")
-       	  {
-       		console.log("Bad Login");
-       		var errorText = document.getElementById("loginErrorText");
-            errorText.classList.remove("hide");
-            errorText.innerHTML = loginData.message;
-            return false;
-       	  }
-       	  else
-       	  {
-       		console.log("Good Login");
-       		return True;
-       	  }
-	    }
-	  };
-	  xhttp.open("POST", url, false); //false because we want synchronus
-	  xhttp.send();
-	  return false;
+	  	        }
+	  		}
+	  		 
+	  	 }
+	  	 xhttp.open("POST", "/Login", false);// syn communication
+	  	 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	  	 xhttp.send(para); // Make sure to stringify*/
+	  	 return status;
     }
     </script>
+    
+
 
     <div class = "center_all">
       <div class = "login_box">
         <h1>Login to <span class = "title">Roster</span></h1>
-        <form class="" action="" method="post" onsubmit = "return validateLogin();">
+        <form id = "login" class="" action="" method="post" onsubmit = "return validateLogin();">
           <div class="form-group">
             <input type="text" class="form-control" name = "email" id="email" placeholder="Username">
           </div>
@@ -71,7 +83,7 @@
             <input type="password" class="form-control" name = "password" id="password" placeholder="Password">
           </div>
           <div id = "loginErrorText" class = "alert alert-warning hide">Error text goes here</div>
-          <button class = "btn btn-primary login_btn" type="submit" name="login_button">Log In</button>
+          <button class = "btn btn-primary login_btn" type="button" onclick = "return validateLogin()" name="login_button">Log In</button>
         </form>
 
         <p class = "tagline">New kid in town? <a href="register.html">Create an Account.</a></p>
