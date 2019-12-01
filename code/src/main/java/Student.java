@@ -75,13 +75,18 @@ public class Student extends User{
 	}
 	
 	// status: test OK --Zixuan Zhang
-	public void addClass(int courseID, String courseName, int numGraceDay, DBInterface db) { //abstract
-		  String addClass = "INSERT into Enrollment(studentID, courseID) values(?,?)";
+	public boolean addClass(int courseID, String courseName, int numGraceDay, DBInterface db) { //abstract
+		String addClass = "INSERT into Enrollment(studentID, courseID) values(?,?)";
 		  ArrayList<Object> values = new ArrayList<Object>();
 		  values.add(userID); //in this case the info is the student name
 		  values.add(courseID);
 		  db.makeUpdate(addClass, values);
-		 } 
+		  if(db.makeUpdate(addClass, values) == -1) {
+			  
+			  return false;
+		  }
+		  return true;
+	} 
 
 	// status: test OK --Zixuan Zhang
 	 public void dropClass(int courseID, DBInterface db) { //abstract

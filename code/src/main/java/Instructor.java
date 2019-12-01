@@ -68,15 +68,19 @@ public class Instructor extends User{
 	 * insert a row into Course table
 	 * status: test OK --Zixuan Zhang
 	 */
-	public void addClass(int courseID, String courseName, int numGraceDay, DBInterface db) {
+	public boolean addClass(int courseID, String courseName, int numGraceDay, DBInterface db) {
 		// to do 
 		//System.out.println("In the instructor addclass");
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(courseName);
 		params.add(userID); params.add(numGraceDay);
 		params.add(1);
-		db.makeUpdate("Insert into Course (courseName, instructorID, numGraceDays, currentLectureNumber) values (?,?,?,?)", params);
-	} 
+		if(db.makeUpdate("Insert into Course (courseName, instructorID, numGraceDays, currentLectureNumber) values (?,?,?,?)", params) == -1) {
+			  
+			  return false;
+		  }
+		  return true;
+	}  
 	
 	/*
 	 * drop the class identified by the courseID
