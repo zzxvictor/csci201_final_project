@@ -18,15 +18,18 @@ function populatePage(){
 	
 	console.log("courseString" + courseString);
 	
-	var courseArray = courseString.split(",");
-	console.log(courseArray);
+	var coursesArray = courseString.split(","); 
 	
 	var target = document.getElementById("accordionExample");
 	console.log(target);
 	
-	for(var courseNum = 0; courseNum < courseArray.length; courseNum++)
+	for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
 	{
-		var courseName = courseArray[courseNum];	
+		if(courseArray == "") continue;
+		var courseArray = coursesArray[courseNum].split("_");
+		var courseName = courseArray[0];
+		var courseID = courseArray[1];
+		
 		 target.innerHTML = target.innerHTML +  
 			`
 			<div class="card">
@@ -39,19 +42,24 @@ function populatePage(){
 	              </div>
 	              <div id="collapse${courseNum+1}" class="collapse" data-parent="#accordionExample">
 	                <div class="card-body">
-	                  <button class="btn btn-light util-btns" onclick = "return goToDashboard(${courseName})">Go to Course Dashboard</button>
-	                  <button class="btn btn-primary util-btns" onclick = "return startLecture(${courseName})">Start Lecture</button>
+	                  <button class="btn btn-light util-btns" onclick = "return goToDashboard('${coursesArray[courseNum]}')">Go to Course Dashboard</button>
+	                  <button class="btn btn-primary util-btns" onclick = "return startLecture('${coursesArray[courseNum]}')">Start Lecture</button>
 	                </div>
 	              </div>
 	            </div>
 			`;	
-		
-		
-		
 	}
+}
+
+function goToDashboard(courseName){
+	var data = JSON.parse(sessionStorage.getItem("result"));
 	
+	//store things in the session object here.
 	
-	
+	window.location.href = "dashboard_instructor.html";
+}
+
+function startLecture(){
 	
 }
 

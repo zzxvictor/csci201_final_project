@@ -90,23 +90,24 @@ public class Instructor extends User{
 	}
 	/*
 	 *  get the list of courses that are taught by this instructor
-	 *  developer name: Kyle Ashcraft
-	 *  NEEDS TESTING
+	 *  developer name: Kyle Ashcraft + Steve Pierzchala
+	 *  
 	 */
 	public String getCourseList(DBInterface db) {
 		String query = "SELECT * FROM Course WHERE instructorID = ?";
 		ArrayList<Integer> param = new ArrayList<Integer>();
 		param.add(this.userID);// I changed userID to int because it's int in the DB - Zixuan
 		ResultSet rs = db.makeQuery(query, param);
-		JSONArray arr = new JSONArray();
+		String courseList = "";
 		try {
 			while(rs.next()) {
-				arr.add(rs.getString("courseName"));
+				courseList += (rs.getString("courseName") + "_");
+				courseList += (rs.getString("courseID")+ ",");
 			}
 		} catch (SQLException e) {
 			System.out.println("Instructor#getCourseList - SQLException: " + e.getMessage());
 		}
-		return arr.toJSONString();
+		return courseList;
 	}
 	
 	/*
@@ -122,7 +123,7 @@ public class Instructor extends User{
 		try {
 			while(rs.next()) {
 				String question = rs.getString("content");
-				question += ","+String.valueOf(rs.getInt("upvoteCount"))+";";
+				question += ","+String.valueOf(rs.getInt("upvoteCount"))+"|";
 				feed += question;
 			}
 		} catch (SQLException e) {
@@ -134,18 +135,30 @@ public class Instructor extends User{
 	public String getCourseStats(int courseID, DBInterface db) {
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(courseID); //in this case the info is the student n
-		//ResultSet rs = db.makeQuery("select", params)
-		ResultSet rs = db.makeQuery("select sum(prescence), lectureNumber from Attendance where "
-				+ "courseID=? group by lectureNumber", params);
+		ResultSet rs = db.makeQuery("select count(*) from Enrollment where courseID=?", params);
+		int studentNum = 0;
+		try {
+			if (rs.next()) {
+				studentNum = rs.getInt("count(*)");
+				System.out.println(studentNum);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		rs = db.makeQuery("select * from Attendance where courseID=? order by lectureNumber", params);
+		String stats ="";
 		try {
 			while (rs.next()) {
-				
+				int prevRating = rs.getInt("prevLectureRating");
+				int lecNum =  rs.getInt("lectureNumber");
+				stats += String.valueOf(prevRating)+"_"+String.valueOf(lecNum)+",";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "";
+		return stats;
 	}
 	
 	
