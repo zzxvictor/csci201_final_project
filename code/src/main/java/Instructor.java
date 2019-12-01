@@ -90,23 +90,24 @@ public class Instructor extends User{
 	}
 	/*
 	 *  get the list of courses that are taught by this instructor
-	 *  developer name: Kyle Ashcraft
-	 *  NEEDS TESTING
+	 *  developer name: Kyle Ashcraft + Steve Pierzchala
+	 *  
 	 */
 	public String getCourseList(DBInterface db) {
 		String query = "SELECT * FROM Course WHERE instructorID = ?";
 		ArrayList<Integer> param = new ArrayList<Integer>();
 		param.add(this.userID);// I changed userID to int because it's int in the DB - Zixuan
 		ResultSet rs = db.makeQuery(query, param);
-		JSONArray arr = new JSONArray();
+		String courseList = "";
 		try {
 			while(rs.next()) {
-				arr.add(rs.getString("courseName"));
+				courseList += (rs.getString("courseName") + "_");
+				courseList += (rs.getString("courseID")+ ",");
 			}
 		} catch (SQLException e) {
 			System.out.println("Instructor#getCourseList - SQLException: " + e.getMessage());
 		}
-		return arr.toJSONString();
+		return courseList;
 	}
 	
 	/*

@@ -10,8 +10,64 @@
   <link rel="stylesheet" href="css/roster_instructor.css">
 </head>
 
+<script>
+function populatePage(){
+	var data = JSON.parse(sessionStorage.getItem("result"));
+	
+	var courseString = data.courseList;
+	
+	console.log("courseString" + courseString);
+	
+	var coursesArray = courseString.split(","); 
+	
+	var target = document.getElementById("accordionExample");
+	console.log(target);
+	
+	for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
+	{
+		if(courseArray == "") continue;
+		var courseArray = coursesArray[courseNum].split("_");
+		var courseName = courseArray[0];
+		var courseID = courseArray[1];
+		
+		 target.innerHTML = target.innerHTML +  
+			`
+			<div class="card">
+	              <div class="card-header" id="course${courseNum+1}">
+	                <h5 class="mb-0">
+	                  <button class="btn nav-btn collapsed" type="button" data-toggle="collapse" data-target="#collapse${courseNum+1}">
+	                    ${courseName}
+	                  </button>
+	                </h5>
+	              </div>
+	              <div id="collapse${courseNum+1}" class="collapse" data-parent="#accordionExample">
+	                <div class="card-body">
+	                  <button class="btn btn-light util-btns" onclick = "return goToDashboard('${coursesArray[courseNum]}')">Go to Course Dashboard</button>
+	                  <button class="btn btn-primary util-btns" onclick = "return startLecture('${coursesArray[courseNum]}')">Start Lecture</button>
+	                </div>
+	              </div>
+	            </div>
+			`;	
+	}
+}
 
-<body>
+function goToDashboard(courseName){
+	var data = JSON.parse(sessionStorage.getItem("result"));
+	
+	//store things in the session object here.
+	
+	window.location.href = "dashboard_instructor.html";
+}
+
+function startLecture(){
+	
+}
+
+
+</script>
+
+
+<body onload = "return populatePage()">
   <header>
     <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
     <img class="logo" src="imgs/rosterLogo.png" alt="logo">
@@ -168,9 +224,6 @@
         <div class="main-content">
 
           <h1 id = "courseName">Course Name - Course Time</h1>
-          <div style="height:400px; width:600px; margin: 0 auto;">
-            <canvas id="classAttendance"></canvas>
-          </div>
 
           <h4>Student Questions</h4>
 
@@ -261,40 +314,6 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 </body>
-
-<script>
-  var ctx = document.getElementById('classAttendance').getContext('2d');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ['Present', 'Absent'],
-          datasets: [{
-              label: 'Students',
-              data: [33, 7],
-              backgroundColor: [
-                  'rgb(58,188,167,1)',
-                  'rgb(255,255,255,1)'
-              ],
-              borderColor: [
-                  'rgb(58,188,167,1)',
-                  'rgba(0,0,0,1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
-          }
-      }
-  });
-</script>
-
 
 </html>
