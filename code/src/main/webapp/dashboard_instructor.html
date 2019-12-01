@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class="content_box">
-  	<button class="btn-primary" id="switchContext"></button>
+  	<button class="btn btn-primary" id="switchContext"></button>
   	<div class="container" id="last-class">
  		<h4>Comprehension of Last Class</h4>
  		<canvas id="comprehensionLC" style="padding: 10px 0 20px 0;"></canvas>
@@ -66,8 +66,10 @@
 
 <script>
 
+//const var holding possible values of the switch context 
 const context = ["See Historical Data", "See Last Class"];
 
+// when document is loaded, last class graphs are displayed first by default
 $(document).ready(function(){
 	document.getElementById("switchContext").innerHTML = context[0];
 	document.getElementById("historical").style.display = "none";
@@ -77,32 +79,40 @@ $(document).ready(function(){
 	drawComprehension(cData, 'bar');
 });
 
+// function that switches graph displays to toggle between last class
+// and historical views. Optimization exists (relating to generated var)
+// so that each graph should only be drawn once
 document.getElementById("switchContext").addEventListener('click', function() {
 	var aH = document.getElementById("attendanceH");
 	var uH = document.getElementById("comprehensionH");
 	var historical = document.getElementById("historical");
 	var lastClass = document.getElementById("last-class")
 	var button = document.getElementById("switchContext");
-	
+	var generated = false;
 	if(historical.style.display == "none") {
 		button.innerHTML = context[1];
 		lastClass.style.display = "none";
 		historical.style.display = "block";
-		var aData = getData("historical", "attendance");
-		var cData = getData("historical", "comprehension");
-		drawAttendance(aData, 'line');
-		drawComprehension(cData, 'line');
+		if(generated == false) {
+			var aData = getData("historical", "attendance");
+			var cData = getData("historical", "comprehension");
+			drawAttendance(aData, 'line');
+			drawComprehension(cData, 'line');
+			generated = true;
+		}
 	} else {
 		button.innerHTML = context[0];
 		lastClass.style.display = "block";
 		historical.style.display = "none";
-		//var aData = getData("lastClass", "attendance");
-		//var cData = getData("lastClass", "attendance");
-		//drawAttendance(aData, 'bar');
-		//drawAttendance(cData, 'bar');
 	}
 });
 
+
+// Function to generate data for graphs as needed, accepts type and context
+// Todo: currently generates dummy data, need to update for actual DB queries
+// return: data formatted for either line or bar charts
+// line documentation: https://www.chartjs.org/docs/latest/charts/line.html
+// bar documentation: https://www.chartjs.org/docs/latest/charts/bar.html
 function getData(type, context) {
 	if(type == "historical" && context == "comprehension") {
 		return {
@@ -110,7 +120,7 @@ function getData(type, context) {
 			datasets: [{
 				label: 'Students',
 				data: [3.49, 4.01, 4.22, 2.12],
-				backgroundColor: 'rgba(58,188,167,1)',
+				backgroundColor: 'rgba(58,188,167,.4)',
 				borderColor: 'rgba(0,0,0,1)',
 				borderWidth: 3
 			}]
@@ -121,7 +131,7 @@ function getData(type, context) {
 			datasets: [{
 				label: 'Students',
 				data: [34, 22, 36, 29],
-				backgroundColor: 'rgba(58,188,167,1)',
+				backgroundColor: 'rgba(58,188,167,.4)',
 				borderColor: 'rgba(0,0,0,1)',
 				borderWidth: 3
 			}]
@@ -167,7 +177,11 @@ function getData(type, context) {
 	}
 }
 
-
+// function that actually selects attendance Canvases and draws Attendance graphs
+// should only be called once per canvas for optimization
+// two canvases exist in the document to store graphs when not visible
+// canvas selection for drawing is determined by type of graph input
+// bar = last class, other/line = historical
 function drawAttendance(data, type) {
   var ctx;
   if(type == 'bar'){ 
@@ -194,6 +208,11 @@ function drawAttendance(data, type) {
   });
 }
 
+//function that actually selects attendance Canvases and draws comprehension graphs
+//should only be called once per canvas for optimization
+//two canvases exist in the document to store graphs when not visible
+//canvas selection for drawing is determined by type of graph input
+//bar = last class, other/line = historical
 function drawComprehension(data, type){
   var ctx;
   if(type == 'bar') {
