@@ -11,11 +11,12 @@
 </head>
 
 
-<body>
+<body onload = "return populatePage()">
   <header>
     <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
     <img class="logo" src="imgs/rosterLogo.png" alt="logo">
   </header>
+
 
   <div class="content_box">
 
@@ -38,14 +39,14 @@
                   <form class="" action="" method="post">
                     <div class="form-group">
                       <label for="courseJoinCourse">Course Code</label>
-                      <input type="text" class="form-control" id="courseID" placeholder="e.g. 158206">
+                      <input type="text" class="form-control" id="courseID" placeholder="e.g. Ah35xfyL3">
                       <small id="graceDaysHelp" class="form-text text-muted">Your instructor should've emailed you a code that can be used to join the course. Put that here.</small>
                     </div>
                     <div class="form-group">
                       <label for="courseJoinCourse">Course Name</label>
                       <input type="text" class="form-control" id="courseName" placeholder="e.g. CSCI201">
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Class</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addClassModal" onclick="return addClass()" >Add Class</button>
                   </form>
                 </div>
               </div>
@@ -102,11 +103,12 @@
 
         </div>
 
-
-        <div class="nav-content">
-          <button class="btn btn-light nav-btn" onclick="">CSCI270 1pm</button>
+		
+      <div class="nav-content" id="nav-content">
+         <!--  <button class="btn btn-light nav-btn" onclick="">CSCI270 1pm</button>
           <button class="btn btn-light nav-btn" onclick="">CSCI201 4pm</button>
-          <button class="btn btn-light nav-btn" onclick="">ENST100 10am</button>
+          <button class="btn btn-light nav-btn" onclick="">ENST100 10am</button> -->
+          
         </div>
       </div>
 
@@ -152,7 +154,103 @@
     </div>
   </div>
 
-
+ <script>
+   function addClass(){
+	   //int courseID, String courseName, int numGraceDay, DBInterface db
+	   console.log("In the addClass")
+	   var courseID = document.getElementById("courseID").value;
+	   var courseName = document.getElementById("courseName").value;
+	   if (courseID === "" )
+	    {
+	      alert("courseID cannot be null!");
+	    }
+	   if(courseName=== ""){
+		   alert("course name cannot be null!");
+	   }
+	   
+	   var xhttp = new XMLHttpRequest();
+		console.log(courseID);
+		xhttp.open("POST", "/Channel", false);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	 	xhttp.onreadystatechange = function (){
+	  		if (xhttp.readyState === xhttp.DONE) {
+	  			console.log("here1");
+	  	        if (xhttp.status === 200) {
+	  	        	//console.log("here");
+	  	        	console.log(xhttp.responseText);
+	  	        	var jsonobj = JSON.parse(xhttp.responseText);
+	  				sessionStorage.setItem("courseList", this.responseText);
+	  				populatePage();
+	  	        }
+	  		}
+	  	 }
+		xhttp.send("method=addClass&courseName=nope&numGraceDays=1&courseID=" + courseID);
+		//add session populate again 
+		
+		/* var courseInfo= courseName + "_" + courseID;
+		var jsonobj = JSON.parse(sessionStorage.getItem("result"));
+		jsonobj.courseList += ","+courseInfo;
+		
+		sessionStorage.setItem("result", JSON.stringify(jsonobj)); */
+		//Clear the page
+		//repopulate
+		
+		
+		//but we need course name
+		/* var courseList = document.getElementById('nav-content')
+		var btn= document.createElement("BUTTON");
+		btn.innerHTML = courseID;                
+		courseList.appendChild(btn);  */  
+   }
+		
+	function populatePage(){
+		var data = JSON.parse(sessionStorage.getItem("result"));
+		//coursename_courseid
+		
+		var courseString = data.courseList;
+		
+		//console.log("courseString" + courseString);
+		if(sessionStorage.getItem("courseList")!= null){
+			var courseString = JSON.parse(sessionStorage.getItem("courseList")).courseList;
+		}
+		var coursesArray = courseString.split(",");
+		
+		var courseList = document.getElementById('nav-content');
+		courseList.innerHTML = "";
+		for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
+		{
+			if(coursesArray[courseNum] == null || coursesArray[courseNum] == "") continue;
+			var courseArray = coursesArray[courseNum].split("_");
+			var courseName = courseArray[0];
+			var courseID = courseArray[1];
+			
+			courseList.innerHTML = courseList.innerHTML +  `<button class="btn btn-light nav-btn" onclick = "return popCourseInfo('${coursesArray[courseNum]}')">${courseName}</button>`;	
+		}
+		
+	}
+	function popCourseInfo(courseInfo){
+		
+		//var data = JSON.parse(sessionStorage.getItem("result"));
+		
+		//store things in the session object here.
+		
+		//window.location.href = "dashboard_instructor.html";
+	}
+	    
+	    
+	   /*  var url = "/method"
+	        var xhttp = new XMLHttpRequest();
+	    	  xhttp.onreadystatechange = function() {
+	    	    if (this.readyState == 4 && this.status == 200) {
+	    	      
+	    	    }
+	    	  };
+	    	  xhttp.open("POST", url, false); //false because we want synchronus
+	    	  xhttp.send();
+	    	  return false;
+	     */
+   
+  </script> 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -15,8 +15,13 @@ function populatePage(){
 	var data = JSON.parse(sessionStorage.getItem("result"));
 	
 	var courseString = data.courseList;
+
+	if(sessionStorage.getItem("courseList")!= null){
+		var courseString = JSON.parse(sessionStorage.getItem("courseList")).courseList;
+	}
 	
-	console.log("courseString" + courseString);
+	
+	//console.log("courseString" + courseString);
 	
 	var coursesArray = courseString.split(","); 
 	
@@ -327,9 +332,9 @@ function startLecture(){
 	  			//console.log("here1");
 	  	        if (xhttp.status === 200) {
 	  	        	//console.log("here");
-	  	        	console.log(xhttp.responseText);
+	  	        	//console.log(xhttp.responseText);
 	  	        	var jsonobj = JSON.parse(xhttp.responseText);
-	  				sessionStorage.setItem("result", this.responseText);
+	  				sessionStorage.setItem("courseList", this.responseText);
 	  				populatePage();
 	  	        }
 	  		}
@@ -338,88 +343,6 @@ function startLecture(){
 	 	
 		return false;
   	}
-  
-  </script>
-</body>
-
-</html>
-
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+34</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+24</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+11</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+3</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+1</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+1</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+1</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script>
-  
-  	function addClass(){
-  		var url = "/Channel";
-  		var xhttp = new XMLHttpRequest();
-		xhttp.open("POST", url, false);
-		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	 	xhttp.onreadystatechange = function (){
-	  		if (xhttp.readyState === xhttp.DONE) {
-	  			//console.log("here1");
-	  	        if (xhttp.status === 200) {
-	  	        	//console.log("here");
-	  	        	console.log(xhttp.responseText);
-	  	        	var jsonobj = JSON.parse(xhttp.responseText);
-	  				sessionStorage.setItem("result", this.responseText);
-	  				populatePage();
-	  	        }
-	  		}
-	  	 }
-	 	xhttp.send("method=addClass&courseName=" + document.getElementById("addClassName").value + "&numGraceDays=" + document.getElementById("numGraceDays").value + "&courseID=0" );
-	 	
-		return false;
-  	}
-
   
   </script>
 </body>

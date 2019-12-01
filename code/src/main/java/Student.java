@@ -80,7 +80,7 @@ public class Student extends User{
 		  ArrayList<Object> values = new ArrayList<Object>();
 		  values.add(userID); //in this case the info is the student name
 		  values.add(courseID);
-		  db.makeUpdate(addClass, values);
+		  //db.makeUpdate(addClass, values);
 		  if(db.makeUpdate(addClass, values) == -1) {
 			  
 			  return false;
