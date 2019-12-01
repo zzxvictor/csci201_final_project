@@ -65,10 +65,113 @@ function goToDashboard(courseName){
 	window.location.href = "dashboard_instructor.html";
 }
 
-function startLecture(){
+function startLecture(courseInfo)
+{
+	//courseInfo = coursename_courseID
+	var cArray = courseInfo.split("_");
+	var courseName = cArray[0];
+	var courseID = cArray[1];
 	
+	
+	//generate location data for user
+	var latitude;
+	var longitude;
+	var accuracy;
+	
+	function success(pos){
+		var crd = pos.coords;
+		latitude = crd.latitude;
+		longitude = crd.longitude;
+		accuracy = crd.accuracy;
+		console.log(crd);
+	}
+	
+	function error(err){
+		console.warn(`ERROR(${err.code}): ${err.message}`);
+	}
+	
+	var options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
+		};
+	
+	navigator.geolocation.getCurrentPosition(success, error, options);
+	
+	//generate random 6 digit number
+	var checkInCode = Math.floor(Math.random()*1000000);
+	
+	var para = "keyword="+checkInCode+ "&rating=0&courseID=" + courseID 
+	+ "&latitude=" + latitude + "&longitude=" + longitude
+	+ "&accuracy=" + accuracy;
+	
+	console.log(para);
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function (){
+  		if (xhttp.readyState === xhttp.DONE) {
+  	        if (xhttp.status === 200) {
+  	     		
+  	        	
+  	        }
+  		}
+	}	
+	
+	xhttp.open("POST", "/Channel?method=checkIn");// syn communication
+  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", false);
+  	xhttp.send(para); // Make sure to stringify*/
+	
+	populateQuestions(courseInfo);
 }
 
+function populateQuestions(courseInfo){
+	
+	//courseInfo = coursename_courseID	
+	var courseInfoArray = courseInfo.split("_");
+	var courseID = courseInfoArray[1];
+	
+	//ajax call to fetch questions from database
+	var xhttp = new XMLHttpRequest();
+	
+     var para = "courseID="+courseID;
+	 var status = false;
+	 
+ 	 xhttp.onreadystatechange = function (){
+ 		if (xhttp.readyState === xhttp.DONE) {
+ 	        if (xhttp.status === 200) {
+ 	        	//format
+ 	        	// Questioncontent:-(upvote count:-)
+ 	        	var questionData = xhttp.responseText;
+ 	        	var questionObjArray = questionData.split(":-)");
+ 	        	
+ 	        	var target = document.getElementById("questions-box");
+ 	        	target.innerHTML = "";
+ 	        	
+ 	        	for(var i = 0; i < questionObjArray.length; i++)
+ 	        	{
+ 	        		if(questionObjArray[i] == "")continue;
+ 	        		
+ 	        		var question = questionObjArray[i].split(":-(")[0];
+ 	        		var upvotes = questionObjArray[i].split(":-(")[1];
+ 	        		
+ 	        		target.innerHTML = target.innerHTML + 
+ 	        		`
+ 	        		<div class="questionObj center_all">
+		              <p class="questionText">
+		                Question: ${question}
+		              </p>
+		              <h3 class = "upvote-num">+ ${upvotes}</h3>
+		            </div>
+ 	        		`;
+ 	        	}	
+ 	        }
+ 		} 
+ 	 }
+ 	 xhttp.open("POST", "/Channel?method=getQuestionFeed");
+ 	 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+ 	 xhttp.send(para); // Make sure to stringify*/
+ 	 return status;
+}
 
 </script>
 
@@ -234,83 +337,24 @@ function startLecture(){
           <h4>Student Questions</h4>
 
 
-          <div class="questions-box">
+          <div id = "questions-box" class="questions-box">
 
             <div class="questionObj center_all">
               <p class="questionText">
-                Question: Lorem ipsum dolor
+                Question: This is a test question object.
               </p>
               <h3 class = "upvote-num">+144</h3>
             </div>
 
             <div class="questionObj center_all">
               <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+64</h3>
-            </div>
-
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+54</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+40</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+40</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+34</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+24</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+11</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+3</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
+                Question: So is this one. This guy has less upvotes.
               </p>
               <h3 class = "upvote-num">+1</h3>
             </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+1</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class = "upvote-num">+1</h3>
-            </div>
-          </div>
+            
+          </div> <!-- end of questions-box -->
+          
         </div>
       </div>
     </div>
