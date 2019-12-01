@@ -101,18 +101,25 @@ public class Student extends User{
 	 //
 	 public String getCourseList(DBInterface db)
 	 {
-		 String query = "SELECT * FROM Course WHERE instructorID = ?";
+		 //SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+		// FROM Orders
+		// INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+		 
+		 String query = "SELECT Enrollment.studentID, Enrollment.courseID, Course.courseName From Course INNER JOIN Enrollment ON Enrollment.courseID=Course.courseID";
 			ArrayList<Integer> param = new ArrayList<Integer>();
-			param.add(this.userID);// I changed userID to int because it's int in the DB - Zixuan
+			//param.add(this.userID);I changed userID to int because it's int in the DB - Zixuan
 			ResultSet rs = db.makeQuery(query, param);
 			String courseList = "";
 			try {
 				while(rs.next()) {
-					courseList += (rs.getString("courseName") + "_");
-					courseList += (rs.getString("courseID")+ ",");
+					int id = rs.getInt("studentID");
+					if(this.userID == id) {
+						courseList += (rs.getString("courseName") + "_");
+						courseList += (rs.getString("courseID")+ ",");
+					}
 				}
 			} catch (SQLException e) {
-				System.out.println("Instructor#getCourseList - SQLException: " + e.getMessage());
+				System.out.println("Student#getCourseList - SQLException: " + e.getMessage());
 			}
 			return courseList;
 	 }
