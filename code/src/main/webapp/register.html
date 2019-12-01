@@ -10,6 +10,64 @@
   <link rel="stylesheet" href="css/register.css">
 </head>
 
+<script>
+	function Register(){
+		var full_name = document.getElementById("name").value;
+		//console.log(full_name);
+		var email = document.getElementById("email").value;
+		//console.log(email);
+		var password = document.getElementById("password").value;
+		//console.log(password);
+		var comfirm_password  = document.getElementById("confirmPassword").value;
+		//console.log(comfirm_password);
+		var usertype = document.getElementById("userType").value;
+		if(full_name == ""||email == "" || password == ""){
+			document.getElementById("registerErrorText").classList.remove("hide");
+			document.getElementById("registerErrorText").innerHTML ="Please enter all register terms";
+			return false;
+		}
+		if(password !== comfirm_password){
+			//console.log("in password check");
+			document.getElementById("registerErrorText").classList.remove("hide");
+			document.getElementById("registerErrorText").innerHTML ="Password and comfirm password does not match";
+			return false;
+		}
+		else{
+			var url = "/Register"
+				var xhttp = new XMLHttpRequest();
+				xhttp.open("POST", url, false);
+				xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			 	xhttp.onreadystatechange = function (){
+			  		if (xhttp.readyState === xhttp.DONE) {
+			  	        if (xhttp.status === 200) {
+			  	        	 var returninfo = JSON.parse(this.responseText);
+			  	        	 //console.log(returninfo);
+			  	        	 if (returninfo.success == "false")
+				  	   		 {
+			  	        		document.getElementById("registerErrorText").classList.remove("hide");
+			  	        		document.getElementById("registerErrorText").innerHTML ="The user already exists, Please try again";
+			  	        		return false;
+				  	   		 }
+				  	   		 else 
+				  	   		 {
+				  	   			 //console.log("register success!");
+				  	   			 if(usertype == "instructor"){
+				  	   				window.location.href = "roster_instructor.html";
+				  	   			 }
+				  	   			 else{
+				  	   				sessionStorage.setItem("result",this.responseText);
+				  	   				window.location.href = "roster_student.html";
+				  	   			 }
+				  	   			 return true;
+				  	   		 }
+
+			  	        }
+			  		}
+			  	 }
+				xhttp.send("name="+full_name+"&email="+email+"&password="+password+"&userType="+usertype);
+		}
+	}
+</script>
 
 <body>
   <header>
@@ -19,7 +77,7 @@
   <div class="register_body center_all">
     <div class="register_box">
       <h1>Create a <span class="title">Roster</span> Account </h1>
-      <form class="" action="/Register" method="post">
+      <form class="" method="post" onsubmit = "return Register();">
 
         <div class="form-group">
           <input type="text" class="form-control" name = "name" id="name" placeholder="Full Name">
@@ -49,8 +107,8 @@
         </div>
 
 
-        <div id="registerErrorText" class="alert alert-warning">Error text goes here</div>
-        <button class="btn btn-primary register_btn" type="submit" name="register_button">Register</button>
+        <div id="registerErrorText" class="alert alert-warning hide">Error text goes here</div>
+        <button class="btn btn-primary register_btn" type="button" onclick="return Register();" name="register_button">Register</button>
       </form>
 
       <p class="tagline">Already Registered? <a href="login.html">Login.</a></p>
