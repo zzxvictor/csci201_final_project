@@ -54,7 +54,8 @@ body{
   margin: 10px;
   border-radius: 0;
   overflow-y: scroll;
-  max-height: 500px;
+  min-height: 500px;
+  max-height: 80vh;
 }
 
 .questionObj{
