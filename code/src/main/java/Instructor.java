@@ -131,6 +131,22 @@ public class Instructor extends User{
 		}
 		return feed;
 	}
+	public String getCourseStats(int courseID, DBInterface db) {
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(courseID); //in this case the info is the student n
+		//ResultSet rs = db.makeQuery("select", params)
+		ResultSet rs = db.makeQuery("select sum(prescence), lectureNumber from Attendance where "
+				+ "courseID=? group by lectureNumber", params);
+		try {
+			while (rs.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
 	
 	
 }
