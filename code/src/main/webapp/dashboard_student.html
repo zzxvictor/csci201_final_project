@@ -17,13 +17,92 @@
     <img class="logo" src="imgs/rosterLogo.png" alt="logo">
   </header>
 
+<script>
+
+//this function is to be called onLoad. It is responsible
+//for dynamically inserting the data like courseName.
+function populatePage(){
+	
+}
+
+//This function is responsible for dynamically creating the question
+//objects on the page based on an AJAX call to the database.
+function populateQuestions(courseInfo){
+	
+	//courseInfo = coursename_courseID	
+	var courseInfoArray = courseInfo.split("_");
+	var courseID = courseInfoArray[1];
+	
+	//ajax call to fetch questions from database
+	var xhttp = new XMLHttpRequest();
+	
+   var para = "courseID="+courseID;
+	 var status = false;
+	 
+	 xhttp.onreadystatechange = function (){
+		if (xhttp.readyState === xhttp.DONE) {
+	        if (xhttp.status === 200) {
+	        	//format
+	        	// Questioncontent:-(upvote count:-)
+	        	var questionData = xhttp.responseText;
+	        	var questionObjArray = questionData.split(":-)");
+	        	
+	        	var target = document.getElementById("questions-box");
+	        	target.innerHTML = "";
+	        	
+	        	for(var i = 0; i < questionObjArray.length; i++)
+	        	{
+	        		if(questionObjArray[i] == "")continue;
+	        		
+	        		var question = questionObjArray[i].split(":-(")[0];
+	        		var upvotes = questionObjArray[i].split(":-(")[1];
+	        		
+	        		target.innerHTML = target.innerHTML + 
+	        		`
+	        		<div class="questionObj center_all">
+		              <p class="questionText">
+		                Question: ${question}
+		              </p>
+		              <h3 class = "upvote-num" onclick = "alert('upvote function')">+ ${upvotes}</h3>
+		            </div>
+	        		`;
+	        	}	
+	        }
+		} 
+	 }
+	 xhttp.open("POST", "/Channel?method=getQuestionFeed");
+	 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	 xhttp.send(para); // Make sure to stringify*/
+	 return status;
+}
+
+//This function should be called when the user trys to checkin.
+//On success, call populate questions and start calling it every 10 seconds.
+//Additionally, unlock the ask question functionality.
+//if we have time, make the left bar collapse so only the lecture questions are displayed.
+function checkIn(){
+	
+}
+
+//This function will be called when a student clicks on the number in a question
+//object. this should upvote it and then remove the ability for the student to upvote it again
+function upvote(){
+	
+}
+
+
+
+</script>
+
+
+
   <div class="content_box">
 
     <h1 id="courseName">Course Name Here</h1>
 
     <div class="row fillScreen">
       <div class="left-box col-3">
-        <h4>current date here</h4>
+        <h4></h4>
         <div class="checkin-box">
           <form class = "checkin-form" action="">
             <div class="form-group">
@@ -34,14 +113,14 @@
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Last Lecture was...</label>
+                <label class="input-group-text" for="inputGroupSelect01">Last Lecture Rating</label>
               </div>
               <select class="custom-select" id="accountType">
-                <option selected value="1">Very Clear.</option>
-                <option value="2">Mostly Clear.</option>
-                <option value="3">In the Middle.</option>
-                <option value="4">Kind of Shaky.</option>
-                <option value="5">Very Confusing.</option>
+                <option selected value="1">5</option>
+                <option value="2">4</option>
+                <option value="3">3</option>
+                <option value="4">2</option>
+                <option value="5">1</option>
               </select>
             </div>
 
@@ -56,82 +135,20 @@
 
           <h4>Live Question Feed</h4>
 
-
           <div class="questions-box">
 
             <div class="questionObj center_all">
               <p class="questionText">
-                Question: Lorem ipsum dolor
+                Question: This is a test question object. Notice that because this is the student_dashboard, the student can upvote questions by clicking on the upvote count. Neat!
               </p>
-              <h3 class="upvote-num">+144</h3>
+              <h3 class="upvote-num" onclick = "alert('upvote function')">+144</h3>
             </div>
 
             <div class="questionObj center_all">
               <p class="questionText">
-                Question: Lorem ipsum dolor
+                Question: This is another test question object. It has less upvotes.
               </p>
-              <h3 class="upvote-num">+64</h3>
-            </div>
-
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+54</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+40</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+40</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+34</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+24</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+11</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+3</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+1</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+1</h3>
-            </div>
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: Lorem ipsum dolor
-              </p>
-              <h3 class="upvote-num">+1</h3>
+              <h3 class="upvote-num" onclick = "alert('upvote function')">+64</h3>
             </div>
 
           </div>
