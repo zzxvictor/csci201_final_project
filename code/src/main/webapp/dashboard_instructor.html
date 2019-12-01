@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Instructor</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard_student.css">
+</head>
+
+
+<body>
+  <header>
+    <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
+    <img class="logo" src="imgs/rosterLogo.png" alt="logo">
+  </header>
+  <div class="content_box">
+    <div class="container">
+          <h4>Live Question Feed from this Class</h4>
+          <div class="questions-box">
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+144</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+64</h3>
+            </div>
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: Lorem ipsum dolor
+              </p>
+              <h3 class="upvote-num">+54</h3>
+            </div>
+          </div>
+          <div class="askQuestionBox">
+            <form class="askQuestionForm" action="">
+              <div class="form-row">
+                <div class="col form-group">
+                  <input type="textarea" class="form-control" id="questionText" placeholder="Would you rather fight 100 duck sized horses or 1 horse sized duck?">
+                </div>
+                <button class="btn btn-primary" type="submit" name="submit_question_button" disabled>Submit</button>
+              </div>
+            </form>
+          </div>
+    </div>
+  </div>
+  
+  <div class="content_box">
+ 	<div class="container">
+ 		<h4>Information from Last Class</h4>
+ 		<canvas id="understanding" style="padding: 10px 0 20px 0;"></canvas>
+ 		<h4>Attendance for Last Class</h4>
+ 		<canvas id="attendance" style="padding-top: 10px;"></canvas>
+ 	</div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+</body>
+
+<script>
+  var ctx = document.getElementById('attendance').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Present', 'Absent'],
+          datasets: [{
+              label: 'Students',
+              data: [33, 7],
+              backgroundColor: [
+                  'rgb(58,188,167,1)',
+                  'rgb(255,255,255,1)'
+              ],
+              borderColor: [
+                  'rgb(58,188,167,1)',
+                  'rgba(0,0,0,1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          legend: {
+        	  display: false
+          }
+      }
+  });
+</script>
+
+<script>
+  var ctx = document.getElementById('understanding').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Very Clear', 'Mostly Clear', 'In the Middle', 'Kind of Shaky', 'Mostly Confusing'],
+          datasets: [{
+              label: 'Students',
+              data: [5, 15, 16, 8, 2],
+              backgroundColor: [
+                  'rgba(58,188,167,1)',
+                  'rgba(58,188,167,.8)',
+                  'rgba(58,188,167,.6)',
+                  'rgba(58,188,167,.5)', 
+                  'rgba(58,188,167,.4)'
+              ],
+              borderColor: [
+                  'rgb(0,0,0,1)',
+                  'rgba(0,0,0,1)',
+                  'rgb(0,0,0,1)',
+                  'rgba(0,0,0,1)',
+                  'rgb(0,0,0,1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          legend: {
+        	  display: false
+          }
+      }
+  });
+</script>
+
+</html>
