@@ -70,7 +70,7 @@
                 </div>
                 <div class="modal-body text-left">
                   <form class="" action="" method="post">
-
+					<div id = "deletecontent">
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                       <label class="form-check-label" for="exampleRadios1">
@@ -91,7 +91,7 @@
                         Course 3
                       </label>
                     </div>
-
+					</div>
                     <div class="alert alert-warning">Warning: You can't undo this action. Please be careful!</div>
                     <button type="submit" class="btn btn-danger">Delete Class Forever</button>
                   </form>
@@ -203,7 +203,7 @@
 		courseList.appendChild(btn);  */  
    }
 		
-	function populatePage(){
+   function populatePage(){
 		var data = JSON.parse(sessionStorage.getItem("result"));
 		//coursename_courseid
 		
@@ -217,6 +217,10 @@
 		
 		var courseList = document.getElementById('nav-content');
 		courseList.innerHTML = "";
+		var deletetarget = document.getElementById("deletecontent");
+		console.log(deletetarget);
+		deletetarget.innerHTML = "";
+		console.log(deletetarget);
 		for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
 		{
 			if(coursesArray[courseNum] == null || coursesArray[courseNum] == "") continue;
@@ -225,6 +229,15 @@
 			var courseID = courseArray[1];
 			
 			courseList.innerHTML = courseList.innerHTML +  `<button class="btn btn-light nav-btn" onclick = "return popCourseInfo('${coursesArray[courseNum]}')">${courseName}</button>`;	
+			 deletetarget.innerHTML = deletetarget.innerHTML +  
+				`
+				<div class="form-check">
+	                      <input class="form-check-input" type="radio" name="exampleRadios" id="course${courseNum+1}" value="courseID">
+	                      <label class="form-check-label" for="exampleRadios1">
+	                      ${courseName}
+	                      </label>
+	                    </div>
+				`;
 		}
 		
 	}

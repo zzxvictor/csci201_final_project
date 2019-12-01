@@ -30,8 +30,10 @@ function populatePage(){
 	
 	var target = document.getElementById("accordionExample");
 	target.innerHTML = "";
-	console.log(target);
-	
+	//console.log(target);
+	var deletetarget = document.getElementById("deletecontent");
+	deletetarget.innerHTML = "";
+	//console.log(deletetarget);
 	for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
 	{
 		if(coursesArray[courseNum] == null || coursesArray[courseNum] == "") continue;
@@ -56,6 +58,15 @@ function populatePage(){
 	                </div>
 	              </div>
 	            </div>
+			`;	
+		 deletetarget.innerHTML = deletetarget.innerHTML +  
+			`
+			<div class="form-check">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="course${courseNum+1}" value="courseID">
+                      <label class="form-check-label" for="exampleRadios1">
+                      ${courseName}
+                      </label>
+                    </div>
 			`;	
 	}
 }
@@ -256,7 +267,7 @@ function populateQuestions(courseInfo){
                 </div>
                 <div class="modal-body text-left">
                   <form class="" action="" method="post">
-
+					<div id = "deletecontent">
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                       <label class="form-check-label" for="exampleRadios1">
@@ -277,7 +288,7 @@ function populateQuestions(courseInfo){
                         Course 3
                       </label>
                     </div>
-
+					</div>
                     <div class="alert alert-warning">Warning: You can't undo this action. Please be careful!</div>
                     <button type="submit" class="btn btn-danger">Delete Class Forever</button>
                   </form>
