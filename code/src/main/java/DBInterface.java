@@ -32,7 +32,7 @@ public class DBInterface implements Serializable{
 			}
 			catch (SQLException ie) {
 				ie.printStackTrace();
-				//System.out.println(e.getMessage());//
+				//System.out.println(e.getMessage());
 			}
 		}
 	}

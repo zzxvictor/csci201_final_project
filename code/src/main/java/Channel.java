@@ -105,6 +105,13 @@ public class Channel extends HttpServlet {
 	  		user = (Student) session.getAttribute("userObj");
 	  		user.upvoteQuestion(questionID, this.dbHandle);
 	  		break;
+	  	case "getCourseStats":
+	  		courseID = Integer.valueOf(request.getParameter("courseID"));
+	  		Instructor instructor = (Instructor) session.getAttribute("userObj");
+	  		String stats = instructor.getCourseStats(courseID, this.dbHandle);
+	  		pw= response.getWriter();
+		    pw.print(stats); // send data in string
+	  		break;
 	  	default:
 	  		System.out.println("Method not supported! check letter case?");
 	  		break;

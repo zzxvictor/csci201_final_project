@@ -134,18 +134,30 @@ public class Instructor extends User{
 	public String getCourseStats(int courseID, DBInterface db) {
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(courseID); //in this case the info is the student n
-		//ResultSet rs = db.makeQuery("select", params)
-		ResultSet rs = db.makeQuery("select sum(prescence), lectureNumber from Attendance where "
-				+ "courseID=? group by lectureNumber", params);
+		ResultSet rs = db.makeQuery("select count(*) from Enrollment where courseID=?", params);
+		int studentNum = 0;
+		try {
+			if (rs.next()) {
+				studentNum = rs.getInt("count(*)");
+				System.out.println(studentNum);
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		rs = db.makeQuery("select * from Attendance where courseID=? order by lectureNumber", params);
+		String stats ="";
 		try {
 			while (rs.next()) {
-				
+				int prevRating = rs.getInt("prevLectureRating");
+				int lecNum =  rs.getInt("lectureNumber");
+				stats += String.valueOf(prevRating)+"_"+String.valueOf(lecNum)+",";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "";
+		return stats;
 	}
 	
 	
