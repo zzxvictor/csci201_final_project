@@ -123,7 +123,7 @@ public class Instructor extends User{
 		try {
 			while(rs.next()) {
 				String question = rs.getString("content");
-				question += ","+String.valueOf(rs.getInt("upvoteCount"))+"|";
+				question += ":-("+String.valueOf(rs.getInt("upvoteCount"))+":-)";
 				feed += question;
 			}
 		} catch (SQLException e) {
@@ -147,7 +147,7 @@ public class Instructor extends User{
 		}
 		
 		rs = db.makeQuery("select * from Attendance where courseID=? order by lectureNumber", params);
-		String stats ="";
+		String stats =String.valueOf(studentNum)+",";
 		try {
 			while (rs.next()) {
 				int prevRating = rs.getInt("prevLectureRating");
