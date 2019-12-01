@@ -16,8 +16,6 @@ function populatePage(){
 	
 	var courseString = data.courseList;
 	
-	console.log("courseString" + courseString);
-	
 	var coursesArray = courseString.split(","); 
 	
 	var target = document.getElementById("accordionExample");
@@ -61,12 +59,72 @@ function goToDashboard(courseName){
 
 function startLecture(courseInfo)
 {
+	//courseInfo = coursename_courseID
+	var cArray = courseInfo.split("_");
+	var courseName = cArray[0];
+	var courseID = cArray[1];
+	
+	
+	//generate location data for user
+	var latitude;
+	var longitude;
+	var accuracy;
+	
+	function success(pos){
+		var crd = pos.coords;
+		latitude = crd.latitude;
+		longitude = crd.longitude;
+		accuracy = crd.accuracy;
+		console.log(crd);
+	}
+	
+	function error(err){
+		console.warn(`ERROR(${err.code}): ${err.message}`);
+	}
+	
+	var options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
+		};
+	
+	navigator.geolocation.getCurrentPosition(success, error, options);
+	
+	//generate random 6 digit number
+	var checkInCode = Math.floor(Math.random()*1000000);
+	
+	var para = "keyword="+checkInCode+ "&rating=0&courseID=" + courseID 
+	+ "&latitude=" + latitude + "&longitude=" + longitude
+	+ "&accuracy=" + accuracy;
+	
+	console.log(para);
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function (){
+  		if (xhttp.readyState === xhttp.DONE) {
+  	        if (xhttp.status === 200) {
+  	     		
+  	        	
+  	        }
+  		}
+	}	
+	
+	xhttp.open("POST", "/Channel?method=checkIn");// syn communication
+  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", false);
+  	xhttp.send(para); // Make sure to stringify*/
+
+	
 	populateQuestions(courseInfo);
 }
 
 function populateQuestions(courseInfo){
 	
 	//courseInfo = coursename_courseID
+	
+	
+	
+	
+
 	
 	var courseInfoArray = courseInfo.split("_");
 	
@@ -83,14 +141,12 @@ function populateQuestions(courseInfo){
  		if (xhttp.readyState === xhttp.DONE) {
  	        if (xhttp.status === 200) {
  	        	 
- 	        	console.log(xhttp.responseText);
+ 	        	
  	        	
  	        	//format
  	        	// Questioncontent:-(upvote count:-)
  	        	var questionData = xhttp.responseText;
  	        	var questionObjArray = questionData.split(":-)");
- 	        	
- 	        	console.log(questionObjArray);
  	        	
  	        	var target = document.getElementById("questions-box");
  	        	target.innerHTML = "";
@@ -124,7 +180,7 @@ function populateQuestions(courseInfo){
  		}
  		 
  	 }
- 	 xhttp.open("POST", "/Channel?method=getQuestionFeed", false);// syn communication
+ 	 xhttp.open("POST", "/Channel?method=getQuestionFeed");
  	 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
  	 xhttp.send(para); // Make sure to stringify*/
  	 return status;
