@@ -66,6 +66,7 @@ public class Instructor extends User{
 	
 	/*
 	 * insert a row into Course table
+	 * status: test OK --Zixuan Zhang
 	 */
 	public void addClass(int courseID, String courseName, int numGraceDay, DBInterface db) {
 		// to do 
@@ -74,7 +75,7 @@ public class Instructor extends User{
 		params.add(courseName);
 		params.add(userID); params.add(numGraceDay);
 		params.add(1);
-		db.makeUpdate("Insert into Course (courseName, instructorID, numGraceDays, currentLectureNumber) values (?,?,?,?,?)", params);
+		db.makeUpdate("Insert into Course (courseName, instructorID, numGraceDays, currentLectureNumber) values (?,?,?,?)", params);
 	} 
 	
 	/*

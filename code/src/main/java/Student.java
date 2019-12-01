@@ -74,6 +74,7 @@ public class Student extends User{
 		  db.makeUpdate(insertQuestion, values);
 	}
 	
+	// status: test OK --Zixuan Zhang
 	public void addClass(int courseID, String courseName, int numGraceDay, DBInterface db) { //abstract
 		  String addClass = "INSERT into Enrollment(studentID, courseID) values(?,?)";
 		  ArrayList<Object> values = new ArrayList<Object>();
@@ -82,7 +83,7 @@ public class Student extends User{
 		  db.makeUpdate(addClass, values);
 		 } 
 
-	
+	// status: test OK --Zixuan Zhang
 	 public void dropClass(int courseID, DBInterface db) { //abstract
 		  //DELETE FROM table_name WHERE condition;
 
