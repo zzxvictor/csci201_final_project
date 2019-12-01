@@ -11,7 +11,7 @@
 <pre> test checkIn (same for student and instructor)
 ---------------------------------------------------------
 </pre>
-<form    action ="http://localhost:8080/Channel?method=checkIn" method="POST" >
+<form    action ="/Channel?method=checkIn" method="POST" >
 	keyword:<br>
 	<input type="text" name="keyword" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
 	<br>
@@ -36,7 +36,7 @@
 <pre> test getCourseList (same for student and instructor)
 ---------------------------------------------------------
 </pre>
-<form    action ="http://localhost:8080/Channel?method=getCourseList" method="POST" >
+<form    action ="/Channel?method=getCourseList" method="POST" >
 	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
 </form>
 
@@ -44,7 +44,7 @@
 <pre> test addClass (same for student and instructor)
 ---------------------------------------------------------
 </pre>
-<form    action ="http://localhost:8080/Channel?method=addClass" method="POST" >
+<form    action ="/Channel?method=addClass" method="POST" >
 	courseID<br>
 	<input type="text" name="courseID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
 	<br>
@@ -62,7 +62,7 @@
 <pre> test dropClass (same for student and instructor)
 ---------------------------------------------------------
 </pre>
-<form    action ="http://localhost:8080/Channel?method=dropClass" method="POST" >
+<form    action ="/Channel?method=dropClass" method="POST" >
 	courseID<br>
 	<input type="text" name="courseID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
 	<br>	
@@ -73,7 +73,7 @@
 <pre> test getQuestionFeed (for instructor)
 ---------------------------------------------------------
 </pre>
-<form    action ="http://localhost:8080/Channel?method=getQuestionFeed" method="POST" >
+<form    action ="/Channel?method=getQuestionFeed" method="POST" >
 	courseID<br>
 	<input type="text" name="courseID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
 	<br>	
@@ -83,7 +83,7 @@
 <pre> test askQuestion (for student)
 ---------------------------------------------------------
 </pre>
-<form    action ="http://localhost:8080/Channel?method=askQuestion" method="POST" >
+<form    action ="/Channel?method=askQuestion" method="POST" >
 	courseID<br>
 	<input type="text" name="courseID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
 	<br>	
@@ -96,7 +96,7 @@
 <pre> test upvote (for student)
 ---------------------------------------------------------
 </pre>
-<form    action ="http://localhost:8080/Channel?method=upvoteQuestion" method="POST" >
+<form    action ="/Channel?method=upvoteQuestion" method="POST" >
 	questionID<br>
 	<input type="text" name="questionID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
 	<br>	
