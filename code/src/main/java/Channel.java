@@ -46,8 +46,10 @@ public class Channel extends HttpServlet {
 	  	case "checkIn"://
 	  		
 	  		System.out.println("\tInside of checkIn...");
+	  		System.out.println(request.getQueryString());
 	  		
 	  		String keyword = request.getParameter("keyword");
+	  		System.out.println(keyword);
 	  		int ratings = Integer.valueOf(request.getParameter("rating"));
 	  		int courseID = Integer.valueOf(request.getParameter("courseID"));
 	  		double accuracy = Double.parseDouble(request.getParameter("accuracy"));
