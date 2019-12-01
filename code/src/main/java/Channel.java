@@ -87,9 +87,13 @@ public class Channel extends HttpServlet {
 	  	case "dropClass":
 	  		int DropcourseID = Integer.valueOf(request.getParameter("courseID"));
 	  		User currUser = (User) session.getAttribute("userObj");
-	  		currUser.dropClass(DropcourseID, dbHandle);
+	  		boolean result_dropclass = currUser.dropClass(DropcourseID, dbHandle);
 	  		pw= response.getWriter();
-		    pw.print("dropClass called - to do"); // send data in json format, done
+		    //pw.print("dropClass called - to do"); // send data in json format, done
+	  		JSONObject jo_dropClass = new JSONObject();
+		    jo_dropClass.put("success",result_dropclass);
+		    jo_dropClass.put("courseList", currUser.getCourseList(dbHandle));
+		    response.getWriter().print(jo_dropClass.toJSONString()); 
 	  		break;
 	  	case "getQuestionFeed":
 	  		int currcourseID=Integer.valueOf(request.getParameter("courseID"));

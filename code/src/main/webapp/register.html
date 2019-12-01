@@ -51,11 +51,14 @@
 				  	   		 else 
 				  	   		 {
 				  	   			 //console.log("register success!");
+					  	   		if(sessionStorage.getItem("result",this.responseText) != null){
+			  	   					sessionStorage.removeItem("result");
+			  	   				}
+					  	   		sessionStorage.setItem("result",this.responseText);
 				  	   			 if(usertype == "instructor"){
 				  	   				window.location.href = "roster_instructor.html";
 				  	   			 }
 				  	   			 else{
-				  	   				sessionStorage.setItem("result",this.responseText);
 				  	   				window.location.href = "roster_student.html";
 				  	   			 }
 				  	   			 return true;
