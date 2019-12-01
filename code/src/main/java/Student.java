@@ -89,14 +89,18 @@ public class Student extends User{
 	} 
 
 	// status: test OK --Zixuan Zhang
-	 public void dropClass(int courseID, DBInterface db) { //abstract
+	 public boolean dropClass(int courseID, DBInterface db) { //abstract
 		  //DELETE FROM table_name WHERE condition;
 
 		  String addClass = "DELETE FROM Enrollment where courseID=? AND studentID=?";
 		  ArrayList<Object> values = new ArrayList<Object>();
 		  values.add(courseID); //in this case the info is the student name
 		  values.add(userID);
-		  db.makeUpdate(addClass, values);
+		  if(db.makeUpdate(addClass, values) == -1) {
+			  
+			  return false;
+		  }
+		  return true;
 		 }
 	
 	//Returns a course list in the following format

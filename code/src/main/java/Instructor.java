@@ -85,12 +85,16 @@ public class Instructor extends User{
 	/*
 	 * drop the class identified by the courseID
 	 */
-	public void dropClass(int courseID, DBInterface db) {
+	public boolean dropClass(int courseID, DBInterface db) {
 		// to do 
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(courseID);
 		db.makeUpdate("DELETE FROM Course where courseID=?", params);
-
+		if(db.makeUpdate("DELETE FROM Course where courseID=?", params) == -1) {
+			  
+			  return false;
+		  }
+		  return true;
 	}
 	/*
 	 *  get the list of courses that are taught by this instructor
