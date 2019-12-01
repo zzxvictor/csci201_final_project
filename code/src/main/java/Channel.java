@@ -90,9 +90,20 @@ public class Channel extends HttpServlet {
 	  	case "getQuestionFeed":
 	  		int currcourseID=Integer.valueOf(request.getParameter("courseID"));
 	  		User currInstructor = (User) session.getAttribute("userObj");
-	  		currInstructor.getQuestionFeed(currcourseID, dbHandle);
+	  		String feed = currInstructor.getQuestionFeed(currcourseID, dbHandle);
 	  		pw= response.getWriter();
-		    pw.print("getQuestionFeed called -to do"); // send data in json format, done
+		    pw.print(feed); // send data in string
+	  		break;
+	  	case "askQuestion":
+	  		courseID = Integer.valueOf(request.getParameter("courseID"));
+	  		String question = request.getParameter("question");
+	  		Student user = (Student) session.getAttribute("userObj");
+	  		user.askQuestion(question, this.dbHandle, courseID);
+	  		break;
+	  	case "upvoteQuestion":
+	  		int questionID = Integer.valueOf(request.getParameter("questionID"));
+	  		user = (Student) session.getAttribute("userObj");
+	  		user.upvoteQuestion(questionID, this.dbHandle);
 	  		break;
 	  	default:
 	  		System.out.println("Method not supported! check letter case?");

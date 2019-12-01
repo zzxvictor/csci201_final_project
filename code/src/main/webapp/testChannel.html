@@ -80,6 +80,29 @@
 	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
 </form>
 
+<pre> test askQuestion (for student)
+---------------------------------------------------------
+</pre>
+<form    action ="http://localhost:8080/Channel?method=askQuestion" method="POST" >
+	courseID<br>
+	<input type="text" name="courseID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>	
+	Question <br>
+	<input type="text" name="question" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
+<pre> test upvote (for student)
+---------------------------------------------------------
+</pre>
+<form    action ="http://localhost:8080/Channel?method=upvoteQuestion" method="POST" >
+	questionID<br>
+	<input type="text" name="questionID" style="width:100%; margin-top:1%;margin-bottom:1%;  padding: 0.6%;" value="">
+	<br>	
+	<input type="submit" value="Register" style="width:100%; margin-top:1%;margin-bottom:1%; background-color: #808080; color: white; padding: 1%;">
+</form>
+
 
 <pre> you can add other debugging code here!!! 
 ---------------------------------------------------------

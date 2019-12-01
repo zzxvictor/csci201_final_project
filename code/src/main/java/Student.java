@@ -1,6 +1,6 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.lang.Math; 
 import java.util.*;
 
@@ -9,6 +9,7 @@ public class Student extends User{
 		super(email, password, name, userID);
 	}
 	
+	// status: test OK --- Zixuan Zhang
 	public boolean checkIn(String keyword, int ratings, double accuracy, int courseID, int instructorID,
 							double latitude, double longitude, DBInterface db) {
 		// to do 
@@ -57,18 +58,17 @@ public class Student extends User{
 		
 	}
 	
+	// Status: test OK --- Zixuan Zhang 
 	public void askQuestion (String question,DBInterface db, int courseID) {
 		// to do 
 		String insertQuestion = "INSERT into Question(content, upvoteCount, timeCreated, courseID) values(?,?,?,?)";
-		  
-		  Calendar calendar = Calendar.getInstance();
-		  java.util.Date currentDate = calendar.getTime();
-		  java.sql.Date date = new java.sql.Date(currentDate.getTime());
+
+		  Calendar cal = Calendar.getInstance();
 	
 		  ArrayList<Object> values = new ArrayList<Object>();
 		  values.add(question);
 		  values.add(0);
-		  values.add(date);
+		  values.add(new Timestamp(cal.getTimeInMillis()));
 		  values.add(courseID);
 		  //insert into User (userID,...) values (?,?,?)
 		  db.makeUpdate(insertQuestion, values);
@@ -116,10 +116,31 @@ public class Student extends User{
 		  return courselist;
 		 }
 	 
-	 public String getQuestionFeed (int courseID, DBInterface db)//seperated by comma
-		{
-			  return "";
+	 //status: test OK -- Zixuan Zhang
+	public String getQuestionFeed (int courseID, DBInterface db)//seperated by comma
+	{
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(courseID); //in this case the info is the student n
+		ResultSet rs = db.makeQuery("select * from Question where courseID=? order by upvoteCount desc", params);
+		String feed = "";
+		try {
+			while(rs.next()) {
+				String question = rs.getString("content");
+				question += ","+String.valueOf(rs.getInt("upvoteCount"))+";";
+				feed += question;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return feed;
+	}
 	
-	
+	// status: test OK --- Zixuan Zhang
+	public void upvoteQuestion(int questionID, DBInterface db) {
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(questionID); //in this case the info is the student n
+		int status = db.makeUpdate("update Question set upvoteCount=upvoteCount+1 where questionID=?", params);
+		
+	}
 }

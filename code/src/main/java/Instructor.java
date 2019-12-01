@@ -59,7 +59,7 @@ public class Instructor extends User{
 			   }
 		   } catch (SQLException e) {
 			   e.printStackTrace();
-			   
+			   return false;
 		  }
 		  return false;
 	}
@@ -110,28 +110,25 @@ public class Instructor extends User{
 	
 	/*
 	 *  get questions posted by students so far
+	 *  status: test OK -- Zixuan Zhang
 	 */
 	public String getQuestionFeed (int courseID, DBInterface db)//seperated by comma
 	{
-		// to do 
-		String Questionlist="";
-		  String getQuestion = "SELECT * FROM Question WHERE courseID=?";
-		  ArrayList<Object> values = new ArrayList<Object>();
-		  values.add(courseID); //in this case the info is the student name
-		  ResultSet rs = (ResultSet) db.makeQuery(getQuestion, values);
-		  try {
-		   while (rs.next()) {
-		    String QuestionContent = rs.getString("content");
-		    Questionlist += QuestionContent;
-		    Questionlist +=","; //it will have an extra comma at the end
-		    
-		   }
-		  } catch (SQLException e) {
-		   e.printStackTrace();
-		  }
-		  
-		  // to do 
-		  return Questionlist;
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(courseID); //in this case the info is the student n
+		ResultSet rs = db.makeQuery("select * from Question where courseID=? order by upvoteCount desc", params);
+		String feed = "";
+		try {
+			while(rs.next()) {
+				String question = rs.getString("content");
+				question += ","+String.valueOf(rs.getInt("upvoteCount"))+";";
+				feed += question;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return feed;
 	}
 	
 	
