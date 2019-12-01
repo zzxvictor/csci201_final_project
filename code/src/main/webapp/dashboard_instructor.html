@@ -41,14 +41,20 @@
         </div>
     </div>
   </div>
-  
   <div class="content_box">
- 	<div class="container">
- 		<h4>Information from Last Class</h4>
- 		<canvas id="understanding" style="padding: 10px 0 20px 0;"></canvas>
+  	<button class="btn-primary" id="switchContext"></button>
+  	<div class="container" id="last-class">
+ 		<h4>Comprehension of Last Class</h4>
+ 		<canvas id="comprehensionLC" style="padding: 10px 0 20px 0;"></canvas>
  		<h4>Attendance for Last Class</h4>
- 		<canvas id="attendance" style="padding-top: 10px;"></canvas>
- 	</div>
+ 		<canvas id="attendanceLC" style="padding-top: 10px;"></canvas>
+  	</div>
+  	<div class="container" id="historical">
+ 		<h4>Historical Comprehension</h4>
+ 		<canvas id="comprehensionH" style="padding: 10px 0 20px 0;"></canvas>
+ 		<h4>Historical Attendance</h4>
+ 		<canvas id="attendanceH" style="padding-top: 10px;"></canvas>
+  	</div>
   </div>
 
 
@@ -59,66 +65,120 @@
 </body>
 
 <script>
-  var ctx = document.getElementById('attendance').getContext('2d');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ['Present', 'Absent'],
-          datasets: [{
-              label: 'Students',
-              data: [33, 7],
-              backgroundColor: [
-                  'rgb(58,188,167,1)',
-                  'rgb(255,255,255,1)'
-              ],
-              borderColor: [
-                  'rgb(58,188,167,1)',
-                  'rgba(0,0,0,1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
-          },
-          legend: {
-        	  display: false
-          }
-      }
-  });
-</script>
 
-<script>
-  var ctx = document.getElementById('understanding').getContext('2d');
+const context = ["See Historical Data", "See Last Class"];
+
+$(document).ready(function(){
+	document.getElementById("switchContext").innerHTML = context[0];
+	document.getElementById("historical").style.display = "none";
+	var aData = getData("lastClass", "attendance");
+	var cData = getData("lastClass", "comprehension");
+	drawAttendance(aData, 'bar');
+	drawComprehension(cData, 'bar');
+});
+
+document.getElementById("switchContext").addEventListener('click', function() {
+	var aH = document.getElementById("attendanceH");
+	var uH = document.getElementById("comprehensionH");
+	var historical = document.getElementById("historical");
+	var lastClass = document.getElementById("last-class")
+	var button = document.getElementById("switchContext");
+	
+	if(historical.style.display == "none") {
+		button.innerHTML = context[1];
+		lastClass.style.display = "none";
+		historical.style.display = "block";
+		var aData = getData("historical", "attendance");
+		var cData = getData("historical", "comprehension");
+		drawAttendance(aData, 'line');
+		drawComprehension(cData, 'line');
+	} else {
+		button.innerHTML = context[0];
+		lastClass.style.display = "block";
+		historical.style.display = "none";
+		//var aData = getData("lastClass", "attendance");
+		//var cData = getData("lastClass", "attendance");
+		//drawAttendance(aData, 'bar');
+		//drawAttendance(cData, 'bar');
+	}
+});
+
+function getData(type, context) {
+	if(type == "historical" && context == "comprehension") {
+		return {
+			labels: ['10/1/2019', '10/3/2019', '10/5/2019', '10/7/2019'],
+			datasets: [{
+				label: 'Students',
+				data: [3.49, 4.01, 4.22, 2.12],
+				backgroundColor: 'rgba(58,188,167,1)',
+				borderColor: 'rgba(0,0,0,1)',
+				borderWidth: 3
+			}]
+		};
+	} else if (type == "historical" && context == "attendance") {
+		return {
+			labels: ['10/1/2019', '10/3/2019', '10/5/2019', '10/7/2019'],
+			datasets: [{
+				label: 'Students',
+				data: [34, 22, 36, 29],
+				backgroundColor: 'rgba(58,188,167,1)',
+				borderColor: 'rgba(0,0,0,1)',
+				borderWidth: 3
+			}]
+		};
+	} else if (type == "lastClass" && context == "comprehension") {
+		return { labels: ['Very Clear', 'Mostly Clear', 'In the Middle', 'Kind of Shaky', 'Mostly Confusing'],
+        	     datasets: [{
+            	   label: 'Students',
+            	   data: [5, 15, 16, 8, 2],
+            	   backgroundColor: [
+             	     'rgba(58,188,167,1)',
+                     'rgba(58,188,167,.8)',
+                     'rgba(58,188,167,.6)',
+                     'rgba(58,188,167,.5)', 
+                     'rgba(58,188,167,.4)'
+            	   ],
+            	   borderColor: [
+                     'rgb(0,0,0,1)',
+                     'rgba(0,0,0,1)',
+                     'rgb(0,0,0,1)',
+                     'rgba(0,0,0,1)',
+                     'rgb(0,0,0,1)'
+            	   ],
+            	   borderWidth: 1
+        	     }]
+			   };
+	} else if (type == "lastClass" && context == "attendance") {
+		return { labels: ['Present', 'Absent'],
+         	     datasets: [{
+                   label: 'Students',
+                   data: [33, 7],
+                   backgroundColor: [
+                     'rgb(58,188,167,1)',
+                     'rgb(255,255,255,1)'
+                   ],
+                   borderColor: [
+                     'rgb(58,188,167,1)',
+                     'rgba(0,0,0,1)'
+                   ],
+                   borderWidth: 1
+         	     }]
+     	       };
+	}
+}
+
+
+function drawAttendance(data, type) {
+  var ctx;
+  if(type == 'bar'){ 
+	  ctx = document.getElementById('attendanceLC').getContext('2d');
+  } else {
+	  ctx = document.getElementById('attendanceH').getContext('2d');
+  }
+  ctx.clearRect(0,0, ctx.width, ctx.height);
   var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ['Very Clear', 'Mostly Clear', 'In the Middle', 'Kind of Shaky', 'Mostly Confusing'],
-          datasets: [{
-              label: 'Students',
-              data: [5, 15, 16, 8, 2],
-              backgroundColor: [
-                  'rgba(58,188,167,1)',
-                  'rgba(58,188,167,.8)',
-                  'rgba(58,188,167,.6)',
-                  'rgba(58,188,167,.5)', 
-                  'rgba(58,188,167,.4)'
-              ],
-              borderColor: [
-                  'rgb(0,0,0,1)',
-                  'rgba(0,0,0,1)',
-                  'rgb(0,0,0,1)',
-                  'rgba(0,0,0,1)',
-                  'rgb(0,0,0,1)'
-              ],
-              borderWidth: 1
-          }]
-      },
+      type: type,
+      data: data,
       options: {
           scales: {
               yAxes: [{
@@ -132,6 +192,33 @@
           }
       }
   });
+}
+
+function drawComprehension(data, type){
+  var ctx;
+  if(type == 'bar') {
+	  ctx = document.getElementById('comprehensionLC').getContext('2d');
+  } else {
+	  ctx = document.getElementById('comprehensionH').getContext('2d');
+  }
+  ctx.clearRect(0,0, ctx.width, ctx.height);
+  var myChart = new Chart(ctx, {
+      type: type,
+      data: data,
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          legend: {
+        	  display: false
+          }
+      }
+  });
+}
 </script>
 
 </html>
