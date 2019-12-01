@@ -54,6 +54,9 @@
 					  	   		if(sessionStorage.getItem("result",this.responseText) != null){
 			  	   					sessionStorage.removeItem("result");
 			  	   				}
+						  	   	if(sessionStorage.getItem("courseList") != null){
+			  	        			sessionStorage.removeItem("courseList");
+			  	        		}
 					  	   		sessionStorage.setItem("result",this.responseText);
 				  	   			 if(usertype == "instructor"){
 				  	   				window.location.href = "roster_instructor.html";
