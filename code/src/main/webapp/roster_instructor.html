@@ -11,6 +11,9 @@
 </head>
 
 <script>
+
+//This function is responsible for dynamically generating the
+//course buttons on the left side of the page.
 function populatePage(){
 	var data = JSON.parse(sessionStorage.getItem("result"));
 	
@@ -57,6 +60,8 @@ function populatePage(){
 	}
 }
 
+
+//This function redirects the user to the appropriate course Dashboard Page
 function goToDashboard(courseName){
 	var data = JSON.parse(sessionStorage.getItem("result"));
 	
@@ -65,47 +70,58 @@ function goToDashboard(courseName){
 	window.location.href = "dashboard_instructor.html";
 }
 
+//This function gives an instructor a checkin code he can
+//give to students, and also starts a process that keeps checking
+//for new questions every 10 seconds.
 function startLecture(courseInfo)
 {
+	
 	//courseInfo = coursename_courseID
 	var cArray = courseInfo.split("_");
 	var courseName = cArray[0];
 	var courseID = cArray[1];
+
+	//change the title of the page appropriately.
+	document.getElementById("courseName").innerHTML = courseName;
 	
 	
-	//generate location data for user
-	var latitude;
-	var longitude;
-	var accuracy;
+	//When we start a lecture, we need location data from the instructor
+	//so we can check if the student is actually in class.
+	//Let's get that location data now...
 	
-	function success(pos){
-		var crd = pos.coords;
-		latitude = crd.latitude;
-		longitude = crd.longitude;
-		accuracy = crd.accuracy;
-		console.log(crd);
+	//this is where we will store the parameters.
+	var para;
+	
+	//callback function used by navigator.geolocation object
+	function success(pos){		
+		
+		//generate a random 6 digit number used for checkin.
+		var checkInCode = Math.floor(Math.random()*1000000);
+		
+		//generate the parameter string that will be passed to the backend.
+		para = "keyword="+checkInCode+ "&rating=0&courseID=" + courseID 
+		+ "&latitude=" + pos.coords.latitude + "&longitude=" + pos.coords.longitude
+		+ "&accuracy=" + pos.coords.accuracy;
+		
+		console.log(para);
 	}
 	
+	//callback function used by navigator.geolocation object
 	function error(err){
 		console.warn(`ERROR(${err.code}): ${err.message}`);
 	}
 	
+	//params for the navigator.geolocation object
 	var options = {
 			enableHighAccuracy: true,
 			timeout: 5000,
 			maximumAge: 0
 		};
 	
+	//use the object to get location data. Now our variables called
+	//latitude, longitute, and accuract have been filled
 	navigator.geolocation.getCurrentPosition(success, error, options);
 	
-	//generate random 6 digit number
-	var checkInCode = Math.floor(Math.random()*1000000);
-	
-	var para = "keyword="+checkInCode+ "&rating=0&courseID=" + courseID 
-	+ "&latitude=" + latitude + "&longitude=" + longitude
-	+ "&accuracy=" + accuracy;
-	
-	console.log(para);
 	
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function (){
@@ -117,13 +133,15 @@ function startLecture(courseInfo)
   		}
 	}	
 	
-	xhttp.open("POST", "/Channel?method=checkIn");// syn communication
-  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded", false);
+	xhttp.open("POST", "/Channel?method=checkIn", false);// syn communication
+  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   	xhttp.send(para); // Make sure to stringify*/
 	
 	populateQuestions(courseInfo);
 }
 
+//This function is responsible for dynamically creating the question
+//objects on the page based on an AJAX call to the database.
 function populateQuestions(courseInfo){
 	
 	//courseInfo = coursename_courseID	

@@ -35,18 +35,32 @@ public class Channel extends HttpServlet {
   public void service(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 	  String methodName = request.getParameter("method");
+	  
+	  System.out.println("\nService requested from channel...\n Method requested:\t" + methodName + "\n");
+	  
 	  PrintWriter pw;
 	  HttpSession session=request.getSession(false); // get existing session variable
 	  if (session == null) return;//illegal access!! must log in first!!
 	  //System.out.println("Here login success");
 	  switch (methodName) {
 	  	case "checkIn"://
+	  		
+	  		System.out.println("\tInside of checkIn...");
+	  		
 	  		String keyword = request.getParameter("keyword");
 	  		int ratings = Integer.valueOf(request.getParameter("rating"));
 	  		int courseID = Integer.valueOf(request.getParameter("courseID"));
 	  		double accuracy = Double.parseDouble(request.getParameter("accuracy"));
 			double latitude = Double.parseDouble(request.getParameter("latitude"));
 			double longitude = Double.parseDouble(request.getParameter("longitude"));
+			
+			//Working on startlecture for instructor. This is some debug stuff -Steve
+			System.out.println("DEBUG STUFF");
+			System.out.println("\tratings: " + ratings);
+			System.out.println("\tcourseID: " + courseID);
+			System.out.println("\taccuracy: " + accuracy);
+			System.out.println("\tlat: " + latitude);
+			System.out.println("\tlong: " + longitude);
 
 			User userObj = (User) session.getAttribute("userObj");// get the corresponding user object
 			boolean result = userObj.checkIn(keyword, ratings, accuracy, courseID, userObj.getID(), 
