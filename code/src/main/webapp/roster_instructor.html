@@ -21,11 +21,12 @@ function populatePage(){
 	var coursesArray = courseString.split(","); 
 	
 	var target = document.getElementById("accordionExample");
+	target.innerHTML = "";
 	console.log(target);
 	
 	for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
 	{
-		if(courseArray == "") continue;
+		if(coursesArray[courseNum] == null || coursesArray[courseNum] == "") continue;
 		var courseArray = coursesArray[courseNum].split("_");
 		var courseName = courseArray[0];
 		var courseID = courseArray[1];
@@ -59,78 +60,7 @@ function goToDashboard(courseName){
 	window.location.href = "dashboard_instructor.html";
 }
 
-function startLecture(courseInfo)
-{
-	populateQuestions(courseInfo);
-}
-
-function populateQuestions(courseInfo){
-	
-	//courseInfo = coursename_courseID
-	
-	var courseInfoArray = courseInfo.split("_");
-	
-	var courseID = courseInfoArray[1];
-	
-	
-	var xhttp = new XMLHttpRequest();
-	
-     var para = "courseID="+courseID;
-	 var status = false;
-	
-	 
- 	 xhttp.onreadystatechange = function (){
- 		if (xhttp.readyState === xhttp.DONE) {
- 	        if (xhttp.status === 200) {
- 	        	 
- 	        	console.log(xhttp.responseText);
- 	        	
- 	        	//format
- 	        	// Questioncontent:-(upvote count:-)
- 	        	var questionData = xhttp.responseText;
- 	        	var questionObjArray = questionData.split(":-)");
- 	        	
- 	        	console.log(questionObjArray);
- 	        	
- 	        	var target = document.getElementById("questions-box");
- 	        	target.innerHTML = "";
- 	        	
- 	        	for(var i = 0; i < questionObjArray.length; i++)
- 	        	{
- 	        		if(questionObjArray[i] == "")continue;
- 	        		
- 	        		var question = questionObjArray[i].split(":-(")[0];
- 	        		var upvotes = questionObjArray[i].split(":-(")[1];
- 	        		
- 	        		target.innerHTML = target.innerHTML + 
- 	        		`
- 	        		<div class="questionObj center_all">
-		              <p class="questionText">
-		                Question: ${question}
-		              </p>
-		              <h3 class = "upvote-num">+ ${upvotes}</h3>
-		            </div>
- 	        		`;
- 	        	}
- 	        	
- 	        	
- 	        	
- 	        	
- 	        	
- 	        	
- 	        	
- 	        	
- 	        }
- 		}
- 		 
- 	 }
- 	 xhttp.open("POST", "/Channel?method=getQuestionFeed", false);// syn communication
- 	 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
- 	 xhttp.send(para); // Make sure to stringify*/
- 	 return status;
-	
-	
-	
+function startLecture(){
 	
 }
 
@@ -176,7 +106,7 @@ function populateQuestions(courseInfo){
                       <input type="text" class="form-control" id="numGraceDays" aria-describedby="graceDaysHelp" placeholder="(e.g. 0, 1, 5)">
                       <small id="graceDaysHelp" class="form-text text-muted">Give students attendance forgiveness for some number of days.</small>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Class</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addClassModal" onclick="return addClass()">Add Class</button>
                   </form>
                 </div>
               </div>
@@ -299,7 +229,7 @@ function populateQuestions(courseInfo){
           <h4>Student Questions</h4>
 
 
-          <div id = "questions-box" class="questions-box">
+          <div class="questions-box">
 
             <div class="questionObj center_all">
               <p class="questionText">
@@ -385,6 +315,31 @@ function populateQuestions(courseInfo){
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script>
+  
+  	function addClass(){
+  		var url = "/Channel";
+  		var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", url, false);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	 	xhttp.onreadystatechange = function (){
+	  		if (xhttp.readyState === xhttp.DONE) {
+	  			//console.log("here1");
+	  	        if (xhttp.status === 200) {
+	  	        	//console.log("here");
+	  	        	console.log(xhttp.responseText);
+	  	        	var jsonobj = JSON.parse(xhttp.responseText);
+	  				sessionStorage.setItem("result", this.responseText);
+	  				populatePage();
+	  	        }
+	  		}
+	  	 }
+	 	xhttp.send("method=addClass&courseName=" + document.getElementById("addClassName").value + "&numGraceDays=" + document.getElementById("numGraceDays").value + "&courseID=0" );
+	 	
+		return false;
+  	}
+  
+  </script>
 </body>
 
 </html>
