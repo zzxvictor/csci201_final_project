@@ -94,28 +94,28 @@ public class Student extends User{
 		  db.makeUpdate(addClass, values);
 		 }
 	
-	
+	//Returns a course list in the following format
+	//
+	//
+	//
+	 //
 	 public String getCourseList(DBInterface db)
-	 {//seperated by comma
-		  String courselist="";
-		  String getCourse = "SELECT * FROM Enrollment WHERE studentID=?";
-		  ArrayList<Object> values = new ArrayList<Object>();
-		  values.add(userID); //in this case the info is the student name
-		  ResultSet rs = (ResultSet) db.makeQuery(getCourse, values);
-		  try {
-		   while (rs.next()) {
-		    String courseName = rs.getString("courseID");
-		    courselist += courseName;
-		    courselist +=","; //it will have an extra comma at the end
-		    
-		   }
-		  } catch (SQLException e) {
-		   e.printStackTrace();
-		  }
-		  
-		  // to do 
-		  return courselist;
-		 }
+	 {
+		 String query = "SELECT * FROM Course WHERE instructorID = ?";
+			ArrayList<Integer> param = new ArrayList<Integer>();
+			param.add(this.userID);// I changed userID to int because it's int in the DB - Zixuan
+			ResultSet rs = db.makeQuery(query, param);
+			String courseList = "";
+			try {
+				while(rs.next()) {
+					courseList += (rs.getString("courseName") + "_");
+					courseList += (rs.getString("courseID")+ ",");
+				}
+			} catch (SQLException e) {
+				System.out.println("Instructor#getCourseList - SQLException: " + e.getMessage());
+			}
+			return courseList;
+	 }
 	 
 	 //status: test OK -- Zixuan Zhang
 	public String getQuestionFeed (int courseID, DBInterface db)//seperated by comma
