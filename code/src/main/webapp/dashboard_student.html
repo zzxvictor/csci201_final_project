@@ -48,11 +48,14 @@ function checkIn(){
 			               {
 			                 sessionStorage.setItem("result",this.responseText);
 			                 console.log(rs);
+			                 document.getElementById("registerErrorText").classList.remove("hide");
 			                 document.getElementById("CheckinErrorText").innerHTML = "Checkin Successfully";
 			                 status = true;
 			                 }
 			               else 
 			               {
+			            	   console.log("here");
+			            	   document.getElementById("registerErrorText").classList.remove("hide");
 			                 document.getElementById("CheckinErrorText").innerHTML = "Wrong Checkin Code/Invalid position";
 			                 status = false;
 			                 }
