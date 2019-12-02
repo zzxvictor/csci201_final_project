@@ -145,6 +145,8 @@ function startLecture(courseInfo)
 		//generate a random 6 digit number used for checkin.
 		var checkInCode = Math.floor(Math.random()*1000000);
 		
+		document.getElementById("joinCode").innerHTML = `Join Code: ${checkInCode}`
+		
 		//generate the parameter string that will be passed to the backend.
 		para = "keyword="+checkInCode+ "&rating=0&courseID=" + courseID 
 		+ "&latitude=" + pos.coords.latitude + "&longitude=" + pos.coords.longitude
@@ -399,6 +401,8 @@ function populateQuestions(courseInfo){
 
           <h1 id = "courseName">Course Name - Course Time</h1>
 
+		  <h3 id = "joinCode"></h3>
+		  
           <h4>Student Questions</h4>
 
 
