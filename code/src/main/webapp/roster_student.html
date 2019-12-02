@@ -10,10 +10,23 @@
   <link rel="stylesheet" href="css/roster_student.css">
 </head>
 
+<script>
+//Logout function
+//This function should clear the session storage and redirect to the login page.
+function logOut(){
+	
+	//clear the session storage
+	sessionStorage.clear();
+	
+	//redirect to the login page
+	location.href = 'login.html';
+}
+</script>
+
 
 <body onload = "return populatePage()">
   <header>
-    <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
+    <button class="btn btn-secondary" onclick="logOut();">Sign out</button>
     <img class="logo" src="imgs/rosterLogo.png" alt="logo">
   </header>
 

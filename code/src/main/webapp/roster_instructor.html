@@ -8,9 +8,20 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/roster_instructor.css">
+  
 </head>
 
 <script>
+//Logout function
+//This function should clear the session storage and redirect to the login page.
+function logOut(){
+	
+	//clear the session storage
+	sessionStorage.clear();
+	
+	//redirect to the login page
+	location.href = 'login.html';
+}
 
 //This function is responsible for dynamically generating the
 //course buttons on the left side of the page.
@@ -30,7 +41,6 @@ function populatePage(){
 	
 	var target = document.getElementById("accordionExample");
 	target.innerHTML = "";
-	console.log(target);
 	
 	for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
 	{
@@ -196,7 +206,7 @@ function populateQuestions(courseInfo){
 
 <body onload = "return populatePage()">
   <header>
-    <button class="btn btn-secondary" onclick="location.href = 'login.html';">Sign out</button>
+    <button class="btn btn-secondary" onclick="logOut();">Sign out</button>
     <img class="logo" src="imgs/rosterLogo.png" alt="logo">
   </header>
 
