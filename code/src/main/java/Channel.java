@@ -156,6 +156,16 @@ public class Channel extends HttpServlet {
 	  		pw= response.getWriter();
 		    pw.print(stats); // send data in string
 	  		break;
+	  	case "getGraceDays":
+	  		System.out.println("In getGraceDays");
+	  		int gracedayID = Integer.valueOf(request.getParameter("courseID"));
+	  		System.out.println(gracedayID);
+	  		Student user_grace = (Student) session.getAttribute("userObj");
+	  		int grace_day = user_grace.getGraceDay(gracedayID, dbHandle);
+	  		System.out.println(grace_day);
+	  		pw= response.getWriter();
+	  		pw.print(grace_day);
+	  		break;
 	  	default:
 	  		System.out.println("Method not supported! check letter case?");
 	  		break;

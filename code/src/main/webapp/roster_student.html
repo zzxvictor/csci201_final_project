@@ -126,40 +126,20 @@ function logOut(){
       </div>
 
       <div class="col-10">
-        <div class="main-content">
+        <div class="main-content" id = "showdetails">
 
-          <h1 id="courseName"></h1>
+          <h1 id="courseName">Click class to see your Grace Day</h1>
 
           <div class="main-box">
 
 
             <div class="box center_all">
               <div class="graceDaysBox center_all">
-                <h5>Grace Days</h5>
-                <div id="graceDaysNumber">5</div>
+                
+                <div id="graceDaysNumber">Ready to go!</div>
               </div>
-              <h5>Ready to check in?</h5>
-              <button class="btn btn-primary main-btn" onclick = "checkIn()">Check In Now</button>
+              
             </div>
-            
-			<script>
-			function checkIn()
-			{
-				 var url = "/Channel?method=checkIn"
-				 var xhttp = new XMLHttpRequest();
-				  xhttp.onreadystatechange = function() {
-				    if (this.readyState == 4 && this.status == 200) {
-				     console.log("")
-				    }
-				  };
-				  xhttp.open("POST", url, true);
-				  xhttp.send();
-				  return false;
-			}
-			</script>
-
-
-
           </div>
 
         </div>
@@ -168,6 +148,12 @@ function logOut(){
   </div>
 
  <script>
+ function checkIn(currCourse)
+	{
+		sessionStorage.setItem("currCourse",currCourse);
+		window.location.href = "dashboard_student.html";
+		  return false;
+	}
    function addClass(){
 	   
 	   var courseJoinCode = document.getElementById("courseID").value; //this is a join code not actually "courseID"
@@ -266,14 +252,50 @@ function logOut(){
 		}
 		
 	}
-	function popCourseInfo(courseInfo){//courseinfo contains courseName, courseID and course Join code
-		var courseArray = courseInfo.split("_");
-		var courseName = courseArray[0];
-		var courseID = courseArray[1]; 
-		var courseTitle = document.getElementById('courseName');
-		courseTitle.innerHTML = "";
-		courseTitle.innerHTML += courseName;
+   function popCourseInfo(courseInfo){
+		console.log(courseInfo);
+		var courseInfo = courseInfo.split("_");
+		var courseName = courseInfo[0];
+		var courseID = courseInfo[1];
+		var url = "/Channel";
+		console.log(courseName);
+	 	console.log(courseID);
+		var graceday;
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("POST", url, false);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	 	xhttp.onreadystatechange = function (){
+	  		if (xhttp.readyState === xhttp.DONE) {
+	  	        if (xhttp.status === 200) {
+	  	        	 graceday = this.responseText;
+	  	        }
+	  		}
+	  	 }
+	 	console.log(courseID);
+		xhttp.send("method=getGraceDays&courseID="+courseID);
+		var coursepop = document.getElementById("showdetails");
+		coursepop.innerHTML = "";
 		
+		coursepop.innerHTML = coursepop.innerHTML +  
+		`
+		<div class="main-content">
+
+         <h1 id="courseName">${courseName}</h1>
+         <div class="main-box">
+           <div class="box center_all">
+             <div class="graceDaysBox center_all">
+               <h5>Grace Days</h5>
+               <div id="graceDaysNumber">${graceday}</div>
+             </div>
+             <h5>Ready to check in?</h5>
+             <button class="btn btn-primary main-btn" onclick = "checkIn(${courseID})">Check In Now</button>
+           </div>
+         </div>
+
+       </div>
+		`;
+		populatePage();
+		//var data = JSON.parse(sessionStorage.getItem("result"));
 		
 		//store things in the session object here.
 		
