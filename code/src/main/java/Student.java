@@ -185,4 +185,37 @@ public class Student extends User{
 		return courseId;
 		
 	}
+	public int getGraceDay(int courseID, DBInterface db) {	
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(userID);
+		params.add(courseID);
+		ResultSet rs = db.makeQuery("select * from Enrollment where studentID=? and courseID=?", params);
+		ArrayList<Object> params1 = new ArrayList<Object>();
+		params1.add(courseID);
+		ResultSet total_graceday = db.makeQuery("select * from Course where courseID=?", params1);
+		
+		try {
+			int num_attendance = 0;
+			if (total_graceday.next()) {	
+				int total = total_graceday.getInt("numGraceDays");
+				int curr = total_graceday.getInt("currentLectureNumber");
+				while(rs.next())
+				{
+					num_attendance++;
+				}
+				int check_start = curr-num_attendance;
+				if(check_start > 0) {
+					int result = total - check_start;
+					return result -1;
+				}
+				int result = total - num_attendance;
+				return result + 1;
+			}
+			return -1;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
