@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
 	System.out.println(email);
 	ArrayList<Object> params = new ArrayList<Object>();
 	params.add(email);params.add(password);
-	ResultSet rs = this.dbHandle.makeQuery("select * from User where Email=? and Password=?",
+	ResultSet rs = this.dbHandle.makeQuery("select * from User where email=? and password=?",
 						params);
 	JSONObject jo = new JSONObject();
 	try {

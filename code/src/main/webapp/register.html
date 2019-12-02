@@ -41,7 +41,7 @@
 			  		if (xhttp.readyState === xhttp.DONE) {
 			  	        if (xhttp.status === 200) {
 			  	        	 var returninfo = JSON.parse(this.responseText);
-			  	        	 //console.log(returninfo);
+			  	        	 console.log(returninfo);
 			  	        	 if (returninfo.success == "false")
 				  	   		 {
 			  	        		document.getElementById("registerErrorText").classList.remove("hide");

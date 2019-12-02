@@ -137,7 +137,7 @@ function startLecture(courseInfo)
 	//Let's get that location data now...
 	
 	//this is where we will store the parameters.
-	var para;
+	var para = "";
 	
 	//callback function used by navigator.geolocation object
 	function success(pos){		
@@ -145,12 +145,33 @@ function startLecture(courseInfo)
 		//generate a random 6 digit number used for checkin.
 		var checkInCode = Math.floor(Math.random()*1000000);
 		
+		var joinCode = document.getElementById("joinCode").children[0];
+		joinCode.innerHTML = `Join Code: ${checkInCode}`;
+		
+		if(!joinCode.className.includes("load"))
+			joinCode.className+="load";
+		
+		
 		//generate the parameter string that will be passed to the backend.
 		para = "keyword="+checkInCode+ "&rating=0&courseID=" + courseID 
 		+ "&latitude=" + pos.coords.latitude + "&longitude=" + pos.coords.longitude
 		+ "&accuracy=" + pos.coords.accuracy;
 		
 		console.log(para);
+		
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function (){
+	  		if (xhttp.readyState === xhttp.DONE) {
+	  	        if (xhttp.status === 200) {
+	  	     		
+	  	        	
+	  	        }
+	  		}
+		}	
+		
+		xhttp.open("POST", "/Channel?method=checkIn", false);// syn communication
+	  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	  	xhttp.send(para); // Make sure to stringify*/
 	}
 	
 	//callback function used by navigator.geolocation object
@@ -170,21 +191,14 @@ function startLecture(courseInfo)
 	navigator.geolocation.getCurrentPosition(success, error, options);
 	
 	
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function (){
-  		if (xhttp.readyState === xhttp.DONE) {
-  	        if (xhttp.status === 200) {
-  	     		
-  	        	
-  	        }
-  		}
-	}	
 	
-	xhttp.open("POST", "/Channel?method=checkIn", false);// syn communication
-  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  	xhttp.send(para); // Make sure to stringify*/
 	
-	populateQuestions(courseInfo);
+	
+	
+  	//Call populate questions once every 15 seconds
+  	//populateQuestions(courseInfo);
+  	setInterval(populateQuestions(courseInfo), 30000);
+	
 }
 
 //This function is responsible for dynamically creating the question
@@ -399,6 +413,10 @@ function populateQuestions(courseInfo){
 
           <h1 id = "courseName">Course Name - Course Time</h1>
 
+			<div id="joinCode">
+				<h3></h3>
+			</div>
+		  
           <h4>Student Questions</h4>
 
 
