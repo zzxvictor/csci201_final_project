@@ -22,6 +22,7 @@ public class Student extends User{
 				double instructor_longtitude = rs.getDouble("longitude");
 				double instructor_accurancy = rs.getDouble("accuracy");
 				int currLectureNum = rs.getInt("lectureNumber");
+				System.out.println("The lecture num is " + currLectureNum);
 				double distance = Math.pow((Math.pow((instructor_latitude - latitude),2)+ Math.pow((instructor_longtitude - longitude),2)),1/2);
 				System.out.println(distance);
 				boolean status = true;
@@ -32,9 +33,12 @@ public class Student extends User{
 					status = false;
 				}
 				if (status) {// successfully checked in 
+					System.out.println("Valid position");
 					params = new ArrayList<Object>();
-					params.add(courseID);params.add(currLectureNum);
-					rs =  db.makeQuery("select * from Attendance where courseID=? and lectureNumber=?", params);
+					params.add(courseID);
+					params.add(currLectureNum);
+					params.add(userID);
+					rs =  db.makeQuery("select * from Attendance where courseID=? and lectureNumber=? and studentID = ?", params);
 					if (rs.next()) {// already checked in 
 						return true;
 					}
@@ -45,6 +49,7 @@ public class Student extends User{
 					paramsToinsert.add(true);
 					paramsToinsert.add(currLectureNum);// if no show of fail to check in, no record will be inserted
 					db.makeUpdate("Insert into Attendance (studentID, courseID, prevLectureRating, prescence, lectureNumber) values (?,?,?,?,?)", paramsToinsert);
+					System.out.println("Insert successfully");
 					return true;
 				}
 				return false;
@@ -145,10 +150,12 @@ public class Student extends User{
 		String feed = "";
 		try {
 			while(rs.next()) {
+				int questionID = rs.getInt("questionID");
 				String question = rs.getString("content");
-				question += ","+String.valueOf(rs.getInt("upvoteCount"))+";";
-				feed += question;
+				question += ","+String.valueOf(rs.getInt("upvoteCount"));
+				feed = feed+question+","+String.valueOf(questionID)+";";
 			}
+			System.out.println("in getQuestionFeed" + feed);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

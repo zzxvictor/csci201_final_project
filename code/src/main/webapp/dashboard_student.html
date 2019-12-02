@@ -121,7 +121,7 @@ function populateQuestions(){
 	        	for(var i = 0; i < questionObjArray.length; i++)
 	        	{
 	        		if(questionObjArray[i] == "")continue;
-	        		
+	        		var questionID = questionObjArray[i].split(",")[2];
 	        		var question = questionObjArray[i].split(",")[0];
 	        		var upvotes = questionObjArray[i].split(",")[1];
 	        		
@@ -131,7 +131,7 @@ function populateQuestions(){
 		              <p class="questionText">
 		                Question: ${question}
 		              </p>
-		              <h3 class = "upvote-num" onclick = "alert('upvote function')">+ ${upvotes}</h3>
+		              <h3 class = "upvote-num" onclick = "return upvote(${questionID})">+ ${upvotes}</h3>
 		            </div>
 	        		`;
 	        	}	
@@ -146,7 +146,8 @@ function populateQuestions(){
 
 //This function will be called when a student clicks on the number in a question
 //object. this should upvote it and then remove the ability for the student to upvote it again
-function upvote(){
+function upvote()
+{
 	
 }
 
@@ -260,91 +261,6 @@ function createNewQuestion(){
               </div>
             </form>
           </div>
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
-
-</html>
-ox">
-          <form class = "checkin-form" action="">
-            <div class="form-group">
-              <label for="checkinCode">Check in Code</label>
-              <input type="text" class="form-control" id="checkinCode" placeholder="e.g. Ah35xfyL3">
-              <small id="checkinCodeHelp" class="form-text text-muted">Your instructor should display a checkin code during lecture.</small>
-            </div>
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Last Lecture Rating</label>
-              </div>
-              <select class="custom-select" id="accountType">
-                <option selected value="1">5</option>
-                <option value="2">4</option>
-                <option value="3">3</option>
-                <option value="4">2</option>
-                <option value="5">1</option>
-              </select>
-            </div>
-
-            <button class="btn btn-primary checkin-btn" type="button" name="checkin_button" onclick = "return checkIn()">Check In</button>
-          </form>
-
-        </div>
-<<<<<<< HEAD
-		<div id="CheckinErrorText" class="alert alert-warning hide">Error text goes here</div>
-        
-=======
-         <div id="CheckinErrorText" class="alert alert-warning hide">Error text goes here</div>
->>>>>>> 5ccdd6592ea0a511b3e93565e5a5be2054d7c0da
-      </div>
-
-      <div class="col-9">
-        <div class="main-content">
-
-          <h4>Live Question Feed</h4>
-
-          <div id = "questions-box" class="questions-box">
-
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: This is a test question object. Notice that because this is the student_dashboard, the student can upvote questions by clicking on the upvote count. Neat!
-              </p>
-              <h3 class="upvote-num" onclick = "alert('upvote function')">+144</h3>
-            </div>
-
-            <div class="questionObj center_all">
-              <p class="questionText">
-                Question: This is another test question object. It has less upvotes.
-              </p>
-              <h3 class="upvote-num" onclick = "alert('upvote function')">+64</h3>
-            </div>
-
-          </div>
-
-          <div class="askQuestionBox">
-            <form class="askQuestionForm" action="">
-              <div class="form-row">
-                <div class="col form-group">
-                  <input type="textarea" class="form-control" id="questionText" placeholder="Would you rather fight 100 duck sized horses or 1 horse sized duck?">
-                </div>
-                <button class="btn btn-primary" type="button" onclick = "return createNewQuestion();" name="submit_question_button" >Submit</button>
-
-              </div>
-            </form>
-          </div>
-<<<<<<< HEAD
-=======
-         
->>>>>>> 5ccdd6592ea0a511b3e93565e5a5be2054d7c0da
 
 
         </div>
