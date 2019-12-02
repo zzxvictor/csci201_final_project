@@ -77,6 +77,7 @@ public class Student extends User{
 	// status: test OK --Zixuan Zhang
 	public boolean addClass(int courseID, String courseName, int numGraceDay, 
 			int courseJoinCode, DBInterface db) { //abstract
+		courseID=getCourseID(courseJoinCode,db);
 		String addClass = "INSERT into Enrollment(studentID, courseID) values(?,?)";
 		  ArrayList<Object> values = new ArrayList<Object>();
 		  values.add(userID); //in this case the info is the student name
@@ -160,6 +161,29 @@ public class Student extends User{
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(questionID); //in this case the info is the student n
 		int status = db.makeUpdate("update Question set upvoteCount=upvoteCount+1 where questionID=?", params);
+		
+	}
+	
+	public int getCourseID(int joinCode, DBInterface db) {
+		int courseId=0;
+		
+		
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(joinCode); //in this case the info is the student n
+		ResultSet rs = db.makeQuery("select courseID from Course where courseJoinCode=?", params);
+		
+		try {
+			if(rs.next()) {
+				courseId=rs.getInt("courseID");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return courseId;
 		
 	}
 }

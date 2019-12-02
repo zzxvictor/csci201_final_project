@@ -184,7 +184,7 @@ function logOut(){
 	   
 	   //making a call to get the courseID from the courseJoin code
 		
-	   var courseID;
+	  
 	   var xhttp = new XMLHttpRequest();
 		//console.log(courseID);
 		xhttp.open("POST", "/Channel", false);
@@ -197,6 +197,7 @@ function logOut(){
 	  	        	var jsonobj = JSON.parse(xhttp.responseText);
 	  				sessionStorage.setItem("courseList", this.responseText);
 	  				
+<<<<<<< HEAD
 	  				if(sessionStorage.getItem("courseList")!= null){
 	  					var courseString = JSON.parse(sessionStorage.getItem("courseList")).courseList;
 	  				}
@@ -204,11 +205,13 @@ function logOut(){
 	  				var courseArray1 = coursesArray[ coursesArray.length-1].split("_");
 	  				courseID = courseArray[1];
 	  				console.log(courseID)
+=======
+>>>>>>> 6d92d4ed1dba848d549ccca0b9adedbfa24cfd87
 	  				populatePage();
 	  	        }
 	  		}
 	  	 }
-		xhttp.send("method=addClass&courseName=nope&numGraceDays=1&courseID=" + courseID);
+		xhttp.send("method=addClass&courseName=nope&numGraceDays=1&courseID=1");
 		//add session populate again 
    }
    function dropClass(){
