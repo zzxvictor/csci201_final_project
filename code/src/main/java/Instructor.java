@@ -60,7 +60,11 @@ public class Instructor extends User{
 			    ArrayList<Object> a = new ArrayList<Object>();
 			    a.add(new Integer(currentLecture + 1));
 			    a.add(new Integer(courseID));
+			    System.out.println("send reminder");
+			    //EmailReminder.sendReminder("zhangzix@usc.edu", "Victor", "CSCI201");
+			    EmailReminder.sendReminder(courseID, db);
 			    db.makeUpdate("update Course set currentLectureNumber=? where courseID=?", a);
+			    
 			    return true;
 			   }
 		   } catch (SQLException e) {
