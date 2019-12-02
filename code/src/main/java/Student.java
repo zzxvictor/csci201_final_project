@@ -117,7 +117,7 @@ public class Student extends User{
 		 
 		 String query = "SELECT Enrollment.studentID, Enrollment.courseID, Course.courseName, Course.courseJoinCode From Course INNER JOIN Enrollment ON Enrollment.courseID=Course.courseID";
 			ArrayList<Integer> param = new ArrayList<Integer>();
-			//param.add(this.userID);I changed userID to int because it's int in the DB - Zixuan
+			//param.add(this.userID);//I changed userID to int because it's int in the DB - Zixuan
 			ResultSet rs = db.makeQuery(query, param);
 			String courseList = "";
 			try {
