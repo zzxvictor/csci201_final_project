@@ -21,6 +21,73 @@ function logOut(){
 	//redirect to the login page
 	location.href = 'login.html';
 }
+function checkIn(){
+	   var currCourse = sessionStorage.getItem("currCourse");
+	   var courseInfo = currCourse.split("_");
+	   var courseName = courseInfo[0];
+	   var courseID = courseInfo[1];
+	   var jsonobj = JSON.parse(sessionStorage.getItem("result"));
+	   var studentID = jsonobj.userID;
+	   var keyword_typein = document.getElementById("checkinCode").value;
+	   //var courseName = document.getElementById("courseName").value;
+	   var rating = document.getElementById("accountType").value;
+	   //var courseID;
+	   var latitude;
+	   var longtitude;
+	   navigator.geolocation.getCurrentPosition(function(position) {
+	       latitude  = position.coords.latitude;
+	       longitude = position.coords.longitude;
+	   });
+	   // Get the courseID
+	   var url = "/Channel";
+	   var xhttp = new XMLHttpRequest();
+	   xhttp.onreadystatechange = function (){
+	      if (xhttp.readyState === xhttp.DONE) {
+	        if (xhttp.status === 200) {
+	          var rs = JSON.parse(this.responseText);
+	          console.log(rs);
+	          if (rs.success == "true")
+	          {
+	            var curr_courseList = rs.courseList.split(',');
+	            for (index = 0; index < curr_courseList.length; index++) {
+	              if(curr_courseList.includes(courseName)){
+	                var curr_course = curr_courseList[index].split("_");
+	                courseID = curr_course[1];
+	                }
+	              }
+	            }
+	          }
+	        } 
+	    }
+	   xhttp.open("POST", url, false);// syn communication
+	   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	   xhttp.send("method=getCourseList"); // Make sure to stringify*/
+	   // Checkin Function
+	   var xhttp1 = new XMLHttpRequest();
+	   xhttp1.onreadystatechange = function (){
+	      if (xhttp.readyState === xhttp.DONE) {
+	             if (xhttp.status === 200) {
+	               var rs = JSON.parse(this.responseText);
+	               console.log(rs);
+	               if (rs.success == "true")
+	               {
+	                 sessionStorage.setItem("result",this.responseText);
+	                 console.log(rs);
+	                 document.getElementById("CheckinErrorText").innerHTML = "Checkin Successfully";
+	                 status = true;
+	                 }
+	               else 
+	               {
+	                 document.getElementById("CheckinErrorText").innerHTML = "Wrong Checkin Code/Invalid position";
+	                 status = false;
+	                 }
+	               }
+	             }
+	      }
+	   xhttp1.open("POST", url, false);// syn communication
+	   xhttp1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	   xhttp1.send("method=checkIn&keyword="+keyword+"&rating="+rating+"&courseID="+courseID+"&accuracy="+0+"&latitued="+latitude+"&longtitude="+longtitude); // Make sure to stringify*/
+	  }
 </script>
 
 
@@ -177,6 +244,7 @@ function upvote(){
               </div>
             </form>
           </div>
+          <div id="CheckinErrorText" class="alert alert-warning hide">Error text goes here</div>
 
 
         </div>
