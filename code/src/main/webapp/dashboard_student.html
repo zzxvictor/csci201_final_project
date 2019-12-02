@@ -146,9 +146,24 @@ function populateQuestions(){
 
 //This function will be called when a student clicks on the number in a question
 //object. this should upvote it and then remove the ability for the student to upvote it again
-function upvote()
+function upvote(questionId)
 {
+	var xhttp = new XMLHttpRequest();
 	
+	xhttp.onreadystatechange = function (){
+	      if (xhttp.readyState === xhttp.DONE) {
+	        if (xhttp.status === 200) {
+	        	//refreshes questions upon finishing question submission
+	        	populateQuestions();
+	          }
+	        } 
+	    }
+	
+	xhttp.open("POST", "/Channel");
+  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+   	xhttp.send("method=upvoteQuestion&questionID="+questionId); // Make sure to stringify*/
+   	
+   	
 }
 
 //This function will be called when a user trys to create a new question
