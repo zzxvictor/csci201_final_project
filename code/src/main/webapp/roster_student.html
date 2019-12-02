@@ -55,10 +55,6 @@ function logOut(){
                       <input type="text" class="form-control" id="courseID" placeholder="e.g. Ah35xfyL3">
                       <small id="graceDaysHelp" class="form-text text-muted">Your instructor should've emailed you a code that can be used to join the course. Put that here.</small>
                     </div>
-                    <div class="form-group">
-                      <label for="courseJoinCourse">Course Name</label>
-                      <input type="text" class="form-control" id="courseName" placeholder="e.g. CSCI201">
-                    </div>
                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addClassModal" onclick="return addClass()" >Add Class</button>
                   </form>
                 </div>
@@ -163,10 +159,6 @@ function logOut(){
 	      alert("Join code cannot be null!");
 	      return false;
 	    }
-	   if(courseName=== ""){
-		   alert("Course name cannot be null!");
-		   return false;
-	   }
 	   
 	   //making a call to get the courseID from the courseJoin code
 		
