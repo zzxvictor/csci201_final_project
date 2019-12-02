@@ -167,6 +167,7 @@ public class Student extends User{
 	public int getCourseID(int joinCode, DBInterface db) {
 		int courseId=0;
 		
+		System.out.println("inside of getCourseId");
 		
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(joinCode); //in this case the info is the student n
@@ -180,8 +181,6 @@ public class Student extends User{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		
 		return courseId;
 		
