@@ -24,6 +24,10 @@ public class Instructor extends User{
 							double latitude, double longitude, DBInterface db) {
 		// to do 
 		System.out.println("instructor check in called");
+		 //Delte all questions from previous lecture upon checkin
+		ArrayList<Object> ques_arr = new ArrayList<Object>();
+	    ques_arr.add(new Integer(courseID));
+	    db.makeUpdate("delete from Question where courseID=?",ques_arr);
 		ArrayList<Object> array = new ArrayList<Object>();
 		  array.add(new Integer(courseID));
 		  ResultSet rs = db.makeQuery("select currentLectureNumber from Course where courseID=?", array);
@@ -31,6 +35,8 @@ public class Instructor extends User{
 		   if (rs.next()) {
 			    System.out.println("lecture id found");
 			    int currentLecture = rs.getInt("currentLectureNumber");
+			    
+			    
 			    rs = db.makeQuery("select * from Lecture where courseID=?", array);
 			    if (rs.next()) { // remove records from the previous lecture 
 			    	db.makeUpdate("delete from Lecture where courseID=?", array);
