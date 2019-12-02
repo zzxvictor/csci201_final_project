@@ -196,21 +196,13 @@ function logOut(){
 	  	        	//console.log(xhttp.responseText);
 	  	        	var jsonobj = JSON.parse(xhttp.responseText);
 	  				sessionStorage.setItem("courseList", this.responseText);
-	  				
-
-	  				if(sessionStorage.getItem("courseList")!= null){
-	  					var courseString = JSON.parse(sessionStorage.getItem("courseList")).courseList;
-	  				}
-	  				var coursesArray = courseString.split(",");
-	  				var courseArray1 = coursesArray[ coursesArray.length-1].split("_");
-	  				courseID = courseArray[1];
 	  				console.log(courseID)
 
 	  				populatePage();
 	  	        }
 	  		}
 	  	 }
-		xhttp.send("method=addClass&courseName=nope&numGraceDays=1&courseID=1");
+		xhttp.send("method=addClass&courseName=nope&numGraceDays=1&courseID=1&joinCode=" + courseJoinCode);
 		//add session populate again 
    }
    function dropClass(){

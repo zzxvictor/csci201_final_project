@@ -101,8 +101,16 @@ public class Channel extends HttpServlet {
 	  		String courseName = request.getParameter("courseName");
 	  		int newcourseID = Integer.valueOf(request.getParameter("courseID"));
 	  		int numGraceDay = Integer.valueOf(request.getParameter("numGraceDays"));
+	  		int joinCode1 = Integer.valueOf(request.getParameter("joinCode"));
 	  		User currUserObj = (User) session.getAttribute("userObj");
-	  		boolean result_addClass = currUserObj.addClass(newcourseID, courseName,numGraceDay, joinCode, dbHandle);
+	  		boolean result_addClass = false;
+	  		if(joinCode1 != 1) 
+	  		{
+	  			result_addClass = currUserObj.addClass(newcourseID, courseName,numGraceDay, joinCode1, dbHandle);}
+	  		else 
+	  		{
+		  		result_addClass = currUserObj.addClass(newcourseID, courseName,numGraceDay, joinCode, dbHandle);
+	  		}
 	  		pw= response.getWriter();
 		    //pw.print("addClass called - to do"); // send data in json format, done
 	  		JSONObject jo_addClass = new JSONObject();
