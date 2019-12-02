@@ -16,7 +16,7 @@ public abstract class User implements Serializable{
 	/*
 	 * abstract methods that must be implemented in children classes
 	 */
-	public abstract boolean addClass(int courseID, String courseName, int numGraceDay, DBInterface db);
+	public abstract boolean addClass(int courseID, String courseName, int numGraceDay, int courseJoinCode, DBInterface db);
 	public abstract boolean dropClass(int courseID, DBInterface db);
 	public abstract boolean checkIn(String keyword, int ratings, double accuracy,int courseID, int instructorID,
 			double latitude, double longitude, DBInterface db);

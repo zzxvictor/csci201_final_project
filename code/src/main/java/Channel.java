@@ -87,12 +87,20 @@ public class Channel extends HttpServlet {
 	  		pw= response.getWriter();
 		    pw.print("getCourseList called - to do"); // send data in json format, done
 	  		break;
+
+	  		
 	  	case "addClass":
+	  		//dynamically creating a random join code for this course
+	  		int joinCode = (int)(Math.random() * 1000000);
+	  		
+	  		System.out.println("Creating a join code for the course...");
+	  		System.out.println("\n\tJoin code: " + joinCode);
+	  		
 	  		String courseName = request.getParameter("courseName");
 	  		int newcourseID = Integer.valueOf(request.getParameter("courseID"));
 	  		int numGraceDay = Integer.valueOf(request.getParameter("numGraceDays"));
 	  		User currUserObj = (User) session.getAttribute("userObj");
-	  		boolean result_addClass = currUserObj.addClass(newcourseID, courseName,numGraceDay, dbHandle);
+	  		boolean result_addClass = currUserObj.addClass(newcourseID, courseName,numGraceDay, joinCode, dbHandle);
 	  		pw= response.getWriter();
 		    //pw.print("addClass called - to do"); // send data in json format, done
 	  		JSONObject jo_addClass = new JSONObject();
@@ -100,6 +108,8 @@ public class Channel extends HttpServlet {
 		    jo_addClass.put("courseList", currUserObj.getCourseList(dbHandle));
 		    response.getWriter().print(jo_addClass.toJSONString()); 
 	  		break;
+	  		
+	  		
 	  	case "dropClass":
 	  		int DropcourseID = Integer.valueOf(request.getParameter("courseID"));
 	  		User currUser = (User) session.getAttribute("userObj");

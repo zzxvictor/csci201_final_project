@@ -75,7 +75,8 @@ public class Student extends User{
 	}
 	
 	// status: test OK --Zixuan Zhang
-	public boolean addClass(int courseID, String courseName, int numGraceDay, DBInterface db) { //abstract
+	public boolean addClass(int courseID, String courseName, int numGraceDay, 
+			int courseJoinCode, DBInterface db) { //abstract
 		String addClass = "INSERT into Enrollment(studentID, courseID) values(?,?)";
 		  ArrayList<Object> values = new ArrayList<Object>();
 		  values.add(userID); //in this case the info is the student name
@@ -114,7 +115,7 @@ public class Student extends User{
 		// FROM Orders
 		// INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
 		 
-		 String query = "SELECT Enrollment.studentID, Enrollment.courseID, Course.courseName From Course INNER JOIN Enrollment ON Enrollment.courseID=Course.courseID";
+		 String query = "SELECT Enrollment.studentID, Enrollment.courseID, Course.courseName, Course.courseJoinCode From Course INNER JOIN Enrollment ON Enrollment.courseID=Course.courseID";
 			ArrayList<Integer> param = new ArrayList<Integer>();
 			//param.add(this.userID);I changed userID to int because it's int in the DB - Zixuan
 			ResultSet rs = db.makeQuery(query, param);
@@ -124,7 +125,8 @@ public class Student extends User{
 					int id = rs.getInt("studentID");
 					if(this.userID == id) {
 						courseList += (rs.getString("courseName") + "_");
-						courseList += (rs.getString("courseID")+ ",");
+						courseList += (rs.getString("courseID")+ "_");
+						courseList += (rs.getString("courseJoinCode")+ ",");
 					}
 				}
 			} catch (SQLException e) {
