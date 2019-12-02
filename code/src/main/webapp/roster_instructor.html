@@ -137,7 +137,7 @@ function startLecture(courseInfo)
 	//Let's get that location data now...
 	
 	//this is where we will store the parameters.
-	var para;
+	var para = "";
 	
 	//callback function used by navigator.geolocation object
 	function success(pos){		
@@ -158,6 +158,20 @@ function startLecture(courseInfo)
 		+ "&accuracy=" + pos.coords.accuracy;
 		
 		console.log(para);
+		
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function (){
+	  		if (xhttp.readyState === xhttp.DONE) {
+	  	        if (xhttp.status === 200) {
+	  	     		
+	  	        	
+	  	        }
+	  		}
+		}	
+		
+		xhttp.open("POST", "/Channel?method=checkIn", false);// syn communication
+	  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	  	xhttp.send(para); // Make sure to stringify*/
 	}
 	
 	//callback function used by navigator.geolocation object
@@ -177,19 +191,9 @@ function startLecture(courseInfo)
 	navigator.geolocation.getCurrentPosition(success, error, options);
 	
 	
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function (){
-  		if (xhttp.readyState === xhttp.DONE) {
-  	        if (xhttp.status === 200) {
-  	     		
-  	        	
-  	        }
-  		}
-	}	
 	
-	xhttp.open("POST", "/Channel?method=checkIn", false);// syn communication
-  	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  	xhttp.send(para); // Make sure to stringify*/
+	
+	
 	
   	//Call populate questions once every 15 seconds
   	//populateQuestions(courseInfo);
