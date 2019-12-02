@@ -23,81 +23,10 @@ function logOut(){
 }
 
 
-
 //This function should be called when the user trys to checkin.
 //On success, call populate questions and start calling it every 10 seconds.
 //Additionally, unlock the ask question functionality.
 //if we have time, make the left bar collapse so only the lecture questions are displayed.
-function checkIn(){
-	alert("in checkIn");
-	   var currCourse = sessionStorage.getItem("currCourse");
-	   var courseInfo = currCourse.split("_");
-	   var courseName = courseInfo[0];
-	   var courseID = courseInfo[1];
-	   var jsonobj = JSON.parse(sessionStorage.getItem("result"));
-	   var studentID = jsonobj.userID;
-	   var keyword_typein = document.getElementById("checkinCode").value;
-	   //var courseName = document.getElementById("courseName").value;
-	   var rating = document.getElementById("accountType").value;
-	   //var courseID;
-	   var latitude;
-	   var longtitude;
-	   navigator.geolocation.getCurrentPosition(function(position) {
-	       latitude  = position.coords.latitude;
-	       longitude = position.coords.longitude;
-	   });
-	   // Get the courseID
-	   var url = "/Channel";
-	   var xhttp = new XMLHttpRequest();
-	   xhttp.onreadystatechange = function (){
-	      if (xhttp.readyState === xhttp.DONE) {
-	        if (xhttp.status === 200) {
-	          var rs = JSON.parse(this.responseText);
-	          console.log(rs);
-	          if (rs.success == "true")
-	          {
-	            var curr_courseList = rs.courseList.split(',');
-	            for (index = 0; index < curr_courseList.length; index++) {
-	              if(curr_courseList.includes(courseName)){
-	                var curr_course = curr_courseList[index].split("_");
-	                courseID = curr_course[1];
-	                }
-	              }
-	            }
-	          }
-	        } 
-	    }
-	   xhttp.open("POST", url, false);// syn communication
-	   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	   xhttp.send("method=getCourseList"); // Make sure to stringify*/
-	   // Checkin Function
-	   var xhttp1 = new XMLHttpRequest();
-	   xhttp1.onreadystatechange = function (){
-	      if (xhttp.readyState === xhttp.DONE) {
-	             if (xhttp.status === 200) {
-	               var rs = JSON.parse(this.responseText);
-	               console.log(rs);
-	               if (rs.success == "true")
-	               {
-	                 sessionStorage.setItem("result",this.responseText);
-	                 console.log(rs);
-	                 document.getElementById("CheckinErrorText").innerHTML = "Checkin Successfully";
-	                 status = true;
-	                 }
-	               else 
-	               {
-	                 document.getElementById("CheckinErrorText").innerHTML = "Wrong Checkin Code/Invalid position";
-	                 status = false;
-	                 }
-	               }
-	             }
-	      }
-	   xhttp1.open("POST", url, false);// syn communication
-	   xhttp1.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	   xhttp1.send("method=checkIn&keyword="+keyword+"&rating="+rating+"&courseID="+courseID+"&accuracy="+0+"&latitued="+latitude+"&longtitude="+longtitude); // Make sure to stringify*/
-	  }
-	  
-
 function checkIn(){
 	   
 	   function success(pos){		
@@ -157,19 +86,7 @@ function checkIn(){
 			};
 		navigator.geolocation.getCurrentPosition(success, error, options);
 }
-
-</script>
-
-
-<body>
-  <header>
-    <button class="btn btn-secondary" onclick="logout();">Sign out</button>
-    <img class="logo" src="imgs/rosterLogo.png" alt="logo">
-  </header>
-
-<script>
-
-
+	  
 //this function is to be called onLoad. It is responsible
 //for dynamically inserting the data like courseName.
 function populatePage(){
@@ -227,13 +144,6 @@ function populateQuestions(){
 	 return status;
 }
 
-
-//This function should be called when the user trys to checkin.
-//On success, call populate questions and start calling it every 10 seconds.
-//Additionally, unlock the ask question functionality.
-//if we have time, make the left bar collapse so only the lecture questions are displayed.
-
-
 //This function will be called when a student clicks on the number in a question
 //object. this should upvote it and then remove the ability for the student to upvote it again
 function upvote(){
@@ -288,6 +198,83 @@ function createNewQuestion(){
       <div class="left-box col-3">
         <h4></h4>
         <div class="checkin-box">
+          <form class = "checkin-form" action="">
+            <div class="form-group">
+              <label for="checkinCode">Check in Code</label>
+              <input type="text" class="form-control" id="checkinCode" placeholder="e.g. Ah35xfyL3">
+              <small id="checkinCodeHelp" class="form-text text-muted">Your instructor should display a checkin code during lecture.</small>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Last Lecture Rating</label>
+              </div>
+              <select class="custom-select" id="accountType">
+                <option selected value="1">5</option>
+                <option value="2">4</option>
+                <option value="3">3</option>
+                <option value="4">2</option>
+                <option value="5">1</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary checkin-btn" type="button" name="checkin_button" onclick = "return checkIn()">Check In</button>
+          </form>
+
+        </div>
+		<div id="CheckinErrorText" class="alert alert-warning hide">Error text goes here</div>
+        
+      </div>
+
+      <div class="col-9">
+        <div class="main-content">
+
+          <h4>Live Question Feed</h4>
+
+          <div id = "questions-box" class="questions-box">
+
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: This is a test question object. Notice that because this is the student_dashboard, the student can upvote questions by clicking on the upvote count. Neat!
+              </p>
+              <h3 class="upvote-num" onclick = "alert('upvote function')">+144</h3>
+            </div>
+
+            <div class="questionObj center_all">
+              <p class="questionText">
+                Question: This is another test question object. It has less upvotes.
+              </p>
+              <h3 class="upvote-num" onclick = "alert('upvote function')">+64</h3>
+            </div>
+
+          </div>
+
+          <div class="askQuestionBox">
+            <form class="askQuestionForm" action="">
+              <div class="form-row">
+                <div class="col form-group">
+                  <input type="textarea" class="form-control" id="questionText" placeholder="Would you rather fight 100 duck sized horses or 1 horse sized duck?">
+                </div>
+                <button class="btn btn-primary" type="button" onclick = "return createNewQuestion();" name="submit_question_button" >Submit</button>
+
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
+ox">
           <form class = "checkin-form" action="">
             <div class="form-group">
               <label for="checkinCode">Check in Code</label>
