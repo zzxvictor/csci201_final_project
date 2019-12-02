@@ -204,10 +204,6 @@ public class Student extends User{
 					num_attendance++;
 				}
 				int check_start = curr-num_attendance;
-				if(check_start > 0) {
-					int result = total - check_start;
-					return result -1;
-				}
 				int result = total - num_attendance;
 				return result + 1;
 			}
