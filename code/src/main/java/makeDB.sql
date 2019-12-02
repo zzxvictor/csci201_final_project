@@ -5,7 +5,7 @@ DROP DATABASE IF EXISTS FinalProject;
 
 CREATE DATABASE FinalProject;
 
-USE FinalProject; 
+USE FinalProject;
 
 CREATE TABLE User(
   userID int not null primary key auto_increment,
@@ -33,6 +33,7 @@ CREATE TABLE Course(
   courseID int(11) not null primary key auto_increment,
   courseName varchar(100) not null,
   instructorID int(11) not null,
+  joinCode int(6) not null,
   numGraceDays int(2),
   currentLectureNumber int(2) not null,
   foreign key(instructorID) references Instructor(instructorID)
