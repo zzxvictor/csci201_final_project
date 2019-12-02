@@ -22,6 +22,7 @@ function logOut(){
 	location.href = 'login.html';
 }
 
+<<<<<<< HEAD
 
 //This function should be called when the user trys to checkin.
 //On success, call populate questions and start calling it every 10 seconds.
@@ -96,6 +97,79 @@ function checkIn(){
 	   xhttp1.send("method=checkIn&keyword="+keyword+"&rating="+rating+"&courseID="+courseID+"&accuracy="+0+"&latitued="+latitude+"&longtitude="+longtitude); // Make sure to stringify*/
 	  }
 	  
+=======
+function checkIn(){
+	   
+	   function success(pos){		
+		   console.log("In checkIn");
+		   var courseID = sessionStorage.getItem("currCourse");
+		   var jsonobj = JSON.parse(sessionStorage.getItem("result"));
+		   var studentID = jsonobj.userID;
+		   var keyword_typein = document.getElementById("checkinCode").value;
+		   //var courseName = document.getElementById("courseName").value;
+		   var rating = document.getElementById("accountType").value;
+		   //var courseID;
+		   var latitude;
+		   var longtitude;
+			latitude = pos.coords.latitude;
+			longtitude = pos.coords.longitude;
+			var url = "/Channel";
+			var xhttp = new XMLHttpRequest();
+			   xhttp.onreadystatechange = function (){
+			      if (xhttp.readyState === xhttp.DONE) {
+			             if (xhttp.status === 200) {
+			               var rs = JSON.parse(this.responseText);
+			               console.log(rs);
+			               if (rs.success)
+			               {
+			                 //sessionStorage.setItem("result",this.responseText);
+			                 console.log(rs);
+			                 document.getElementById("CheckinErrorText").classList.remove("hide");
+			                 document.getElementById("CheckinErrorText").innerHTML = "Checkin Successfully";
+			                 status = true;
+			                 }
+			               else 
+			               {
+			            	   //console.log("here");
+			            	   document.getElementById("CheckinErrorText").classList.remove("hide");
+			                   document.getElementById("CheckinErrorText").innerHTML = "Wrong Checkin Code/Invalid position";
+			                   status = false;
+			                 }
+			               }
+			             }
+			      }
+			   console.log(courseID);
+			   console.log(latitude);
+			   console.log(longtitude);
+			   console.log(keyword_typein);
+			   xhttp.open("POST", url, false);// syn communication
+			   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			  	xhttp.send("method=checkIn&keyword="+keyword_typein+"&rating="+rating+"&courseID="+courseID+"&accuracy="+0+"&latitude="+latitude+"&longitude="+longtitude); // Make sure to stringify*/
+
+		}
+	   function error(err){
+			console.warn(`ERROR(${err.code}): ${err.message}`);
+		}
+		var options = {
+				enableHighAccuracy: true,
+				timeout: 5000,
+				maximumAge: 0
+			};
+		navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+</script>
+
+
+<body>
+  <header>
+    <button class="btn btn-secondary" onclick="logout();">Sign out</button>
+    <img class="logo" src="imgs/rosterLogo.png" alt="logo">
+  </header>
+
+<script>
+
+>>>>>>> 5ccdd6592ea0a511b3e93565e5a5be2054d7c0da
 //this function is to be called onLoad. It is responsible
 //for dynamically inserting the data like courseName.
 function populatePage(){
@@ -153,6 +227,14 @@ function populateQuestions(){
 	 return status;
 }
 
+<<<<<<< HEAD
+=======
+//This function should be called when the user trys to checkin.
+//On success, call populate questions and start calling it every 10 seconds.
+//Additionally, unlock the ask question functionality.
+//if we have time, make the left bar collapse so only the lecture questions are displayed.
+
+>>>>>>> 5ccdd6592ea0a511b3e93565e5a5be2054d7c0da
 //This function will be called when a student clicks on the number in a question
 //object. this should upvote it and then remove the ability for the student to upvote it again
 function upvote(){
@@ -231,8 +313,12 @@ function createNewQuestion(){
           </form>
 
         </div>
+<<<<<<< HEAD
 		<div id="CheckinErrorText" class="alert alert-warning hide">Error text goes here</div>
         
+=======
+         <div id="CheckinErrorText" class="alert alert-warning hide">Error text goes here</div>
+>>>>>>> 5ccdd6592ea0a511b3e93565e5a5be2054d7c0da
       </div>
 
       <div class="col-9">
@@ -269,6 +355,10 @@ function createNewQuestion(){
               </div>
             </form>
           </div>
+<<<<<<< HEAD
+=======
+         
+>>>>>>> 5ccdd6592ea0a511b3e93565e5a5be2054d7c0da
 
 
         </div>
