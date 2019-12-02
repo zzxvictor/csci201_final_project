@@ -114,7 +114,8 @@ public class Instructor extends User{
 		try {
 			while(rs.next()) {
 				courseList += (rs.getString("courseName") + "_");
-				courseList += (rs.getString("courseID")+ ",");
+				courseList += (rs.getString("courseID")+ "_");
+				courseList += (rs.getString("courseJoinCode") + ",");
 			}
 		} catch (SQLException e) {
 			System.out.println("Instructor#getCourseList - SQLException: " + e.getMessage());

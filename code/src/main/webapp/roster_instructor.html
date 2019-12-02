@@ -51,8 +51,10 @@ function populatePage(){
 	{
 		if(coursesArray[courseNum] == null || coursesArray[courseNum] == "") continue;
 		var courseArray = coursesArray[courseNum].split("_");
+		console.table(courseArray);
 		var courseName = courseArray[0];
 		var courseID = courseArray[1];
+		var courseJoinCode = courseArray[2];
 		
 		 target.innerHTML = target.innerHTML +  
 			`
@@ -68,6 +70,7 @@ function populatePage(){
 	                <div class="card-body">
 	                  <button class="btn btn-light util-btns" onclick = "return goToDashboard('${coursesArray[courseNum]}')">Go to Course Dashboard</button>
 	                  <button class="btn btn-primary util-btns" onclick = "return startLecture('${coursesArray[courseNum]}')">Start Lecture</button>
+	                  <p>JoinID:  ${courseJoinCode}</p>
 	                </div>
 	              </div>
 	            </div>

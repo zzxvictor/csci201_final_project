@@ -96,6 +96,8 @@ public class Channel extends HttpServlet {
 	  		System.out.println("Creating a join code for the course...");
 	  		System.out.println("\n\tJoin code: " + joinCode);
 	  		
+	  		System.out.println(request.getQueryString());
+	  		
 	  		String courseName = request.getParameter("courseName");
 	  		int newcourseID = Integer.valueOf(request.getParameter("courseID"));
 	  		int numGraceDay = Integer.valueOf(request.getParameter("numGraceDays"));
