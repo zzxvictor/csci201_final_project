@@ -145,7 +145,12 @@ function startLecture(courseInfo)
 		//generate a random 6 digit number used for checkin.
 		var checkInCode = Math.floor(Math.random()*1000000);
 		
-		document.getElementById("joinCode").innerHTML = `Join Code: ${checkInCode}`
+		var joinCode = document.getElementById("joinCode").children[0];
+		joinCode.innerHTML = `Join Code: ${checkInCode}`;
+		
+		if(!joinCode.className.includes("load"))
+			joinCode.className+="load";
+		
 		
 		//generate the parameter string that will be passed to the backend.
 		para = "keyword="+checkInCode+ "&rating=0&courseID=" + courseID 
@@ -186,7 +191,10 @@ function startLecture(courseInfo)
   	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   	xhttp.send(para); // Make sure to stringify*/
 	
-	populateQuestions(courseInfo);
+  	//Call populate questions once every 15 seconds
+  	//populateQuestions(courseInfo);
+  	setInterval(populateQuestions(courseInfo), 30000);
+	
 }
 
 //This function is responsible for dynamically creating the question
@@ -401,7 +409,9 @@ function populateQuestions(courseInfo){
 
           <h1 id = "courseName">Course Name - Course Time</h1>
 
-		  <h3 id = "joinCode"></h3>
+			<div id="joinCode">
+				<h3></h3>
+			</div>
 		  
           <h4>Student Questions</h4>
 

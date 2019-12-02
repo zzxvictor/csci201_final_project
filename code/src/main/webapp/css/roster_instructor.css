@@ -107,3 +107,18 @@ form .alert{
 .fillScreen{
   height: 100%;
 }
+
+#joinCode h3{
+	opacity: 0;
+    
+    /*For various browsers*/
+    -webkit-transition: opacity 2s ease-in;
+    -moz-transition: opacity 2s ease-in;
+    -o-transition: opacity 2s ease-in;
+    -ms-transition: opacity 2s ease-in;
+    transition: opacity 2s ease-in;
+}
+
+#joinCode h3.load{
+	opacity: 1;
+}
