@@ -45,6 +45,9 @@
 		  	   		 {
 	  	        		sessionStorage.setItem("result", this.responseText);
 	  	        		console.log(rs);
+	  	        		if(sessionStorage.getItem("courseList") != null){
+	  	        			sessionStorage.removeItem("courseList");
+	  	        		}
 	  	        		 if(rs.userType == "instructor")
 	  	        		 	window.location.href = "roster_instructor.html";
 	  	        		 else

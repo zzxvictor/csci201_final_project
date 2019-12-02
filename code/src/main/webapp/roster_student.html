@@ -83,7 +83,7 @@ function logOut(){
                 </div>
                 <div class="modal-body text-left">
                   <form class="" action="" method="post">
-
+					<div id = "deletecontent">
                     <div class="form-check">
                       <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                       <label class="form-check-label" for="exampleRadios1">
@@ -104,9 +104,9 @@ function logOut(){
                         Course 3
                       </label>
                     </div>
-
+					</div>
                     <div class="alert alert-warning">Warning: You can't undo this action. Please be careful!</div>
-                    <button type="submit" class="btn btn-danger">Delete Class Forever</button>
+                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#addClassModal" onclick="return dropClass()">Delete Class Forever</button>
                   </form>
                 </div>
               </div>
@@ -170,7 +170,7 @@ function logOut(){
  <script>
    function addClass(){
 	   //int courseID, String courseName, int numGraceDay, DBInterface db
-	   console.log("In the addClass")
+	   //console.log("In the addClass")
 	   var courseID = document.getElementById("courseID").value;
 	   var courseName = document.getElementById("courseName").value;
 	   if (courseID === "" )
@@ -182,12 +182,35 @@ function logOut(){
 	   }
 	   
 	   var xhttp = new XMLHttpRequest();
+		//console.log(courseID);
+		xhttp.open("POST", "/Channel", false);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	 	xhttp.onreadystatechange = function (){
+	  		if (xhttp.readyState === xhttp.DONE) {
+	  			//console.log("here1");
+	  	        if (xhttp.status === 200) {
+	  	        	//console.log("here");
+	  	        	//console.log(xhttp.responseText);
+	  	        	var jsonobj = JSON.parse(xhttp.responseText);
+	  				sessionStorage.setItem("courseList", this.responseText);
+	  				populatePage();
+	  	        }
+	  		}
+	  	 }
+		xhttp.send("method=addClass&courseName=nope&numGraceDays=1&courseID=" + courseID);
+		//add session populate again 
+   }
+   function dropClass(){
+	   //int courseID, String courseName, int numGraceDay, DBInterface db
+	   console.log("In the dropClass")
+	   var courseID = document.querySelector('.form-check-input:checked').value;
+	   var xhttp = new XMLHttpRequest();
 		console.log(courseID);
 		xhttp.open("POST", "/Channel", false);
 		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	 	xhttp.onreadystatechange = function (){
 	  		if (xhttp.readyState === xhttp.DONE) {
-	  			console.log("here1");
+	  			//console.log("here1");
 	  	        if (xhttp.status === 200) {
 	  	        	//console.log("here");
 	  	        	console.log(xhttp.responseText);
@@ -197,26 +220,10 @@ function logOut(){
 	  	        }
 	  		}
 	  	 }
-		xhttp.send("method=addClass&courseName=nope&numGraceDays=1&courseID=" + courseID);
+		xhttp.send("method=dropClass&courseID=" + courseID);
 		//add session populate again 
-		
-		/* var courseInfo= courseName + "_" + courseID;
-		var jsonobj = JSON.parse(sessionStorage.getItem("result"));
-		jsonobj.courseList += ","+courseInfo;
-		
-		sessionStorage.setItem("result", JSON.stringify(jsonobj)); */
-		//Clear the page
-		//repopulate
-		
-		
-		//but we need course name
-		/* var courseList = document.getElementById('nav-content')
-		var btn= document.createElement("BUTTON");
-		btn.innerHTML = courseID;                
-		courseList.appendChild(btn);  */  
-   }
-		
-	function populatePage(){
+   }	
+   function populatePage(){
 		var data = JSON.parse(sessionStorage.getItem("result"));
 		//coursename_courseid
 		
@@ -230,6 +237,10 @@ function logOut(){
 		
 		var courseList = document.getElementById('nav-content');
 		courseList.innerHTML = "";
+		var deletetarget = document.getElementById("deletecontent");
+		console.log(deletetarget);
+		deletetarget.innerHTML = "";
+		console.log(deletetarget);
 		for(var courseNum = 0; courseNum < coursesArray.length; courseNum++)
 		{
 			if(coursesArray[courseNum] == null || coursesArray[courseNum] == "") continue;
@@ -238,6 +249,15 @@ function logOut(){
 			var courseID = courseArray[1];
 			
 			courseList.innerHTML = courseList.innerHTML +  `<button class="btn btn-light nav-btn" onclick = "return popCourseInfo('${coursesArray[courseNum]}')">${courseName}</button>`;	
+			 deletetarget.innerHTML = deletetarget.innerHTML +  
+				`
+				<div class="form-check">
+	                      <input class="form-check-input" type="radio" name="exampleRadios" id="course${courseNum+1}" value="${courseID}">
+	                      <label class="form-check-label" for="exampleRadios1">
+	                      ${courseName}
+	                      </label>
+	                    </div>
+				`;
 		}
 		
 	}
