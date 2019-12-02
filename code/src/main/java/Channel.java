@@ -55,14 +55,6 @@ public class Channel extends HttpServlet {
 	  		double accuracy = Double.parseDouble(request.getParameter("accuracy"));
 			double latitude = Double.parseDouble(request.getParameter("latitude"));
 			double longitude = Double.parseDouble(request.getParameter("longitude"));
-			
-			//Working on startlecture for instructor. This is some debug stuff -Steve
-			System.out.println("DEBUG STUFF");
-			System.out.println("\tratings: " + ratings);
-			System.out.println("\tcourseID: " + courseID);
-			System.out.println("\taccuracy: " + accuracy);
-			System.out.println("\tlat: " + latitude);
-			System.out.println("\tlong: " + longitude);
 
 			User userObj = (User) session.getAttribute("userObj");// get the corresponding user object
 			boolean result = userObj.checkIn(keyword, ratings, accuracy, courseID, userObj.getID(), 
@@ -78,9 +70,11 @@ public class Channel extends HttpServlet {
 			pw= response.getWriter();
 			JSONObject jo = new JSONObject();
 			jo.put("success",result); // get the list of courses taken/taught by this user	
-			response.getWriter().print(jo.toJSONString()); // send json data; 
+			pw.print(jo.toJSONString()); // send json data;
+			pw.flush();
 			System.out.println("check in: " + result);
 	  		break;
+	  		
 	  	case "getCourseList":
 	  		User curruserObj = (User) session.getAttribute("userObj");
 	  		curruserObj.getCourseList(dbHandle);
