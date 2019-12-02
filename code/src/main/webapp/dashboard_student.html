@@ -44,20 +44,20 @@ function checkIn(){
 			             if (xhttp.status === 200) {
 			               var rs = JSON.parse(this.responseText);
 			               console.log(rs);
-			               if (rs.success == "true")
+			               if (rs.success)
 			               {
-			                 sessionStorage.setItem("result",this.responseText);
+			                 //sessionStorage.setItem("result",this.responseText);
 			                 console.log(rs);
-			                 document.getElementById("registerErrorText").classList.remove("hide");
+			                 document.getElementById("CheckinErrorText").classList.remove("hide");
 			                 document.getElementById("CheckinErrorText").innerHTML = "Checkin Successfully";
 			                 status = true;
 			                 }
 			               else 
 			               {
-			            	   console.log("here");
-			            	   document.getElementById("registerErrorText").classList.remove("hide");
-			                 document.getElementById("CheckinErrorText").innerHTML = "Wrong Checkin Code/Invalid position";
-			                 status = false;
+			            	   //console.log("here");
+			            	   document.getElementById("CheckinErrorText").classList.remove("hide");
+			                   document.getElementById("CheckinErrorText").innerHTML = "Wrong Checkin Code/Invalid position";
+			                   status = false;
 			                 }
 			               }
 			             }
