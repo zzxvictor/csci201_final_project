@@ -53,12 +53,14 @@ function logOut(){
 </body>
 
 <script>
+var totalNumStudents
 
 //const var holding possible values of the switch context 
 const context = ["See Historical Data", "See Last Class"];
 
 // when document is loaded, last class graphs are displayed first by default
 $(document).ready(function(){
+	
 	document.getElementById("switchContext").innerHTML = context[0];
 	document.getElementById("historical").style.display = "none";
 	var aData = getData("lastClass", "attendance");
@@ -102,33 +104,187 @@ document.getElementById("switchContext").addEventListener('click', function() {
 // line documentation: https://www.chartjs.org/docs/latest/charts/line.html
 // bar documentation: https://www.chartjs.org/docs/latest/charts/bar.html
 function getData(type, context) {
+	
+	//make an AJAX call to backend to get the data we need.
+	var xhttp = new XMLHttpRequest();
+	var para = "method=getCourseStats&courseID=" + sessionStorage.getItem("currentCourseId");
+	var data;
+	
+	xhttp.onreadystatechange = function(){
+		data = xhttp.responseText;
+	}
+	xhttp.open("POST", "/Channel", false);// syn communication
+ 	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+ 	xhttp.send(para);
+ 	
+ 	//data array entires in format:     prevLecRating1_LecNum
+ 	
+ 	//We have the data we need in data
+ 	var ratingArray = data.split(",");
+ 	
+ 	totalNumStudents = ratingArray.splice(0,1)[0];
+ 	
+ 	//indexs correspond to each other
+ 	var lectureNums = [];
+ 	var lectureRatings = [];
+ 	
+ 	for(var i = 0; i < ratingArray.length; i++)
+ 	{
+ 		if(ratingArray[i] == "") continue;
+ 		var entry = ratingArray[i].split("_"); 
+ 		lectureRatings.push(entry[0]);
+ 		lectureNums.push(entry[1]);
+ 	}
+ 	
 	if(type == "historical" && context == "comprehension") {
+		//find the average rating for each lecture
+		
+		// store data in the form of abcde
+ 		var histRating = []; 
+		
+		for(var i = 0; i < lectureNums.length; i++)
+		{
+			var this_rating = lectureRatings[i];
+			var this_lectureNum = lectureNums[i];
+			
+			//search histRating to see if we have added
+			//this lecture num yet.
+			var madeUpdate = false;
+			for(var item of histRating)
+			{
+				//if we have seen this lecture already
+				if(item[0] == this_lectureNum)
+				{
+					item[1] += 1;
+					item[2] += this_rating;
+					madeUpdate = true;
+					break;
+				}
+			}
+			
+			//if we get through entire Hist Array without making an update, 
+			//we need to insert a new entry.
+			if(!madeUpdate)
+			{
+				histRating.push([this_lectureNum,1,this_rating]);
+				madeUpdate = false;
+			}
+		}
+		
+		//now we have populated hist rating fully. We need to populate the
+		//averages
+		var lables = [];
+		var dataPoints = [];
+		
+		//create the data points
+		for(var entry of histRating)
+		{
+			lables.push("Lecture #" + entry[0]);
+			dataPoints.push( parseInt(entry[2]) / parseInt(entry[1]) );
+		}
+		
 		return {
-			labels: ['10/1/2019', '10/3/2019', '10/5/2019', '10/7/2019'],
+			labels: lables,
 			datasets: [{
 				label: 'Students',
-				data: [3.49, 4.01, 4.22, 2.12],
+				data: dataPoints,
 				backgroundColor: 'rgba(58,188,167,.4)',
 				borderColor: 'rgba(0,0,0,1)',
 				borderWidth: 3
 			}]
 		};
+		
+		
+		
 	} else if (type == "historical" && context == "attendance") {
+		
+		
+	var histRating = []; 
+		
+		for(var i = 0; i < lectureNums.length; i++)
+		{
+			var this_rating = lectureRatings[i];
+			var this_lectureNum = lectureNums[i];
+			
+			//search histRating to see if we have added
+			//this lecture num yet.
+			var madeUpdate = false;
+			for(var item of histRating)
+			{
+				//if we have seen this lecture already
+				if(item[0] == this_lectureNum)
+				{
+					item[1] += 1;
+					item[2] += this_rating;
+					madeUpdate = true;
+					break;
+				}
+			}
+			
+			//if we get through entire Hist Array without making an update, 
+			//we need to insert a new entry.
+			if(!madeUpdate)
+			{
+				histRating.push([this_lectureNum,1,this_rating]);
+				madeUpdate = false;
+			}
+		}
+		
+		//now we have populated hist rating fully. We need to populate the
+		//averages
+		var lables = [];
+		var dataPoints = [];
+		
+		//create the data points
+		for(var entry of histRating)
+		{
+			lables.push("Lecture #" + entry[0]);
+			dataPoints.push( parseInt(entry[1]) );
+		}
+		
+		
 		return {
-			labels: ['10/1/2019', '10/3/2019', '10/5/2019', '10/7/2019'],
+			labels: lables,
 			datasets: [{
 				label: 'Students',
-				data: [34, 22, 36, 29],
+				data: dataPoints,
 				backgroundColor: 'rgba(58,188,167,.4)',
 				borderColor: 'rgba(0,0,0,1)',
 				borderWidth: 3
 			}]
 		};
 	} else if (type == "lastClass" && context == "comprehension") {
-		return { labels: ['Very Clear', 'Mostly Clear', 'In the Middle', 'Kind of Shaky', 'Mostly Confusing'],
+	
+		console.log(lectureNums);
+		
+		//no lectures yet
+		if(lectureNums.length == 0)
+		{
+			alert("some graphs may be unpopulated because no lectures have been started yet.");
+		}
+		
+		//find the largest lecture number - this is the last lecture
+		var lastLectureNum = -1;
+		for(var num of lectureNums)
+		{	
+			if(num > lastLectureNum)
+				lastLectureNum = num; 
+		}
+				
+		var this_lecture_ratings = [];
+		//find all the ratings corresponding to last lecture
+		for(var i = 0; i < lectureNums.length; i++)
+		{
+			if(lectureNums[i] == lastLectureNum)
+			{
+				this_lecture_ratings.push(lectureRatings[i]);		
+			}
+		}
+		
+		return { labels: ['1', '2', '3', '4', '5'],
         	     datasets: [{
             	   label: 'Students',
-            	   data: [5, 15, 16, 8, 2],
+            	   data: this_lecture_ratings,
             	   backgroundColor: [
              	     'rgba(58,188,167,1)',
                      'rgba(58,188,167,.8)',
@@ -147,10 +303,40 @@ function getData(type, context) {
         	     }]
 			   };
 	} else if (type == "lastClass" && context == "attendance") {
+		
+		//no lectures yet
+		if(lectureNums.length == 0)
+		{
+			alert("some graphs may be unpopulated because no lectures have been started yet.");
+		}
+		
+		//find the largest lecture number - this is the last lecture
+		var lastLectureNum = -1;
+		for(var num of lectureNums)
+		{	
+			if(num > lastLectureNum)
+				lastLectureNum = num; 
+		}
+		
+		
+		var this_lecture_attendance = 0;
+		//find all the ratings corresponding to last lecture
+		for(var i = 0; i < lectureNums.length; i++)
+		{
+			if(lectureNums[i] == lastLectureNum)
+			{
+				this_lecture_attendance++;		
+			}
+		}
+		
+		var dataArray = [this_lecture_attendance, totalNumStudents-this_lecture_attendance];
+		
+		
+		
 		return { labels: ['Present', 'Absent'],
          	     datasets: [{
                    label: 'Students',
-                   data: [33, 7],
+                   data: dataArray,
                    backgroundColor: [
                      'rgb(58,188,167,1)',
                      'rgb(255,255,255,1)'
@@ -185,7 +371,8 @@ function drawAttendance(data, type) {
           scales: {
               yAxes: [{
                   ticks: {
-                      beginAtZero: true
+                      beginAtZero: true,
+                      stepSize: 1
                   }
               }]
           },
@@ -203,10 +390,16 @@ function drawAttendance(data, type) {
 //bar = last class, other/line = historical
 function drawComprehension(data, type){
   var ctx;
+  var ticks;
   if(type == 'bar') {
 	  ctx = document.getElementById('comprehensionLC').getContext('2d');
+	  ticks = {beginAtZero: true, stepSize:1};
   } else {
 	  ctx = document.getElementById('comprehensionH').getContext('2d');
+	  ticks = {beginAtZero: true,
+			   min: 0,
+			   max: 5,
+			   stepSize: 1};
   }
   ctx.clearRect(0,0, ctx.width, ctx.height);
   var myChart = new Chart(ctx, {
@@ -215,9 +408,7 @@ function drawComprehension(data, type){
       options: {
           scales: {
               yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
+                  ticks: ticks
               }]
           },
           legend: {
