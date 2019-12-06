@@ -59,6 +59,20 @@ const context = ["See Historical Data", "See Last Class"];
 
 // when document is loaded, last class graphs are displayed first by default
 $(document).ready(function(){
+	// call Channel first 
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function (){
+  		if (xhttp.readyState === xhttp.DONE) {
+  	        if (xhttp.status === 200) {
+  	        	 var rs = this.responseText;
+				 console.log(rs);
+  	        }
+  		}
+  		 
+  	 }
+  	 //xhttp.open("POST", "/Channel", false);// syn communication
+  	 //xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  	 //xhttp.send(para); // Make sure to stringify*/
 	document.getElementById("switchContext").innerHTML = context[0];
 	document.getElementById("historical").style.display = "none";
 	var aData = getData("lastClass", "attendance");
