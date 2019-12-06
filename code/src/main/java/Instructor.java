@@ -103,7 +103,8 @@ public class Instructor extends User{
 		System.out.println("In the instructor drop class");
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(courseID);
-		//db.makeUpdate("DELETE FROM Course where courseID=?", params);
+		db.makeUpdate("DELETE FROM Enrollment where courseID=?", params);
+		db.makeUpdate("DELETE FROM Attendance where courseID=?", params);
 		if(db.makeUpdate("DELETE FROM Course where courseID=?", params) == -1) {
 			  
 			  return false;

@@ -152,8 +152,8 @@ public class Student extends User{
 			while(rs.next()) {
 				int questionID = rs.getInt("questionID");
 				String question = rs.getString("content");
-				question += ","+String.valueOf(rs.getInt("upvoteCount"));
-				feed = feed+question+","+String.valueOf(questionID)+";";
+				question += ":-("+String.valueOf(rs.getInt("upvoteCount"));
+				feed = feed+question+":-("+String.valueOf(questionID)+":-)";
 			}
 			System.out.println("in getQuestionFeed" + feed);
 		} catch (SQLException e) {

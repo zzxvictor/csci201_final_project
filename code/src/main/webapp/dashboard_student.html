@@ -147,7 +147,7 @@ function populateQuestions(){
 	        	// Questioncontent:-(upvote count:-)
 	        	var questionData = xhttp.responseText;
 	        	console.log(questionData);
-	        	var questionObjArray = questionData.split(";");
+	        	var questionObjArray = questionData.split(":-)");
 	        	
 	        	var target = document.getElementById("questions-box");
 	        	target.innerHTML = "";
@@ -155,9 +155,9 @@ function populateQuestions(){
 	        	for(var i = 0; i < questionObjArray.length; i++)
 	        	{
 	        		if(questionObjArray[i] == "")continue;
-	        		var questionID = questionObjArray[i].split(",")[2];
-	        		var question = questionObjArray[i].split(",")[0];
-	        		var upvotes = questionObjArray[i].split(",")[1];
+	        		var questionID = questionObjArray[i].split(":-(")[2];
+	        		var question = questionObjArray[i].split(":-(")[0];
+	        		var upvotes = questionObjArray[i].split(":-(")[1];
 	        		
 	        		target.innerHTML = target.innerHTML + 
 	        		`
