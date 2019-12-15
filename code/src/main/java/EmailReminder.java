@@ -65,7 +65,7 @@ public static void sendReminder(int courseID, DBInterface db) {
 						
 						public PasswordAuthentication getPasswordAuthentication() {
 							
-							return new PasswordAuthentication("vitkorzixuan@gmail.com", "");
+							return new PasswordAuthentication("", "");
 						} 
 						
 					};
@@ -75,7 +75,7 @@ public static void sendReminder(int courseID, DBInterface db) {
 					session.setDebug(true);
 					MimeMessage msg = new MimeMessage(session);
 					
-					msg.setFrom(new InternetAddress("viktorzixuan@gmail.com"));
+					msg.setFrom(new InternetAddress(""));
 					msg.setRecipient(MimeMessage.RecipientType.TO,new InternetAddress(email));
 					System.out.println("Recipient: " + email);
 					msg.setSubject("Attendance Reminder");
@@ -127,7 +127,7 @@ public static void sendReminder(String email, String studentName, String courseN
 			
 			public PasswordAuthentication getPasswordAuthentication() {
 				
-				return new PasswordAuthentication("viktorzixuan@gmail.com", "mwzrahxallprqtel");
+				return new PasswordAuthentication("", "");
 			} 
 			
 		};
@@ -137,7 +137,7 @@ public static void sendReminder(String email, String studentName, String courseN
 		session.setDebug(true);
 		MimeMessage msg = new MimeMessage(session);
 		
-		msg.setFrom(new InternetAddress("viktorzixuan@gmail.com"));
+		msg.setFrom(new InternetAddress(""));
 		msg.setRecipient(MimeMessage.RecipientType.TO,new InternetAddress(email));
 		
 		msg.setSubject("Attendance Reminder");
