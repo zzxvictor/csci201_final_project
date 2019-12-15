@@ -65,7 +65,7 @@ public static void sendReminder(int courseID, DBInterface db) {
 						
 						public PasswordAuthentication getPasswordAuthentication() {
 							
-							return new PasswordAuthentication("vitkorzixuan@gmail.com", "mwzrahxallprqtel");
+							return new PasswordAuthentication("vitkorzixuan@gmail.com", "");
 						} 
 						
 					};
